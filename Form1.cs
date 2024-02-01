@@ -16,5 +16,10 @@ namespace Group9_VillageNewbies
         {
             InitializeComponent();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
