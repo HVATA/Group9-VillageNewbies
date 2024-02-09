@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Alue.cs" />
     <Compile Include="Asiakas.cs" />
+    <Compile Include="AsiakasRepository.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 namespace Group9_VillageNewbies
 {
-    internal class Asiakas
-    {
-    }
-
     public class Asiakas
     {
         public int AsiakasId { get; set; } 
