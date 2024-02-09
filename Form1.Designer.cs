@@ -1,6 +1,14 @@
-﻿namespace Group9_VillageNewbies
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+
+namespace Group9_VillageNewbies
 {
-    partial class Form1
+    partial class Form1 : Form
     {
         /// <summary>
         /// Required designer variable.
@@ -20,6 +28,8 @@
             base.Dispose(disposing);
         }
 
+ 
+
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -33,6 +43,8 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBox1
@@ -84,11 +96,29 @@
             this.checkBox4.Text = "checkBox4";
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(366, 284);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(387, 331);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(807, 655);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
@@ -108,6 +138,32 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.Button button1;
+        private Button button2;
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AsiakasRepository asiakasRepository = new AsiakasRepository();
+            List<Asiakas> asiakkaat = asiakasRepository.HaeAsiakkaat();
+            foreach (Asiakas asiakas in asiakkaat)
+            {
+                textBox1.Text += asiakas.Etunimi + " " + asiakas.Sukunimi + "\n";
+            }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AsiakasRepository asiakasRepository = new AsiakasRepository();
+            List<Asiakas> asiakkaat = asiakasRepository.HaeAsiakkaat();
+            foreach (Asiakas asiakas in asiakkaat)
+            {
+                textBox2.Text += asiakas.Etunimi + " " + asiakas.Sukunimi + "\n";
+            }
+        }
+
+        private TextBox textBox2;
+    }
+
 }
 
