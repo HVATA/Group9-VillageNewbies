@@ -47,7 +47,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alue.cs" />
+    <Compile Include="Aluehallinta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Aluehallinta.Designer.cs">
+      <DependentUpon>Aluehallinta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Asiakas.cs" />
+    <Compile Include="Asiakashallinta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Asiakashallinta.Designer.cs">
+      <DependentUpon>Asiakashallinta.cs</DependentUpon>
+    </Compile>
     <Compile Include="AsiakasRepository.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -58,6 +70,12 @@
     <Compile Include="Lasku.cs" />
     <Compile Include="Mokki.cs" />
     <Compile Include="Palvelu.cs" />
+    <Compile Include="Palveluhallinta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Palveluhallinta.Designer.cs">
+      <DependentUpon>Palveluhallinta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Posti.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
