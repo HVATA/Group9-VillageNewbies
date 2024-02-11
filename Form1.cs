@@ -21,5 +21,10 @@ namespace Group9_VillageNewbies
         {
 
         }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -4,13 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Odbc;
+using System.Data;
+using System.Diagnostics;
+using Group9_VillageNewbies;
+using System.Windows.Forms;
+
 
 
 namespace Group9_VillageNewbies
 {
     public class AsiakasRepository
     {
-        private string connectionString = "DSN=ODBC.localhost.vn;Uid=root;Pwd=root1;"; // Oikeat yhteystiedot
+        private string connectionString = "DSN=Village Newbies;Uid=root;Pwd=root1;";
 
         public List<Asiakas> HaeAsiakkaat()
         {
@@ -24,23 +29,35 @@ namespace Group9_VillageNewbies
                 try
                 {
                     connection.Open();
-                    using (OdbcDataReader reader = command.ExecuteReader())
+                    if (connection.State == ConnectionState.Open)
                     {
-                        while (reader.Read())
+                        MessageBox.Show("Yhteys avattu");
+                        Debug.WriteLine("Yhteys avattu onnistuneesti. Tietokannan versio: " + connection.ServerVersion);
+
+                        MessageBox.Show("Tietokannan versio: " + connection.ServerVersion);
+                        using (OdbcDataReader reader = command.ExecuteReader())
                         {
-                            Asiakas asiakas = new Asiakas()
+                            while (reader.Read())
                             {
-                                AsiakasId = reader.GetInt32(reader.GetOrdinal("asiakas_id")),
-                                Postinro = reader.GetString(reader.GetOrdinal("postinro")),
-                                Etunimi = reader.GetString(reader.GetOrdinal("etunimi")),
-                                Sukunimi = reader.GetString(reader.GetOrdinal("sukunimi")),
-                                Lahiosoite = reader.GetString(reader.GetOrdinal("lahiosoite")),
-                                Email = reader.GetString(reader.GetOrdinal("email")),
-                                Puhelinnro = reader.GetString(reader.GetOrdinal("puhelinnro"))
-                            };
-                            asiakkaat.Add(asiakas);
+                                Asiakas asiakas = new Asiakas()
+                                {
+                                    AsiakasId = reader.GetInt32(reader.GetOrdinal("asiakas_id")),
+                                    Postinro = reader.GetString(reader.GetOrdinal("postinro")),
+                                    Etunimi = reader.GetString(reader.GetOrdinal("etunimi")),
+                                    Sukunimi = reader.GetString(reader.GetOrdinal("sukunimi")),
+                                    Lahiosoite = reader.GetString(reader.GetOrdinal("lahiosoite")),
+                                    Email = reader.GetString(reader.GetOrdinal("email")),
+                                    Puhelinnro = reader.GetString(reader.GetOrdinal("puhelinnro"))
+                                };
+                                asiakkaat.Add(asiakas);
+                            }
                         }
                     }
+                    else
+                    {
+                        Console.WriteLine("Yhteys ei ole auki");
+                    }
+
                 }
                 catch (Exception ex)
                 {
