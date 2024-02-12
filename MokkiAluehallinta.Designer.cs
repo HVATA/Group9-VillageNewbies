@@ -1,6 +1,6 @@
 ﻿namespace Group9_VillageNewbies
     {
-    partial class Aluehallinta
+    partial class MokkiAluehallinta
         {
         /// <summary>
         /// Required designer variable.

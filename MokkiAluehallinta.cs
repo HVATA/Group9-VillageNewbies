@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Group9_VillageNewbies
     {
-    public partial class Aluehallinta : Form
+    public partial class MokkiAluehallinta : Form
         {
-        public Aluehallinta ()
+        public MokkiAluehallinta ()
             {
             InitializeComponent();
             }
