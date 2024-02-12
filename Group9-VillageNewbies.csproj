@@ -63,11 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alue.cs" />
-    <Compile Include="Aluehallinta.cs">
+    <Compile Include="MokkiAluehallinta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Aluehallinta.Designer.cs">
-      <DependentUpon>Aluehallinta.cs</DependentUpon>
+    <Compile Include="MokkiAluehallinta.Designer.cs">
+      <DependentUpon>MokkiAluehallinta.cs</DependentUpon>
     </Compile>
     <Compile Include="Asiakas.cs" />
     <Compile Include="AsiakasDemo.cs">
