@@ -16,5 +16,10 @@ namespace Group9_VillageNewbies
         {
             InitializeComponent();
         }
+
+        private void header_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
