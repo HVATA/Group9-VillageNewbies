@@ -26,9 +26,6 @@ namespace Group9_VillageNewbies
             AsiakasRepository asiakasRepository = new AsiakasRepository();
             List<Asiakas> asiakkaat = asiakasRepository.HaeAsiakkaat();
 
-            MessageBox.Show("Asiakkaita haettu: " + asiakkaat.Count);
-
-
             foreach (Asiakas asiakas in asiakkaat)
             {
                 listBox1.Items.Add(asiakas.Etunimi);

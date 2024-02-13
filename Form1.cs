@@ -23,9 +23,11 @@ namespace Group9_VillageNewbies
             majava.ShowDialog();
         }
 
+        //AsiakasDemo avataan
         private void btn_asiakas_Click(object sender, EventArgs e)
         {
-
+            AsiakasDemo asiakas = new AsiakasDemo();
+            asiakas.Show();
         }
         
         private void btn_aluemokki_Click(object sender, EventArgs e)

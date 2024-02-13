@@ -31,10 +31,7 @@ namespace Group9_VillageNewbies
                     connection.Open();
                     if (connection.State == ConnectionState.Open)
                     {
-                        MessageBox.Show("Yhteys avattu");
                         Debug.WriteLine("Yhteys avattu onnistuneesti. Tietokannan versio: " + connection.ServerVersion);
-
-                        MessageBox.Show("Tietokannan versio: " + connection.ServerVersion);
                         using (OdbcDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
