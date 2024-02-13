@@ -63,6 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alue.cs" />
+    <Compile Include="Majoitusvaraustenhallinta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Majoitusvaraustenhallinta.Designer.cs">
+      <DependentUpon>Majoitusvaraustenhallinta.cs</DependentUpon>
+    </Compile>
     <Compile Include="MokkiAluehallinta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Majoitusvaraustenhallinta.resx">
+      <DependentUpon>Majoitusvaraustenhallinta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MokkiAluehallinta.resx">
       <DependentUpon>MokkiAluehallinta.cs</DependentUpon>
