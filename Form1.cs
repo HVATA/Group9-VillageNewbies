@@ -17,12 +17,24 @@ namespace Group9_VillageNewbies
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void btn_majoitus_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btn_asiakas_Click(object sender, EventArgs e)
         {
 
         }
+        
+        private void btn_aluemokki_Click(object sender, EventArgs e)
+        {
+            //TÄLLÄ SIIRRYTÄÄ UUTEEN SIVUUN KOPIOIKAA JA VAIHTAA OMAT TIEDOT
+            MokkiAluehallinta mokit = new MokkiAluehallinta();
+            mokit.ShowDialog();
+        }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void btn_lasku_Click(object sender, EventArgs e)
         {
 
         }

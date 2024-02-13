@@ -16,7 +16,7 @@ namespace Group9_VillageNewbies
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AsiakasDemo());
+            Application.Run(new Form1());
         }
     }
 }
