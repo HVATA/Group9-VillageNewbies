@@ -23,13 +23,29 @@ namespace Group9_VillageNewbies
 
 
             //tähän kutsu asiakaslistan hakuun
-            AsiakasRepository asiakasRepository = new AsiakasRepository();
-            List<Asiakas> asiakkaat = asiakasRepository.HaeAsiakkaat();
+            //AsiakasRepository asiakasRepository = new AsiakasRepository();
+            //List<Asiakas> asiakkaat = asiakasRepository.HaeAsiakkaat();
 
-            foreach (Asiakas asiakas in asiakkaat)
+            //foreach (Asiakas asiakas in asiakkaat)
+            //{
+            //    listBox1.Items.Add(asiakas.Etunimi);
+            //}
+
+            DatabaseRepository repository = new DatabaseRepository();
+            DataTable asiakkaatTable = repository.ExecuteQuery("SELECT * FROM asiakas");
+            DataTable mokitTable = repository.ExecuteQuery("SELECT * FROM mokki");
+
+
+            foreach (DataRow row in asiakkaatTable.Rows)
             {
-                listBox1.Items.Add(asiakas.Etunimi);
+                listBox1.Items.Add(row["etunimi"]);
             }
+
+            foreach (DataRow row in mokitTable.Rows)
+            {
+                listBox2.Items.Add(row["mokkinimi"]);
+            }
+
         }
 
         private void label1_Click(object sender, EventArgs e)
