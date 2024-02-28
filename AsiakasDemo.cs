@@ -125,5 +125,25 @@ namespace Group9_VillageNewbies
         {
 
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            //if (listBox1.SelectedIndex != -1)
+            //{
+            //    listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+            //}
+            textBox1.Text = "POISTETTU!";
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+           textBox1.Text = "Lisätty!";
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "Päivitetty!";
+        }   
+ 
     }
 }
