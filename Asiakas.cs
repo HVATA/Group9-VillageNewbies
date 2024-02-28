@@ -10,7 +10,6 @@ namespace Group9_VillageNewbies
     {
         public int AsiakasId { get; set; } 
         public string Postinro { get; set; } 
-        public string Paikkakunta { get; set; }
         public string Etunimi { get; set; } 
         public string Sukunimi { get; set; }
         public string Lahiosoite { get; set; }

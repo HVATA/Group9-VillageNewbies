@@ -23,19 +23,28 @@ namespace Group9_VillageNewbies
 
 
             DatabaseRepository repository = new DatabaseRepository();
-            DataTable asiakkaatTable = repository.ExecuteQuery("SELECT * FROM asiakas");
-            DataTable mokitTable = repository.ExecuteQuery("SELECT * FROM mokki");
-
+            //DataTable asiakkaatTable = repository.ExecuteQuery("SELECT * FROM asiakas");
+            DataTable asiakkaatTable = repository.ExecuteQuery(@"
+                SELECT 
+                    a.etunimi, 
+                    a.sukunimi, 
+                    a.lahiosoite, 
+                    a.postinro, 
+                    p.toimipaikka, 
+                    a.puhelinnro, 
+                    a.email 
+                FROM asiakas a
+                JOIN posti p ON a.postinro = p.postinro");
 
             foreach (DataRow row in asiakkaatTable.Rows)
             {
                 // Rakenna merkkijono, jossa kaikki halutut kentät ovat eroteltuna pilkulla ja välilyönnillä
-                string asiakasTiedot = string.Format("{0} {1}, {2}, {3} {4}, {5}, {6}",
+                string asiakasTiedot = string.Format("{0} {1}, {2}, {3} {4}, {5}",
                     row["etunimi"],
                     row["sukunimi"],
                     row["lahiosoite"],
                     row["postinro"],
-                    row["paikkakunta"],
+                    row["toimipaikka"],
                     row["puhelinnro"],
                     row["email"]);
 
@@ -51,7 +60,7 @@ namespace Group9_VillageNewbies
                 textBox2.Text = row["sukunimi"].ToString();
                 textBox3.Text = row["lahiosoite"].ToString();
                 textBox4.Text = row["postinro"].ToString();
-                textBox5.Text = row["paikkakunta"].ToString();
+                textBox5.Text = row["toimipaikka"].ToString(); // Huom! Tämä on postinumero-taulusta, ei asiakas-taulusta
                 textBox6.Text = row["puhelinnro"].ToString();
                 textBox7.Text = row["email"].ToString();
             }
