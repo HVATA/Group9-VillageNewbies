@@ -14,7 +14,7 @@ namespace Group9_VillageNewbies
         {
         public MokkiAluehallinta ()
             {
-            InitializeComponent();
+                InitializeComponent();
             }
         }
     }
