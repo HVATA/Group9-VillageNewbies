@@ -15,44 +15,16 @@ namespace Group9_VillageNewbies
 {
     public partial class Asiakashallinta : Form
     {
+        List<AsiakasTieto> asiakasTiedot = new List<AsiakasTieto>();
 
         public Asiakashallinta()
 
         {
-            InitializeComponent();
-            LataaPaikkakunnat();
-
-
-            DatabaseRepository repository = new DatabaseRepository();
-            //DataTable asiakkaatTable = repository.ExecuteQuery("SELECT * FROM asiakas");
-            DataTable asiakkaatTable = repository.ExecuteQuery(@"
-                SELECT 
-                    a.etunimi, 
-                    a.sukunimi, 
-                    a.lahiosoite, 
-                    a.postinro, 
-                    p.toimipaikka, 
-                    a.puhelinnro, 
-                    a.email 
-                FROM asiakas a
-                JOIN posti p ON a.postinro = p.postinro");
-
-            foreach (DataRow row in asiakkaatTable.Rows)
-            {
-                // Rakenna merkkijono, jossa kaikki halutut kentät ovat eroteltuna pilkulla ja välilyönnillä
-                string asiakasTiedot = string.Format("{0} {1}, {2}, {3} {4}, {5}, {6}",
-                    row["etunimi"],
-                    row["sukunimi"],
-                    row["lahiosoite"],
-                    row["postinro"],
-                    row["toimipaikka"],
-                    row["puhelinnro"],
-                    row["email"]);
-
-                // Lisää muodostettu merkkijono ListBoxiin
-                listBox1.Items.Add(asiakasTiedot);
-            }
-
+            InitializeComponent(); // Alusta komponentit
+            LataaPaikkakunnat(); // Lataa paikkakunnat ComboBoxiin
+            LataaAsiakkaatTietokannasta(); // Lataa asiakastiedot tietokannasta
+            PaivitaAsiakasLista(); // Päivitä listboxin tiedot
+            dataGridView1.DataSource = asiakasTiedot; // Aseta asiakasTiedot lista DataSourceksi
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -64,6 +36,62 @@ namespace Group9_VillageNewbies
         {
 
         }
+
+        // Metodi, joka päivittää ListBoxin asiakastiedot tietokannasta
+        private void PaivitaAsiakasLista()
+        {
+            listBox1.Items.Clear(); // Tyhjennä listbox ennen uusien tietojen lisäämistä
+
+            // Käydään läpi asiakasTiedot-lista ja lisätään jokainen asiakas ListBoxiin
+            foreach (var asiakas in asiakasTiedot)
+            {
+                // Muodosta merkkijono, jossa on asiakkaan tiedot ja lisää se ListBoxiin
+                string asiakasTieto = $"{asiakas.Etunimi} {asiakas.Sukunimi}, {asiakas.Lahiosoite}, {asiakas.Postinro} {asiakas.Toimipaikka}, {asiakas.Puhelinnro}, {asiakas.Email}";
+                listBox1.Items.Add(asiakasTieto);
+            }
+        }
+
+
+        private void LataaAsiakkaatTietokannasta()
+        {
+            DatabaseRepository repository = new DatabaseRepository();
+            asiakasTiedot.Clear(); // Tyhjennä lista varmuuden vuoksi
+            DataTable asiakkaatTable = repository.ExecuteQuery(@"SELECT a.etunimi, a.sukunimi, a.lahiosoite, a.postinro, p.toimipaikka, a.puhelinnro, a.email FROM asiakas a JOIN posti p ON a.postinro = p.postinro");
+
+            foreach (DataRow row in asiakkaatTable.Rows)
+            {
+                AsiakasTieto asiakas = new AsiakasTieto()
+                {
+                    // Aseta tiedot row:sta
+                    Etunimi = row["etunimi"].ToString(),
+                    Sukunimi = row["sukunimi"].ToString(),
+                    Lahiosoite = row["lahiosoite"].ToString(),
+                    Postinro = row["postinro"].ToString(),
+                    Toimipaikka = row["toimipaikka"].ToString(),
+                    Puhelinnro = row["puhelinnro"].ToString(),
+                    Email = row["email"].ToString(),
+
+                };
+                asiakasTiedot.Add(asiakas);
+            }
+        }
+
+        private void LataaAsiakkaatDataGridViewiin()
+        {
+            // Oletetaan, että dataGridView1 on DataGridView-komponenttisi nimi
+            dataGridView1.AutoGenerateColumns = true; // Luo sarakkeet automaattisesti
+            dataGridView1.DataSource = null; // Tyhjennä vanhat tiedot
+            dataGridView1.DataSource = asiakasTiedot; // Aseta asiakasTiedot lista DataSourceksi
+            //tekstiä dataGridView1:n otsikkoriviin
+            dataGridView1.Columns[0].HeaderText = "Etunimi";
+            dataGridView1.Columns[1].HeaderText = "Sukunimi";
+            dataGridView1.Columns[2].HeaderText = "Lähiosoite";
+            //lisää tekstiä dataGridView1:n kenttiin
+            dataGridView1.Columns[0].DataPropertyName = "Etunimi";
+            dataGridView1.Columns[1].DataPropertyName = "Sukunimi";
+            dataGridView1.Columns[2].DataPropertyName = "Lahiosoite";
+        }
+
 
         // Metodi joka suoritetaan kun käyttäjä valitsee jonkun asiakkaan ListBoxista
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -93,7 +121,7 @@ namespace Group9_VillageNewbies
                     if (postiJaPaikka.Length >= 2)
                     {
                         textBox4.Text = postiJaPaikka[0]; // Postinumero
-                        textBox5.Text = string.Join(" ", postiJaPaikka.Skip(1)); // Paikkakunta
+                        //textBox5.Text = string.Join(" ", postiJaPaikka.Skip(1)); // Paikkakunta
                     }
 
                     textBox6.Text = tiedot[3].Trim(); // Puhelinnumero
@@ -136,10 +164,46 @@ namespace Group9_VillageNewbies
             textBox1.Text = "POISTETTU!";
         }
 
+        private void btnSortBySurname_Click(object sender, EventArgs e)
+        {
+            // Lajittele asiakasTiedot lista sukunimen perusteella
+            asiakasTiedot.Sort((a, b) => a.Sukunimi.CompareTo(b.Sukunimi));
+            PaivitaAsiakasLista(); // Päivitä ListBox
+        }
+
+        private void btnSortByCity_Click(object sender, EventArgs e)
+        {
+            // Lajittele asiakasTiedot lista paikkakunnan perusteella
+            asiakasTiedot.Sort((a, b) => a.Toimipaikka.CompareTo(b.Toimipaikka));
+            PaivitaAsiakasLista(); // Päivitä ListBox
+        }
+
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
-           textBox1.Text = "Lisätty!";
+            Asiakas uusiAsiakas = new Asiakas()
+            {
+                Postinro = textBox4.Text,
+                Etunimi = textBox1.Text,
+                Sukunimi = textBox2.Text,
+                Lahiosoite = textBox3.Text,
+                Email = textBox7.Text,
+                Puhelinnro = textBox6.Text
+            };
+
+            DatabaseRepository repository = new DatabaseRepository();
+            bool onnistui = repository.LisaaAsiakas(uusiAsiakas);
+            if (onnistui)
+            {
+                MessageBox.Show("Asiakas lisätty onnistuneesti.");
+            }
+            else
+            {
+                MessageBox.Show("Asiakkaan lisäys epäonnistui.");
+            }
+            PaivitaAsiakasLista(); // Päivitä listboxin tiedot lisäyksen jälkeen
         }
+
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -153,9 +217,11 @@ namespace Group9_VillageNewbies
             textBox2.Clear();
             textBox3.Clear();
             textBox4.Clear();
-            textBox5.Clear();
+            //textBox5.Clear();
             textBox6.Clear();
             textBox7.Clear();
+            // Aseta ComboBoxin valinta tyhjäksi
+            comboBoxPostinumero.SelectedItem = null;
         }
 
         private void Asiakashallinta_Load(object sender, EventArgs e)
@@ -190,8 +256,8 @@ namespace Group9_VillageNewbies
                 if (valittuItem.ToString() == "Lisää paikkakunta...")
                 {
                     // Tässä kohtaa voit esimerkiksi avata uuden lomakkeen paikkakunnan lisäämiseksi
-                    //AvaaLisaaPaikkakuntaLomake();
-                    textBox1.Text = "Metodi tulossa!";
+                    AvaaLisaaPaikkakuntaLomake();
+                    //textBox1.Text = "Metodi tulossa!";
                 }
                 else
                 {
@@ -214,13 +280,21 @@ namespace Group9_VillageNewbies
         {
             // Tässä voit avata lomakkeen uuden paikkakunnan lisäämiseksi
             // Esimerkiksi näin:
-            //LisaaPaikkakuntaForm lisaaPaikkakuntaForm = new LisaaPaikkakuntaForm();
-            //if (lisaaPaikkakuntaForm.ShowDialog() == DialogResult.OK)
-            //{
+            LisaaPaikkakuntaForm lisaaPaikkakuntaForm = new LisaaPaikkakuntaForm();
+            if (lisaaPaikkakuntaForm.ShowDialog() == DialogResult.OK)
+            {
                 // Jos lomake suljetaan OK-painikkeella, voit ladata paikkakunnat uudelleen
-             //   LataaPaikkakunnat();
-            //}
+               LataaPaikkakunnat();
+            }
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridView1.AutoGenerateColumns = true; // Luo sarakkeet automaattisesti
+            dataGridView1.DataSource = null; // Tyhjennä vanhat tiedot
+            dataGridView1.DataSource = asiakasTiedot; // Aseta asiakasTiedot lista DataSourceksi
+        }
+
 
     }
 }

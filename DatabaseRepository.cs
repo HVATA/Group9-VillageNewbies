@@ -66,6 +66,36 @@ namespace Group9_VillageNewbies
             return postit;
         }
 
+        // Metodi uuden asiakkaan tietojen lisäämiseksi
+        public bool LisaaAsiakas(Asiakas asiakas)
+        {
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                    string query = "INSERT INTO asiakas (postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro) VALUES (?, ?, ?, ?, ?, ?)";
+                    using (OdbcCommand command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("postinro", asiakas.Postinro);
+                        command.Parameters.AddWithValue("etunimi", asiakas.Etunimi);
+                        command.Parameters.AddWithValue("sukunimi", asiakas.Sukunimi);
+                        command.Parameters.AddWithValue("lahiosoite", asiakas.Lahiosoite);
+                        command.Parameters.AddWithValue("email", asiakas.Email);
+                        command.Parameters.AddWithValue("puhelinnro", asiakas.Puhelinnro);
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Virhe tietokantaan lisättäessä: {ex.Message}");
+                return false;
+            }
+        }
+
 
 
     }

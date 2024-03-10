@@ -63,7 +63,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alue.cs" />
+    <Compile Include="AsiakasTieto.cs" />
     <Compile Include="DatabaseRepository.cs" />
+    <Compile Include="LisaaPaikkakuntaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LisaaPaikkakuntaForm.Designer.cs">
+      <DependentUpon>LisaaPaikkakuntaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Majoitusvaraustenhallinta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LisaaPaikkakuntaForm.resx">
+      <DependentUpon>LisaaPaikkakuntaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Majoitusvaraustenhallinta.resx">
       <DependentUpon>Majoitusvaraustenhallinta.cs</DependentUpon>
@@ -156,6 +166,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\pexels-pixabay-247600.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
