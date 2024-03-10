@@ -8,5 +8,6 @@ namespace Group9_VillageNewbies
 {
     internal class Varaus
     {
+
     }
 }

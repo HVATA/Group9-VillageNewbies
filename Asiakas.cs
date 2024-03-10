@@ -15,6 +15,8 @@ namespace Group9_VillageNewbies
         public string Lahiosoite { get; set; }
         public string Email { get; set; } 
         public string Puhelinnro { get; set; } 
+
+
     }
 
 

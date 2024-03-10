@@ -8,5 +8,13 @@ namespace Group9_VillageNewbies
 {
     internal class Posti
     {
+        public string Postinro { get; set; }
+        public string Toimipaikka { get; set; }
+
+        public Posti(string postinro, string toimipaikka)
+        {
+            Postinro = postinro;
+            Toimipaikka = toimipaikka;
+        }
     }
 }

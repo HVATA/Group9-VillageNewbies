@@ -35,5 +35,38 @@ namespace Group9_VillageNewbies
             return dataTable;
         }
 
+        public List<Posti> HaeKaikkiPostit()
+        {
+            List<Posti> postit = new List<Posti>();
+            string query = "SELECT postinro, toimipaikka FROM posti ORDER BY toimipaikka ASC";
+
+            using (OdbcConnection connection = new OdbcConnection(connectionString))
+            {
+                OdbcCommand command = new OdbcCommand(query, connection);
+                try
+                {
+                    connection.Open();
+                    using (OdbcDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string postinro = reader["postinro"].ToString();
+                            string toimipaikka = reader["toimipaikka"].ToString();
+
+                            postit.Add(new Posti(postinro, toimipaikka));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Virhe tietokannassa: " + ex.Message);
+                    // Käsittele virhe tarvittaessa
+                }
+            }
+            return postit;
+        }
+
+
+
     }
 }

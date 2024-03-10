@@ -26,7 +26,7 @@ namespace Group9_VillageNewbies
         //AsiakasDemo avataan
         private void btn_asiakas_Click(object sender, EventArgs e)
         {
-            AsiakasDemo asiakas = new AsiakasDemo();
+            Asiakashallinta asiakas = new Asiakashallinta();
             asiakas.Show();
         }
         

@@ -13,13 +13,14 @@ using System.Windows.Forms;
 namespace Group9_VillageNewbies
 
 {
-    public partial class AsiakasDemo : Form
+    public partial class Asiakashallinta : Form
     {
 
-        public AsiakasDemo()
+        public Asiakashallinta()
 
         {
             InitializeComponent();
+            LataaPaikkakunnat();
 
 
             DatabaseRepository repository = new DatabaseRepository();
@@ -51,20 +52,6 @@ namespace Group9_VillageNewbies
                 // Lisää muodostettu merkkijono ListBoxiin
                 listBox1.Items.Add(asiakasTiedot);
             }
-
-            //if (asiakkaatTable.Rows.Count > 0)
-            //{
-            //    DataRow row = asiakkaatTable.Rows[0]; // Oletetaan, että haluamme näyttää vain ensimmäisen tietueen
-            //
-            //    textBox1.Text = row["etunimi"].ToString();
-            //    textBox2.Text = row["sukunimi"].ToString();
-            //    textBox3.Text = row["lahiosoite"].ToString();
-            //    textBox4.Text = row["postinro"].ToString();
-            //    textBox5.Text = row["toimipaikka"].ToString(); // Huom! Tämä on postinumero-taulusta, ei asiakas-taulusta
-            //    textBox6.Text = row["puhelinnro"].ToString();
-            //    textBox7.Text = row["email"].ToString();
-            //}
-
 
         }
 
@@ -111,6 +98,20 @@ namespace Group9_VillageNewbies
 
                     textBox6.Text = tiedot[3].Trim(); // Puhelinnumero
                     textBox7.Text = tiedot[4].Trim(); // Sähköpostiosoite
+
+                    // Aseta ComboBoxin valinta vastaamaan paikkakuntaa
+                    string paikkakuntaValinta = tiedot[2].Trim().Split(' ').Last(); // Oletetaan, että paikkakunta on viimeinen elementti tässä osassa
+
+                    // Käy läpi kaikki ComboBoxin itemit ja vertaa niitä paikkakuntaan
+                    foreach (var item in comboBoxPostinumero.Items)
+                    {
+                        Posti posti = (Posti)item;
+                        if (posti.Toimipaikka == paikkakuntaValinta)
+                        {
+                            comboBoxPostinumero.SelectedItem = item;
+                            break; // Lopeta silmukka kun oikea item löytyy
+                        }
+                    }
                 }
             }
         }
@@ -143,7 +144,83 @@ namespace Group9_VillageNewbies
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             textBox1.Text = "Päivitetty!";
-        }   
- 
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            // Tyhjennä kaikki tekstikentät
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            textBox4.Clear();
+            textBox5.Clear();
+            textBox6.Clear();
+            textBox7.Clear();
+        }
+
+        private void Asiakashallinta_Load(object sender, EventArgs e)
+        {
+            LataaPaikkakunnat();
+        }
+
+        //Hakee postinumerot ja paikkakunnat tietokannasta ja lisää ne ComboBoxiin
+        private void LataaPaikkakunnat()
+        {
+            DatabaseRepository repository = new DatabaseRepository();
+            var postit = repository.HaeKaikkiPostit();
+            comboBoxPostinumero.Items.Clear(); // Tyhjennä lista ennen uusien tietojen lisäämistä
+            foreach (var posti in postit)
+            {
+                //comboBoxPostinumero.Items.Add(new { Text = posti.Toimipaikka, Value = posti.Postinro });
+                comboBoxPostinumero.Items.Add(posti);
+            }
+
+            comboBoxPostinumero.DisplayMember = "Toimipaikka";
+            comboBoxPostinumero.ValueMember = "Portinumero";
+            comboBoxPostinumero.Items.Add("Lisää paikkakunta..."); // Lisää loppuun uusi paikkakunta -valinta
+        }
+
+        private void comboBoxPostinumero_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxPostinumero.SelectedItem != null)
+            {
+                var valittuItem = comboBoxPostinumero.SelectedItem;
+
+                // Tarkista, onko valittu "Lisää paikkakunta..."
+                if (valittuItem.ToString() == "Lisää paikkakunta...")
+                {
+                    // Tässä kohtaa voit esimerkiksi avata uuden lomakkeen paikkakunnan lisäämiseksi
+                    //AvaaLisaaPaikkakuntaLomake();
+                    textBox1.Text = "Metodi tulossa!";
+                }
+                else
+                {
+                    // Käsitellään tapaus, kun valittu kohde on Posti-objekti
+                    try
+                    {
+                        Posti valittuPosti = (Posti)valittuItem;
+                        textBox4.Text = valittuPosti.Postinro; // Aseta valitun postinumeron arvo textBox4:ään
+                    }
+                    catch (InvalidCastException)
+                    {
+                        // Virheenkäsittely, jos valittua kohdetta ei voida muuntaa Posti-tyypiksi
+                        MessageBox.Show("Valinta ei ole sopiva.");
+                    }
+                }
+            }
+        }
+
+        private void AvaaLisaaPaikkakuntaLomake()
+        {
+            // Tässä voit avata lomakkeen uuden paikkakunnan lisäämiseksi
+            // Esimerkiksi näin:
+            //LisaaPaikkakuntaForm lisaaPaikkakuntaForm = new LisaaPaikkakuntaForm();
+            //if (lisaaPaikkakuntaForm.ShowDialog() == DialogResult.OK)
+            //{
+                // Jos lomake suljetaan OK-painikkeella, voit ladata paikkakunnat uudelleen
+             //   LataaPaikkakunnat();
+            //}
+        }
+
     }
 }
