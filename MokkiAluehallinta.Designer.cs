@@ -35,11 +35,10 @@
             this.BtnDeleteAlue = new System.Windows.Forms.Button();
             this.btnChangeAlue = new System.Windows.Forms.Button();
             this.btnAddAlue = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxAlue = new System.Windows.Forms.TextBox();
             this.listBoxAlue = new System.Windows.Forms.ListBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -61,6 +60,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnPalveluihin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxAlue = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,7 +72,7 @@
             this.panel1.Controls.Add(this.header);
             this.panel1.Location = new System.Drawing.Point(3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(795, 64);
+            this.panel1.Size = new System.Drawing.Size(791, 64);
             this.panel1.TabIndex = 11;
             // 
             // header
@@ -80,7 +80,7 @@
             this.header.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.header.AutoSize = true;
             this.header.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.header.Location = new System.Drawing.Point(186, 7);
+            this.header.Location = new System.Drawing.Point(184, 7);
             this.header.Name = "header";
             this.header.Size = new System.Drawing.Size(446, 39);
             this.header.TabIndex = 5;
@@ -137,13 +137,13 @@
             this.btnAddAlue.UseVisualStyleBackColor = true;
             this.btnAddAlue.Click += new System.EventHandler(this.btnAddAlue_Click);
             // 
-            // textBox1
+            // textBoxAlue
             // 
-            this.textBox1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(66, 131);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(196, 21);
-            this.textBox1.TabIndex = 27;
+            this.textBoxAlue.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxAlue.Location = new System.Drawing.Point(66, 131);
+            this.textBoxAlue.Name = "textBoxAlue";
+            this.textBoxAlue.Size = new System.Drawing.Size(196, 21);
+            this.textBoxAlue.TabIndex = 27;
             // 
             // listBoxAlue
             // 
@@ -174,14 +174,6 @@
             this.label9.Size = new System.Drawing.Size(44, 13);
             this.label9.TabIndex = 47;
             this.label9.Text = "Alue :";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(503, 131);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(196, 21);
-            this.textBox5.TabIndex = 46;
             // 
             // label10
             // 
@@ -367,7 +359,7 @@
             // 
             this.btnPalveluihin.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnPalveluihin.BackColor = System.Drawing.Color.Teal;
-            this.btnPalveluihin.Location = new System.Drawing.Point(503, 460);
+            this.btnPalveluihin.Location = new System.Drawing.Point(501, 460);
             this.btnPalveluihin.Name = "btnPalveluihin";
             this.btnPalveluihin.Size = new System.Drawing.Size(196, 72);
             this.btnPalveluihin.TabIndex = 67;
@@ -385,12 +377,23 @@
             this.label1.TabIndex = 36;
             this.label1.Text = "Alueiden hallinta";
             // 
+            // comboBoxAlue
+            // 
+            this.comboBoxAlue.FormattingEnabled = true;
+            this.comboBoxAlue.Location = new System.Drawing.Point(503, 132);
+            this.comboBoxAlue.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxAlue.Name = "comboBoxAlue";
+            this.comboBoxAlue.Size = new System.Drawing.Size(196, 21);
+            this.comboBoxAlue.TabIndex = 68;
+            this.comboBoxAlue.SelectedIndexChanged += new System.EventHandler(this.comboBoxAlue_SelectedIndexChanged);
+            // 
             // MokkiAluehallinta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Cyan;
-            this.ClientSize = new System.Drawing.Size(800, 561);
+            this.ClientSize = new System.Drawing.Size(796, 573);
+            this.Controls.Add(this.comboBoxAlue);
             this.Controls.Add(this.btnPalveluihin);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -412,7 +415,6 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnClearAlue);
             this.Controls.Add(this.label2);
@@ -420,7 +422,7 @@
             this.Controls.Add(this.BtnDeleteAlue);
             this.Controls.Add(this.btnChangeAlue);
             this.Controls.Add(this.btnAddAlue);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxAlue);
             this.Controls.Add(this.listBoxAlue);
             this.Controls.Add(this.panel1);
             this.MinimumSize = new System.Drawing.Size(800, 600);
@@ -441,11 +443,10 @@
         private System.Windows.Forms.Button BtnDeleteAlue;
         private System.Windows.Forms.Button btnChangeAlue;
         private System.Windows.Forms.Button btnAddAlue;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxAlue;
         private System.Windows.Forms.ListBox listBoxAlue;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label11;
@@ -467,5 +468,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnPalveluihin;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBoxAlue;
     }
     }
