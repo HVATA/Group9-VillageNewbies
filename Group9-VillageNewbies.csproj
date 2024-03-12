@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alue.cs" />
+    <Compile Include="AlueTieto.cs" />
     <Compile Include="AsiakasTieto.cs" />
     <Compile Include="DatabaseRepository.cs" />
     <Compile Include="LisaaPaikkakuntaForm.cs">
