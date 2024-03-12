@@ -8,5 +8,13 @@ namespace Group9_VillageNewbies
 {
     internal class Alue
     {
+
+        public int AlueId { get; set; }
+        public string Nimi { get; set; }
+
+        public override string ToString ()
+            {
+            return Nimi;
+        }
     }
 }

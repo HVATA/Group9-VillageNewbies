@@ -12,12 +12,63 @@ namespace Group9_VillageNewbies
     {
     public partial class Palveluhallinta : Form
         {
+        private System.Windows.Forms.ComboBox alueComboBox;
+        private System.Windows.Forms.ListBox palveluListBox;
+        private DatabaseRepository repository;
+
         public Palveluhallinta ()
             {
             InitializeComponent();
 
-            DatabaseRepository repository = new DatabaseRepository();
-            DataTable palvelutTable = repository.ExecuteQuery("SELECT * FROM palvelu");
+            repository = new DatabaseRepository();
+
+            // Luo ComboBox
+            alueComboBox = new ComboBox();
+            alueComboBox.Location = new System.Drawing.Point(10, 10); // Määritä sijainti tarpeidesi mukaan
+            alueComboBox.SelectedIndexChanged += AlueComboBox_SelectedIndexChanged;
+
+            // Luo ListBox
+            palveluListBox = new ListBox();
+            palveluListBox.Location = new System.Drawing.Point(10, 40); // Määritä sijainti tarpeidesi mukaan
+
+            Controls.Add(alueComboBox);
+            Controls.Add(palveluListBox);
+
+            // Lataa alueet ComboBoxiin
+            PäivitäAlueet();
+            }
+
+        private void PäivitäAlueet ()
+            {
+            try
+                {
+                // Haetaan alueiden tiedot tietokannasta
+                DataTable alueetTable = repository.ExecuteQuery("SELECT * FROM alue");
+
+                // Tyhjennä ComboBox
+                alueComboBox.Items.Clear();
+
+                // Lisää alueet ComboBoxiin
+                foreach (DataRow row in alueetTable.Rows)
+                    {
+                    alueComboBox.Items.Add(new Alue
+                        {
+                        AlueId = Convert.ToInt32(row["alue_id"]),
+                        Nimi = row["nimi"].ToString()
+                        });
+                    }
+                }
+            catch (Exception ex)
+                {
+                MessageBox.Show($"Virhe päivitettäessä alueita: {ex.Message}");
+                }
+            }
+
+        private void PäivitäPalvelut ( int alueId )
+            {
+            DataTable palvelutTable = repository.ExecuteQuery($"SELECT * FROM palvelu WHERE alue_id = {alueId}");
+
+            palveluListBox.Items.Clear(); // Tyhjennä lista ennen päivittämistä
 
             foreach (DataRow row in palvelutTable.Rows)
                 {
@@ -28,30 +79,19 @@ namespace Group9_VillageNewbies
                     row["hinta"],
                     row["alv"]);
 
-                listBox1.Items.Add(palveluTiedot);
-                }    
-
-                
+                palveluListBox.Items.Add(palveluTiedot);
+                }
             }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void AlueComboBox_SelectedIndexChanged ( object sender, EventArgs e )
             {
-
+            // Kun alueen valinta muuttuu, päivitä palvelut
+            if (alueComboBox.SelectedItem is Alue valittuAlue)
+                {
+                PäivitäPalvelut(valittuAlue.AlueId);
+                }
             }
 
-        private void btnChange_Click(object sender, EventArgs e)
-            {
-
-            }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-            {
-
-            }
-
-        private void btnSelect_Click(object sender, EventArgs e)
-            {
-                
-            }
+        
         }
     }
