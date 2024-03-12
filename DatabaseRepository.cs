@@ -106,6 +106,52 @@ namespace Group9_VillageNewbies
                 return false;
             }
         }
+        public bool LisaaAlue(AlueTieto alue)
+        {
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                    string query = "INSERT INTO alue (nimi) VALUES (?)";
+                    using (OdbcCommand command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("nimi", alue.AlueNimi);
+ 
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Virhe tietokantaan lisättäessä: {ex.Message}");
+                return false;
+            }
+        }
+        public bool PoistaAlue(AlueTieto alue)
+        {
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                    string query = "DELETE FROM alue (nimi) VALUES (?)";
+                    using (OdbcCommand command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@nimi", alue.AlueNimi);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Virhe tietokantaan lisättäessä: {ex.Message}");
+                return false;
+            }
+        }
 
 
 

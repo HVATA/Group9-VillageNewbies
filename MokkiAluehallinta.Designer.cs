@@ -40,17 +40,17 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.txtBoxMokNimi = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.txtBoxMokHinta = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.txtBoxMokOsoite = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.txtBoxMokKuvaus = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.txtBoxMokVarust = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.txtBoxMokMaara = new System.Windows.Forms.TextBox();
             this.btnClearMokki = new System.Windows.Forms.Button();
             this.btnDeleteMokki = new System.Windows.Forms.Button();
             this.btnChangeMokki = new System.Windows.Forms.Button();
@@ -61,6 +61,8 @@
             this.btnPalveluihin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxAlue = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtBoxMokPostinro = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -185,13 +187,13 @@
             this.label10.TabIndex = 49;
             this.label10.Text = "Nimi :";
             // 
-            // textBox8
+            // txtBoxMokNimi
             // 
-            this.textBox8.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox8.Location = new System.Drawing.Point(503, 158);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(196, 21);
-            this.textBox8.TabIndex = 48;
+            this.txtBoxMokNimi.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxMokNimi.Location = new System.Drawing.Point(503, 158);
+            this.txtBoxMokNimi.Name = "txtBoxMokNimi";
+            this.txtBoxMokNimi.Size = new System.Drawing.Size(196, 21);
+            this.txtBoxMokNimi.TabIndex = 48;
             // 
             // label11
             // 
@@ -203,13 +205,13 @@
             this.label11.TabIndex = 53;
             this.label11.Text = "Hinta :";
             // 
-            // textBox9
+            // txtBoxMokHinta
             // 
-            this.textBox9.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox9.Location = new System.Drawing.Point(503, 212);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(196, 21);
-            this.textBox9.TabIndex = 52;
+            this.txtBoxMokHinta.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxMokHinta.Location = new System.Drawing.Point(503, 212);
+            this.txtBoxMokHinta.Name = "txtBoxMokHinta";
+            this.txtBoxMokHinta.Size = new System.Drawing.Size(196, 21);
+            this.txtBoxMokHinta.TabIndex = 52;
             // 
             // label12
             // 
@@ -221,51 +223,51 @@
             this.label12.TabIndex = 51;
             this.label12.Text = "Katuosoite :";
             // 
-            // textBox10
+            // txtBoxMokOsoite
             // 
-            this.textBox10.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox10.Location = new System.Drawing.Point(503, 185);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(196, 21);
-            this.textBox10.TabIndex = 50;
+            this.txtBoxMokOsoite.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxMokOsoite.Location = new System.Drawing.Point(503, 185);
+            this.txtBoxMokOsoite.Name = "txtBoxMokOsoite";
+            this.txtBoxMokOsoite.Size = new System.Drawing.Size(196, 21);
+            this.txtBoxMokOsoite.TabIndex = 50;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(435, 354);
+            this.label13.Location = new System.Drawing.Point(435, 389);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(62, 13);
             this.label13.TabIndex = 59;
             this.label13.Text = "Kuvaus :";
             // 
-            // textBox11
+            // txtBoxMokKuvaus
             // 
-            this.textBox11.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox11.Location = new System.Drawing.Point(503, 351);
-            this.textBox11.Multiline = true;
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(196, 79);
-            this.textBox11.TabIndex = 58;
+            this.txtBoxMokKuvaus.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxMokKuvaus.Location = new System.Drawing.Point(503, 386);
+            this.txtBoxMokKuvaus.Multiline = true;
+            this.txtBoxMokKuvaus.Name = "txtBoxMokKuvaus";
+            this.txtBoxMokKuvaus.Size = new System.Drawing.Size(196, 79);
+            this.txtBoxMokKuvaus.TabIndex = 58;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(420, 269);
+            this.label14.Location = new System.Drawing.Point(420, 304);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(77, 13);
             this.label14.TabIndex = 57;
             this.label14.Text = "Varustelu :";
             // 
-            // textBox12
+            // txtBoxMokVarust
             // 
-            this.textBox12.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox12.Location = new System.Drawing.Point(503, 266);
-            this.textBox12.Multiline = true;
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(196, 79);
-            this.textBox12.TabIndex = 56;
+            this.txtBoxMokVarust.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxMokVarust.Location = new System.Drawing.Point(503, 301);
+            this.txtBoxMokVarust.Multiline = true;
+            this.txtBoxMokVarust.Name = "txtBoxMokVarust";
+            this.txtBoxMokVarust.Size = new System.Drawing.Size(196, 79);
+            this.txtBoxMokVarust.TabIndex = 56;
             // 
             // label15
             // 
@@ -277,13 +279,13 @@
             this.label15.TabIndex = 55;
             this.label15.Text = "Henkilömäärä :";
             // 
-            // textBox13
+            // txtBoxMokMaara
             // 
-            this.textBox13.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox13.Location = new System.Drawing.Point(503, 239);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(196, 21);
-            this.textBox13.TabIndex = 54;
+            this.txtBoxMokMaara.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxMokMaara.Location = new System.Drawing.Point(503, 239);
+            this.txtBoxMokMaara.Name = "txtBoxMokMaara";
+            this.txtBoxMokMaara.Size = new System.Drawing.Size(196, 21);
+            this.txtBoxMokMaara.TabIndex = 54;
             // 
             // btnClearMokki
             // 
@@ -359,7 +361,7 @@
             // 
             this.btnPalveluihin.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnPalveluihin.BackColor = System.Drawing.Color.Teal;
-            this.btnPalveluihin.Location = new System.Drawing.Point(501, 460);
+            this.btnPalveluihin.Location = new System.Drawing.Point(501, 495);
             this.btnPalveluihin.Name = "btnPalveluihin";
             this.btnPalveluihin.Size = new System.Drawing.Size(196, 72);
             this.btnPalveluihin.TabIndex = 67;
@@ -387,12 +389,32 @@
             this.comboBoxAlue.TabIndex = 68;
             this.comboBoxAlue.SelectedIndexChanged += new System.EventHandler(this.comboBoxAlue_SelectedIndexChanged);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(428, 269);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(69, 13);
+            this.label5.TabIndex = 70;
+            this.label5.Text = "Postinro :";
+            // 
+            // txtBoxMokPostinro
+            // 
+            this.txtBoxMokPostinro.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxMokPostinro.Location = new System.Drawing.Point(503, 266);
+            this.txtBoxMokPostinro.Name = "txtBoxMokPostinro";
+            this.txtBoxMokPostinro.Size = new System.Drawing.Size(196, 21);
+            this.txtBoxMokPostinro.TabIndex = 69;
+            // 
             // MokkiAluehallinta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Cyan;
             this.ClientSize = new System.Drawing.Size(796, 573);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtBoxMokPostinro);
             this.Controls.Add(this.comboBoxAlue);
             this.Controls.Add(this.btnPalveluihin);
             this.Controls.Add(this.label4);
@@ -403,17 +425,17 @@
             this.Controls.Add(this.btnChangeMokki);
             this.Controls.Add(this.btnAddMokki);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.textBox11);
+            this.Controls.Add(this.txtBoxMokKuvaus);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.textBox12);
+            this.Controls.Add(this.txtBoxMokVarust);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.textBox13);
+            this.Controls.Add(this.txtBoxMokMaara);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.textBox9);
+            this.Controls.Add(this.txtBoxMokHinta);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.textBox10);
+            this.Controls.Add(this.txtBoxMokOsoite);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.textBox8);
+            this.Controls.Add(this.txtBoxMokNimi);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnClearAlue);
@@ -448,17 +470,17 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox txtBoxMokNimi;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox txtBoxMokHinta;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox txtBoxMokOsoite;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox txtBoxMokKuvaus;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.TextBox txtBoxMokVarust;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.TextBox txtBoxMokMaara;
         private System.Windows.Forms.Button btnClearMokki;
         private System.Windows.Forms.Button btnDeleteMokki;
         private System.Windows.Forms.Button btnChangeMokki;
@@ -469,5 +491,7 @@
         private System.Windows.Forms.Button btnPalveluihin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxAlue;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtBoxMokPostinro;
     }
     }

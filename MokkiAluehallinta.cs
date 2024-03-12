@@ -15,11 +15,15 @@ namespace Group9_VillageNewbies
     public partial class MokkiAluehallinta : Form
     {
         List<AlueTieto> alueTiedot = new List<AlueTieto>();
+        List<MokkiTieto> mokkiTiedot = new List<MokkiTieto>();
+
         public MokkiAluehallinta()
         {
             InitializeComponent();
             LataaAlueetKannasta();
             PaivitaAlueLista();
+            LataaMokitKannasta();
+            PaivitaMokkiLista();
         }
         private void LataaAlueetKannasta()//Haetaan alueet kannasta
         {   
@@ -44,33 +48,110 @@ namespace Group9_VillageNewbies
         {
             listBoxAlue.Items.Clear(); // Tyhjennä listbox ennen uusien tietojen lisäämistä
 
-            // Käydään läpi asiakasTiedot-lista ja lisätään jokainen asiakas ListBoxiin
+            // Käydään läpi alueTiedot-lista ja alue ListBoxiin
             foreach (var alue in alueTiedot)
             {
-                // Muodosta merkkijono, jossa on asiakkaan tiedot ja lisää se ListBoxiin
                 string alueTieto = $"{alue.AlueNimi}";
                 listBoxAlue.Items.Add(alueTieto);
             }
         }
-        
-        private void btnClearAlue_Click(object sender, EventArgs e)
+        private void LataaMokitKannasta()//Haetaan alueet kannasta
         {
 
+            mokkiTiedot.Clear(); // Tyhjennä lista varmuuden vuoksi
+            DatabaseRepository repository = new DatabaseRepository();
+            DataTable mokkiTable = repository.ExecuteQuery(@"SELECT * FROM mokki");
+
+            foreach (DataRow row in mokkiTable.Rows)
+            {
+                MokkiTieto mokki = new MokkiTieto()
+                {
+                    // Aseta tiedot row:sta
+                    Alue = row["alue_id"].ToString() ,
+                    Postinro = row["postinro"].ToString() ,
+                    Mokkinimi = row["mokkinimi"].ToString() ,
+                    Katuosoite = row["katuosoite"].ToString() ,
+                    Hinta = row["hinta"].ToString(),
+                    Kuvaus = row["kuvaus"].ToString(),
+                    Henkilomaara = row["henkilomaara"].ToString(),
+                    Varustelu = row["varustelu"].ToString()
+                    
+                };
+                mokkiTiedot.Add(mokki);
+            }
+        }
+        private void PaivitaMokkiLista()//Lisätää haetut alueet listaan
+        {
+            listBoxMokki.Items.Clear(); // Tyhjennä listbox ennen uusien tietojen lisäämistä
+
+            // Käydään läpi asiakasTiedot-lista ja lisätään jokainen asiakas ListBoxiin
+            foreach (var mokki in mokkiTiedot)
+            {
+                // Muodosta merkkijono, jossa on asiakkaan tiedot ja lisää se ListBoxiin
+                string mok_alue = $"{mokki.Alue}";
+                string mok_postinro = $"{mokki.Postinro}";
+                string mok_mokkinimi = $"{mokki.Mokkinimi}";
+                string mok_katuosoite = $"{mokki.Katuosoite}";
+                string mok_hinta = $"{mokki.Hinta}";
+                string mok_kuvaus = $"{mokki.Kuvaus}";
+                string mok_henkilomaara = $"{mokki.Henkilomaara}";
+                string mok_varustelu = $"{mokki.Varustelu}";
+                listBoxMokki.Items.Add(mokki);
+            }
+        }
+
+        private void btnClearAlue_Click(object sender, EventArgs e)
+        {
+            // Tyhjennä kaikki tekstikentät
+            textBoxAlue.Clear();
         }
 
         private void btnAddAlue_Click(object sender, EventArgs e)
         {
+            AlueTieto uusiAlue = new AlueTieto()
+            {
+                AlueNimi = textBoxAlue.Text 
+            };
+
+            DatabaseRepository repository = new DatabaseRepository();
+            bool onnistui = repository.LisaaAlue(uusiAlue);
+            if (onnistui)
+            {
+                MessageBox.Show("Alue lisätty onnistuneesti.");
+            }
+            else
+            {
+                MessageBox.Show("Alueen lisäys epäonnistui.");
+            }
+            LataaAlueetKannasta();
+            PaivitaAlueLista(); // Päivitä listboxin tiedot lisäyksen jälkeen
 
         }
 
         private void btnChangeAlue_Click(object sender, EventArgs e)
         {
-
+            
         }
 
-        private void BtnDeleteAlue_Click(object sender, EventArgs e)
+        private void BtnDeleteAlue_Click(object sender, EventArgs e)//TEE VÄLIKATSELMOINNIN JÄLKEEN 14.3
         {
-
+            if (textBoxAlue.Text != null)
+            {
+                AlueTieto PoistettavaAlue = new AlueTieto();
+                PoistettavaAlue.AlueNimi = textBoxAlue.Text;
+                DatabaseRepository repository = new DatabaseRepository();
+                bool onnistui = repository.PoistaAlue(PoistettavaAlue);
+                if (onnistui)
+                {
+                    MessageBox.Show("Alue lisätty onnistuneesti.");
+                }
+                else
+                {
+                    MessageBox.Show("Alueen lisäys epäonnistui.");
+                }
+                LataaAlueetKannasta();
+                PaivitaAlueLista(); // Päivitä listboxin tiedot lisäyksen jälkeen
+            }
         }
 
         private void btnClearMokki_Click(object sender, EventArgs e)
@@ -88,7 +169,7 @@ namespace Group9_VillageNewbies
 
         }
 
-        private void btnDeleteMokki_Click(object sender, EventArgs e)
+        private void btnDeleteMokki_Click(object sender, EventArgs e)//TEE VÄLIKATSELMOINNIN JÄLKEEN 14.3
         {
 
         }
@@ -108,9 +189,149 @@ namespace Group9_VillageNewbies
             }
         }
 
-        private void listBoxMokki_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxMokki_SelectedIndexChanged(object sender, EventArgs e)//Valitaan mitkä tiedot tuodaan lomakkeelle
         {
+            var tieto = listBoxMokki.SelectedItem.ToString();
+            if (listBoxMokki.SelectedIndex != -1)
+            {
+                if (tieto == "Rukan Mökki") //RUKAN MÖKKI
+                { 
+                    foreach(var mokki in mokkiTiedot)
+                    {
+                        if(mokki.Mokkinimi == "Rukan Mökki")
+                        {
+                            comboBoxAlue.Text = $"{mokki.Alue}";
+                            txtBoxMokPostinro.Text = $"{mokki.Postinro}";
+                            txtBoxMokNimi.Text = $"{mokki.Mokkinimi}";
+                            txtBoxMokOsoite.Text = $"{mokki.Katuosoite}";
+                            txtBoxMokHinta.Text = $"{mokki.Hinta}";
+                            txtBoxMokKuvaus.Text = $"{mokki.Kuvaus}";
+                            txtBoxMokMaara.Text = $"{mokki.Henkilomaara}";
+                            txtBoxMokVarust.Text = $"{mokki.Varustelu}";
+                        }
+                    }
+                }
+                else if (tieto =="Tahkon Tupa") //TAHKON TUPA
+                {
+                    foreach (var mokki in mokkiTiedot)
+                    {
+                        if (mokki.Mokkinimi == "Tahkon Tupa")
+                        {
+                            comboBoxAlue.Text = $"{mokki.Alue}";
+                            txtBoxMokPostinro.Text = $"{mokki.Postinro}";
+                            txtBoxMokNimi.Text = $"{mokki.Mokkinimi}";
+                            txtBoxMokOsoite.Text = $"{mokki.Katuosoite}";
+                            txtBoxMokHinta.Text = $"{mokki.Hinta}";
+                            txtBoxMokKuvaus.Text = $"{mokki.Kuvaus}";
+                            txtBoxMokMaara.Text = $"{mokki.Henkilomaara}";
+                            txtBoxMokVarust.Text = $"{mokki.Varustelu}";
+                        }
+                    }
+                }
+                else if (tieto == "Ylläksen Yöpuu")//YLLÄKSEN YÖPUU
+                {
+                    foreach (var mokki in mokkiTiedot)
+                    {
+                        if (mokki.Mokkinimi == "Ylläksen Yöpuu")
+                        {
+                            comboBoxAlue.Text = $"{mokki.Alue}";
+                            txtBoxMokPostinro.Text = $"{mokki.Postinro}";
+                            txtBoxMokNimi.Text = $"{mokki.Mokkinimi}";
+                            txtBoxMokOsoite.Text = $"{mokki.Katuosoite}";
+                            txtBoxMokHinta.Text = $"{mokki.Hinta}";
+                            txtBoxMokKuvaus.Text = $"{mokki.Kuvaus}";
+                            txtBoxMokMaara.Text = $"{mokki.Henkilomaara}";
+                            txtBoxMokVarust.Text = $"{mokki.Varustelu}";
+                        }
+                    }
+                }
+                else if (tieto == "Saariselän Sviitti")//SAARISELÄN SVIITTI
+                {
+                    foreach (var mokki in mokkiTiedot)
+                    {
+                        if (mokki.Mokkinimi == "Saariselän Sviitti")
+                        {
+                            comboBoxAlue.Text = $"{mokki.Alue}";
+                            txtBoxMokPostinro.Text = $"{mokki.Postinro}";
+                            txtBoxMokNimi.Text = $"{mokki.Mokkinimi}";
+                            txtBoxMokOsoite.Text = $"{mokki.Katuosoite}";
+                            txtBoxMokHinta.Text = $"{mokki.Hinta}";
+                            txtBoxMokKuvaus.Text = $"{mokki.Kuvaus}";
+                            txtBoxMokMaara.Text = $"{mokki.Henkilomaara}";
+                            txtBoxMokVarust.Text = $"{mokki.Varustelu}";
+                        }
+                    }
+                }
+                else if (tieto == "Levin Lumo")//LEVIN LUMO
+                {
+                    foreach (var mokki in mokkiTiedot)
+                    {
+                        if (mokki.Mokkinimi == "Levin Lumo")
+                        {
+                            comboBoxAlue.Text = $"{mokki.Alue}";
+                            txtBoxMokPostinro.Text = $"{mokki.Postinro}";
+                            txtBoxMokNimi.Text = $"{mokki.Mokkinimi}";
+                            txtBoxMokOsoite.Text = $"{mokki.Katuosoite}";
+                            txtBoxMokHinta.Text = $"{mokki.Hinta}";
+                            txtBoxMokKuvaus.Text = $"{mokki.Kuvaus}";
+                            txtBoxMokMaara.Text = $"{mokki.Henkilomaara}";
+                            txtBoxMokVarust.Text = $"{mokki.Varustelu}";
+                        }
+                    }
+                }
+                else if (tieto == "Pyhän Piilo")//PYHÄN PIILO
+                {
+                    foreach (var mokki in mokkiTiedot)
+                    {
+                        if (mokki.Mokkinimi == "Pyhän Piilo")
+                        {
+                            comboBoxAlue.Text = $"{mokki.Alue}";
+                            txtBoxMokPostinro.Text = $"{mokki.Postinro}";
+                            txtBoxMokNimi.Text = $"{mokki.Mokkinimi}";
+                            txtBoxMokOsoite.Text = $"{mokki.Katuosoite}";
+                            txtBoxMokHinta.Text = $"{mokki.Hinta}";
+                            txtBoxMokKuvaus.Text = $"{mokki.Kuvaus}";
+                            txtBoxMokMaara.Text = $"{mokki.Henkilomaara}";
+                            txtBoxMokVarust.Text = $"{mokki.Varustelu}";
+                        }
+                    }
 
+                }
+                else if (tieto == "Himos Huvila")//HIMOS HUVILA
+                {
+                    foreach (var mokki in mokkiTiedot)
+                    {
+                        if (mokki.Mokkinimi == "Himos Huvila")
+                        {
+                            comboBoxAlue.Text = $"{mokki.Alue}";
+                            txtBoxMokPostinro.Text = $"{mokki.Postinro}";
+                            txtBoxMokNimi.Text = $"{mokki.Mokkinimi}";
+                            txtBoxMokOsoite.Text = $"{mokki.Katuosoite}";
+                            txtBoxMokHinta.Text = $"{mokki.Hinta}";
+                            txtBoxMokKuvaus.Text = $"{mokki.Kuvaus}";
+                            txtBoxMokMaara.Text = $"{mokki.Henkilomaara}";
+                            txtBoxMokVarust.Text = $"{mokki.Varustelu}";
+                        }
+                    }
+                }
+                else if (tieto == "Sallan Salaisuus")//SALLAN SALAISUUS
+                {
+                    foreach (var mokki in mokkiTiedot)
+                    {
+                        if (mokki.Mokkinimi == "Sallan Salaisuus")
+                        {
+                            comboBoxAlue.Text = $"{mokki.Alue}";
+                            txtBoxMokPostinro.Text = $"{mokki.Postinro}";
+                            txtBoxMokNimi.Text = $"{mokki.Mokkinimi}";
+                            txtBoxMokOsoite.Text = $"{mokki.Katuosoite}";
+                            txtBoxMokHinta.Text = $"{mokki.Hinta}";
+                            txtBoxMokKuvaus.Text = $"{mokki.Kuvaus}";
+                            txtBoxMokMaara.Text = $"{mokki.Henkilomaara}";
+                            txtBoxMokVarust.Text = $"{mokki.Varustelu}";
+                        }
+                    }
+                }
+            }
         }
 
         private void comboBoxAlue_SelectedIndexChanged(object sender, EventArgs e)
