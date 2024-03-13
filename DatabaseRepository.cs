@@ -136,7 +136,7 @@ namespace Group9_VillageNewbies
             {
                 using (OdbcConnection connection = new OdbcConnection(connectionString))
                 {
-                    string query = "DELETE FROM alue (nimi) VALUES (?)";
+                    string query = "DELETE FROM alue WHERE nimi = ?";
                     using (OdbcCommand command = new OdbcCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@nimi", alue.AlueNimi);

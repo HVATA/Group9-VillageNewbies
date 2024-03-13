@@ -16,7 +16,8 @@ namespace Group9_VillageNewbies
     {
         List<AlueTieto> alueTiedot = new List<AlueTieto>();
         List<MokkiTieto> mokkiTiedot = new List<MokkiTieto>();
-
+        private bool btnAddAlueClicked = false;
+        private bool btnDeleteAlueClicked = false;
         public MokkiAluehallinta()
         {
             InitializeComponent();
@@ -24,6 +25,7 @@ namespace Group9_VillageNewbies
             PaivitaAlueLista();
             LataaMokitKannasta();
             PaivitaMokkiLista();
+            LisaaComboBoxinAlueet();       
         }
         private void LataaAlueetKannasta()//Haetaan alueet kannasta
         {   
@@ -108,6 +110,7 @@ namespace Group9_VillageNewbies
 
         private void btnAddAlue_Click(object sender, EventArgs e)
         {
+            btnAddAlueClicked = true;
             AlueTieto uusiAlue = new AlueTieto()
             {
                 AlueNimi = textBoxAlue.Text 
@@ -125,32 +128,76 @@ namespace Group9_VillageNewbies
             }
             LataaAlueetKannasta();
             PaivitaAlueLista(); // Päivitä listboxin tiedot lisäyksen jälkeen
-
+            LisaaUusiAlueComboBoxiin();
         }
 
-        private void btnChangeAlue_Click(object sender, EventArgs e)
+        private void btnChangeAlue_Click(object sender, EventArgs e)//jää pohtimaan
         {
             
         }
 
-        private void BtnDeleteAlue_Click(object sender, EventArgs e)//TEE VÄLIKATSELMOINNIN JÄLKEEN 14.3
+        private void BtnDeleteAlue_Click(object sender, EventArgs e)
         {
-            if (textBoxAlue.Text != null)
+            btnDeleteAlueClicked = true;
+            if (!string.IsNullOrEmpty(textBoxAlue.Text))
             {
-                AlueTieto PoistettavaAlue = new AlueTieto();
-                PoistettavaAlue.AlueNimi = textBoxAlue.Text;
-                DatabaseRepository repository = new DatabaseRepository();
-                bool onnistui = repository.PoistaAlue(PoistettavaAlue);
-                if (onnistui)
+                string poistettavaAlue = textBoxAlue.Text;
+
+                // Käydään läpi ListBoxin elementit indeksien avulla
+                for (int i = 0; i < listBoxAlue.Items.Count; i++)
                 {
-                    MessageBox.Show("Alue lisätty onnistuneesti.");
+                    string alue = listBoxAlue.Items[i].ToString();
+                    if (alue == poistettavaAlue)
+                    {
+                        // Poista elementti ListBoxista
+                        listBoxAlue.Items.RemoveAt(i);
+
+                        // Poista alue myös tietokannasta
+                        DatabaseRepository repository = new DatabaseRepository();
+                        bool onnistui = repository.PoistaAlue(new AlueTieto() { AlueNimi = poistettavaAlue });
+                        if (onnistui)
+                        {
+                            MessageBox.Show("Alue poistettu onnistuneesti.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Alueen poistaminen epäonnistui.");
+                        }
+                        break; // Poistu silmukasta kun alue on poistettu
+                    }
                 }
-                else
+                for (int i = 0; i < comboBoxAlue.Items.Count; i++)
                 {
-                    MessageBox.Show("Alueen lisäys epäonnistui.");
+                    string alue = comboBoxAlue.Items[i].ToString();
+                    if (alue == poistettavaAlue)
+                    {
+                        // Poista elementti ListBoxista
+                        comboBoxAlue.Items.RemoveAt(i);
+
+                        // Poista alue myös tietokannasta
+                        DatabaseRepository repository = new DatabaseRepository();
+                        bool onnistui = repository.PoistaAlue(new AlueTieto() { AlueNimi = poistettavaAlue });
+                        if (onnistui)
+                        {
+                            MessageBox.Show("Alue poistettu onnistuneesti.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Alueen poistaminen epäonnistui.");
+                        }
+                        break; // Poistu silmukasta kun alue on poistettu
+                    }
                 }
+
+                // Päivitä ListBoxin näyttö
+                textBoxAlue.Clear();
                 LataaAlueetKannasta();
-                PaivitaAlueLista(); // Päivitä listboxin tiedot lisäyksen jälkeen
+                PaivitaAlueLista();
+                
+            }
+            else
+            {
+                MessageBox.Show("Kirjoita alue, joka haluat poistaa.");
             }
         }
 
@@ -169,7 +216,7 @@ namespace Group9_VillageNewbies
 
         }
 
-        private void btnDeleteMokki_Click(object sender, EventArgs e)//TEE VÄLIKATSELMOINNIN JÄLKEEN 14.3
+        private void btnDeleteMokki_Click(object sender, EventArgs e)
         {
 
         }
@@ -333,10 +380,29 @@ namespace Group9_VillageNewbies
                 }
             }
         }
-
+        private void LisaaComboBoxinAlueet() 
+        {
+            foreach (AlueTieto alueTieto in alueTiedot)
+            {
+                comboBoxAlue.Items.Add(alueTieto.AlueNimi);
+            }
+        }
+        private void LisaaUusiAlueComboBoxiin()
+        {
+            
+            foreach (var alue in alueTiedot)
+            {
+                if(alue.AlueNimi == textBoxAlue.Text && btnAddAlueClicked)
+                {
+                    string alueTieto = $"{alue.AlueNimi}";
+                    comboBoxAlue.Items.Add(alueTieto);
+                }
+            }
+        }
         private void comboBoxAlue_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
+
     }
 }
