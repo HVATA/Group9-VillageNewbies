@@ -12,86 +12,47 @@ namespace Group9_VillageNewbies
     {
     public partial class Palveluhallinta : Form
         {
-        private System.Windows.Forms.ComboBox alueComboBox;
-        private System.Windows.Forms.ListBox palveluListBox;
-        private DatabaseRepository repository;
-
-        public Palveluhallinta ()
+        List<Alue> aluetiedot = new List<Alue>();
+        List<Palvelu> palveluntiedot = new List<Palvelu> ();
+        
+        public Palveluhallinta()
             {
-            InitializeComponent();
+            InitializeComponent ();
+            LataaAlueetTietokannasta();
+            }
+            private void LataaAlueetTietokannasta()
+            {
+                DatabaseRepository repository = new DatabaseRepository();
+                aluetiedot.Clear(); //Listan tyhjennys varmuuden vuoksi
+            DataTable alueTable = repository.ExecuteQuery(@"select alue_id, nimi FROM alue");
 
-            repository = new DatabaseRepository();
+            foreach (DataRow row in alueTable.Rows)
+                {
+                // Assuming you have a class called AlueLista to represent area data
+                Alue alue = new Alue
+                    {
+                    AlueId = Convert.ToInt32(row["alue_id"]),
+                    Nimi = row["nimi"].ToString()
+                    };
 
-            // Luo ComboBox
-            alueComboBox = new ComboBox();
-            alueComboBox.Location = new System.Drawing.Point(10, 10); // Määritä sijainti tarpeidesi mukaan
-            alueComboBox.SelectedIndexChanged += AlueComboBox_SelectedIndexChanged;
+                aluetiedot.Add(alue);
 
-            // Luo ListBox
-            palveluListBox = new ListBox();
-            palveluListBox.Location = new System.Drawing.Point(10, 40); // Määritä sijainti tarpeidesi mukaan
-
-            Controls.Add(alueComboBox);
-            Controls.Add(palveluListBox);
-
-            // Lataa alueet ComboBoxiin
-            PäivitäAlueet();
+                // Add area names to the ComboBox
+                alueComboBox.Items.Add(alue.Nimi);
+                }
             }
 
-        private void PäivitäAlueet ()
+        private void fillByToolStripButton_Click ( object sender, EventArgs e )
             {
             try
                 {
-                // Haetaan alueiden tiedot tietokannasta
-                DataTable alueetTable = repository.ExecuteQuery("SELECT * FROM alue");
-
-                // Tyhjennä ComboBox
-                alueComboBox.Items.Clear();
-
-                // Lisää alueet ComboBoxiin
-                foreach (DataRow row in alueetTable.Rows)
-                    {
-                    alueComboBox.Items.Add(new Alue
-                        {
-                        AlueId = Convert.ToInt32(row["alue_id"]),
-                        Nimi = row["nimi"].ToString()
-                        });
-                    }
+                this.palveluTableAdapter.FillBy(this.dataSet1.palvelu);
                 }
-            catch (Exception ex)
+            catch (System.Exception ex)
                 {
-                MessageBox.Show($"Virhe päivitettäessä alueita: {ex.Message}");
+                System.Windows.Forms.MessageBox.Show(ex.Message);
                 }
+
             }
-
-        private void PäivitäPalvelut ( int alueId )
-            {
-            DataTable palvelutTable = repository.ExecuteQuery($"SELECT * FROM palvelu WHERE alue_id = {alueId}");
-
-            palveluListBox.Items.Clear(); // Tyhjennä lista ennen päivittämistä
-
-            foreach (DataRow row in palvelutTable.Rows)
-                {
-                string palveluTiedot = string.Format("{0} {1}, {2}, {3}, {4}",
-                    row["palvelu_id"],
-                    row["nimi"],
-                    row["kuvaus"],
-                    row["hinta"],
-                    row["alv"]);
-
-                palveluListBox.Items.Add(palveluTiedot);
-                }
-            }
-
-        private void AlueComboBox_SelectedIndexChanged ( object sender, EventArgs e )
-            {
-            // Kun alueen valinta muuttuu, päivitä palvelut
-            if (alueComboBox.SelectedItem is Alue valittuAlue)
-                {
-                PäivitäPalvelut(valittuAlue.AlueId);
-                }
-            }
-
-        
         }
     }
