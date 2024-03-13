@@ -17,7 +17,6 @@ namespace Group9_VillageNewbies
         List<AlueTieto> alueTiedot = new List<AlueTieto>();
         List<MokkiTieto> mokkiTiedot = new List<MokkiTieto>();
         private bool btnAddAlueClicked = false;
-        private bool btnDeleteAlueClicked = false;
         public MokkiAluehallinta()
         {
             InitializeComponent();
@@ -138,7 +137,6 @@ namespace Group9_VillageNewbies
 
         private void BtnDeleteAlue_Click(object sender, EventArgs e)
         {
-            btnDeleteAlueClicked = true;
             if (!string.IsNullOrEmpty(textBoxAlue.Text))
             {
                 string poistettavaAlue = textBoxAlue.Text;
