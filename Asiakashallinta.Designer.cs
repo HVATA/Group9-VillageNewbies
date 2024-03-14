@@ -239,7 +239,7 @@
             // 
             this.comboBoxPostinumero.FormattingEnabled = true;
             this.comboBoxPostinumero.Location = new System.Drawing.Point(206, 198);
-            this.comboBoxPostinumero.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxPostinumero.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxPostinumero.Name = "comboBoxPostinumero";
             this.comboBoxPostinumero.Size = new System.Drawing.Size(341, 21);
             this.comboBoxPostinumero.TabIndex = 21;
@@ -249,7 +249,7 @@
             // btnSortBySurname
             // 
             this.btnSortBySurname.Location = new System.Drawing.Point(54, 413);
-            this.btnSortBySurname.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSortBySurname.Margin = new System.Windows.Forms.Padding(2);
             this.btnSortBySurname.Name = "btnSortBySurname";
             this.btnSortBySurname.Size = new System.Drawing.Size(70, 19);
             this.btnSortBySurname.TabIndex = 22;
@@ -260,7 +260,7 @@
             // btnSortByCity
             // 
             this.btnSortByCity.Location = new System.Drawing.Point(140, 413);
-            this.btnSortByCity.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSortByCity.Margin = new System.Windows.Forms.Padding(2);
             this.btnSortByCity.Name = "btnSortByCity";
             this.btnSortByCity.Size = new System.Drawing.Size(71, 19);
             this.btnSortByCity.TabIndex = 23;
@@ -285,11 +285,12 @@
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(54, 457);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(687, 122);
             this.dataGridView1.TabIndex = 25;
+            this.dataGridView1.Visible = false;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Asiakashallinta
