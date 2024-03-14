@@ -16,6 +16,7 @@ namespace Group9_VillageNewbies
     public partial class Asiakashallinta : Form
     {
         List<AsiakasTieto> asiakasTiedot = new List<AsiakasTieto>();
+        private BindingSource bindingSource = new BindingSource();
 
         public Asiakashallinta()
 
@@ -25,6 +26,9 @@ namespace Group9_VillageNewbies
             LataaAsiakkaatTietokannasta(); // Lataa asiakastiedot tietokannasta
             PaivitaAsiakasLista(); // Päivitä listboxin tiedot
             dataGridView1.DataSource = asiakasTiedot; // Aseta asiakasTiedot lista DataSourceksi
+
+            // Kytke Asiakashallinta_Load tapahtumakäsittelijä Load-tapahtumaan
+            this.Load += new System.EventHandler(this.Asiakashallinta_Load);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -75,23 +79,6 @@ namespace Group9_VillageNewbies
                 asiakasTiedot.Add(asiakas);
             }
         }
-
-        private void LataaAsiakkaatDataGridViewiin()
-        {
-            // Oletetaan, että dataGridView1 on DataGridView-komponenttisi nimi
-            dataGridView1.AutoGenerateColumns = true; // Luo sarakkeet automaattisesti
-            dataGridView1.DataSource = null; // Tyhjennä vanhat tiedot
-            dataGridView1.DataSource = asiakasTiedot; // Aseta asiakasTiedot lista DataSourceksi
-            //tekstiä dataGridView1:n otsikkoriviin
-            dataGridView1.Columns[0].HeaderText = "Etunimi";
-            dataGridView1.Columns[1].HeaderText = "Sukunimi";
-            dataGridView1.Columns[2].HeaderText = "Lähiosoite";
-            //lisää tekstiä dataGridView1:n kenttiin
-            dataGridView1.Columns[0].DataPropertyName = "Etunimi";
-            dataGridView1.Columns[1].DataPropertyName = "Sukunimi";
-            dataGridView1.Columns[2].DataPropertyName = "Lahiosoite";
-        }
-
 
         // Metodi joka suoritetaan kun käyttäjä valitsee jonkun asiakkaan ListBoxista
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -166,9 +153,13 @@ namespace Group9_VillageNewbies
 
         private void btnSortBySurname_Click(object sender, EventArgs e)
         {
-            // Lajittele asiakasTiedot lista sukunimen perusteella
-            asiakasTiedot.Sort((a, b) => a.Sukunimi.CompareTo(b.Sukunimi));
+            
+        // Lajittele asiakasTiedot lista sukunimen perusteella
+        asiakasTiedot.Sort((a, b) => a.Sukunimi.CompareTo(b.Sukunimi));
             PaivitaAsiakasLista(); // Päivitä ListBox
+            //järjestä Gridview
+            bindingSource.Sort = "Sukunimi ASC";
+            dataGridView1.Refresh();
         }
 
         private void btnSortByCity_Click(object sender, EventArgs e)
@@ -176,6 +167,8 @@ namespace Group9_VillageNewbies
             // Lajittele asiakasTiedot lista paikkakunnan perusteella
             asiakasTiedot.Sort((a, b) => a.Toimipaikka.CompareTo(b.Toimipaikka));
             PaivitaAsiakasLista(); // Päivitä ListBox
+            bindingSource.Sort = "Toimipaikka ASC";
+            dataGridView1.Refresh();
         }
 
 
@@ -196,6 +189,7 @@ namespace Group9_VillageNewbies
             if (onnistui)
             {
                 MessageBox.Show("Asiakas lisätty onnistuneesti.");
+                LataaAsiakkaatDataGridViewiin(); // Päivitä DataGridView uusilla tiedoilla
             }
             else
             {
@@ -227,6 +221,9 @@ namespace Group9_VillageNewbies
         private void Asiakashallinta_Load(object sender, EventArgs e)
         {
             LataaPaikkakunnat();
+            // Käytä tässä bindingSourcea yhdistääksesi asiakasTiedot-listan dataGridViewiin
+            bindingSource.DataSource = asiakasTiedot;
+            dataGridView1.DataSource = bindingSource;
         }
 
         //Hakee postinumerot ja paikkakunnat tietokannasta ja lisää ne ComboBoxiin
@@ -295,6 +292,41 @@ namespace Group9_VillageNewbies
             dataGridView1.DataSource = asiakasTiedot; // Aseta asiakasTiedot lista DataSourceksi
         }
 
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Varmista, että klikkaus ei ole otsikkorivillä
+            {
+                // Oletetaan, että asiakasTiedot on lista, jossa on AsiakasTieto-objekteja
+                var valittuAsiakas = (AsiakasTieto)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+
+                // Aseta valitun asiakkaan tiedot tekstikenttiin
+                textBox1.Text = valittuAsiakas.Etunimi;
+                textBox2.Text = valittuAsiakas.Sukunimi;
+                textBox3.Text = valittuAsiakas.Lahiosoite;
+                textBox4.Text = valittuAsiakas.Postinro;
+                // Aseta valitun asiakkaan paikkakunta ComboBoxin valinnaksi
+                foreach (var item in comboBoxPostinumero.Items)
+                {
+                    Posti posti = (Posti)item;
+                    if (posti.Postinro == valittuAsiakas.Postinro) // tai posti.Toimipaikka jos vertaat toimipaikkaan
+                    {
+                        comboBoxPostinumero.SelectedItem = item;
+                        break;
+                    }
+                }
+                textBox6.Text = valittuAsiakas.Puhelinnro;
+                textBox7.Text = valittuAsiakas.Email;
+            }
+        }
+
+        private void LataaAsiakkaatDataGridViewiin()
+        {
+            // Oletetaan, että tämä metodi hakee asiakastiedot tietokannasta ja asettaa ne DataGridViewin DataSourceksi
+            asiakasTiedot.Clear(); // Tyhjennä vanhat tiedot
+            LataaAsiakkaatTietokannasta(); // Lataa uudet tiedot tietokannasta
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = asiakasTiedot; // Aseta päivitetyt tiedot DataGridViewin DataSourceksi
+        }
 
     }
 }
