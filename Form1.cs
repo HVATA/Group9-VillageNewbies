@@ -20,7 +20,7 @@ namespace Group9_VillageNewbies
         private void btn_majoitus_Click(object sender, EventArgs e)
         {
             Majoitusvaraustenhallinta majava = new Majoitusvaraustenhallinta();
-            majava.ShowDialog();
+            majava.Show();
         }
 
         //AsiakasDemo avataan
@@ -34,7 +34,7 @@ namespace Group9_VillageNewbies
         {
             //TÄLLÄ SIIRRYTÄÄ UUTEEN SIVUUN KOPIOIKAA JA VAIHTAA OMAT TIEDOT
             MokkiAluehallinta mokit = new MokkiAluehallinta();
-            mokit.ShowDialog();
+            mokit.Show();
         }
 
         private void btn_lasku_Click(object sender, EventArgs e)

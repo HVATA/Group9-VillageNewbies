@@ -50,7 +50,8 @@ namespace Group9_VillageNewbies
             // btn_majoitus
             // 
             this.btn_majoitus.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btn_majoitus.BackColor = System.Drawing.Color.Teal;
+            this.btn_majoitus.BackColor = System.Drawing.Color.PowderBlue;
+            this.btn_majoitus.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_majoitus.Location = new System.Drawing.Point(60, 70);
             this.btn_majoitus.Name = "btn_majoitus";
             this.btn_majoitus.Size = new System.Drawing.Size(154, 72);
@@ -62,19 +63,21 @@ namespace Group9_VillageNewbies
             // btn_asiakas
             // 
             this.btn_asiakas.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btn_asiakas.BackColor = System.Drawing.Color.Teal;
+            this.btn_asiakas.BackColor = System.Drawing.Color.PowderBlue;
+            this.btn_asiakas.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_asiakas.Location = new System.Drawing.Point(232, 70);
             this.btn_asiakas.Name = "btn_asiakas";
             this.btn_asiakas.Size = new System.Drawing.Size(154, 72);
             this.btn_asiakas.TabIndex = 2;
-            this.btn_asiakas.Text = "Asiakashallintajärjestelmä";
+            this.btn_asiakas.Text = "Asiakkaiden hallinta";
             this.btn_asiakas.UseVisualStyleBackColor = false;
             this.btn_asiakas.Click += new System.EventHandler(this.btn_asiakas_Click);
             // 
             // btn_lasku
             // 
             this.btn_lasku.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btn_lasku.BackColor = System.Drawing.Color.Teal;
+            this.btn_lasku.BackColor = System.Drawing.Color.PowderBlue;
+            this.btn_lasku.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_lasku.Location = new System.Drawing.Point(576, 70);
             this.btn_lasku.Name = "btn_lasku";
             this.btn_lasku.Size = new System.Drawing.Size(152, 72);
@@ -86,7 +89,8 @@ namespace Group9_VillageNewbies
             // btn_aluemokki
             // 
             this.btn_aluemokki.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btn_aluemokki.BackColor = System.Drawing.Color.Teal;
+            this.btn_aluemokki.BackColor = System.Drawing.Color.PowderBlue;
+            this.btn_aluemokki.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aluemokki.Location = new System.Drawing.Point(404, 70);
             this.btn_aluemokki.Name = "btn_aluemokki";
             this.btn_aluemokki.Size = new System.Drawing.Size(154, 72);
@@ -131,7 +135,7 @@ namespace Group9_VillageNewbies
             this.Controls.Add(this.btn_majoitus);
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Päävalikko";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
