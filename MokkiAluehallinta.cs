@@ -16,11 +16,14 @@ namespace Group9_VillageNewbies
     {
         List<AlueTieto> alueTiedot = new List<AlueTieto>();
         List<MokkiTieto> mokkiTiedot = new List<MokkiTieto>();
+        List<Posti> postiTiedot = new List<Posti>();
         private bool btnAddAlueClicked = false;
         public MokkiAluehallinta()
         {
             InitializeComponent();
             LataaAlueetKannasta();
+            DatabaseRepository repository = new DatabaseRepository();
+            postiTiedot = repository.HaeKaikkiPostit();
             PaivitaAlueLista();
             LataaMokitKannasta();
             PaivitaMokkiLista();
@@ -223,31 +226,72 @@ namespace Group9_VillageNewbies
 
         private void btnAddMokki_Click(object sender, EventArgs e)
         {
-            MokkiTieto uusiMokki = new MokkiTieto();
-            Posti uusiPosti = new Posti();
-            uusiMokki.Postinro = txtBoxMokPostinro.Text;
-            uusiMokki.Mokkinimi = txtBoxMokNimi.Text;
-            uusiMokki.Katuosoite = txtBoxMokOsoite.Text;
-            uusiMokki.Alue = comboBoxAlue.SelectedIndex.ToString();
-            uusiMokki.Varustelu = txtBoxMokVarust.Text;
-            uusiMokki.Kuvaus = txtBoxMokKuvaus.Text;
-            uusiMokki.Hinta = txtBoxMokHinta.Text;
-            uusiMokki.Henkilomaara = txtBoxMokMaara.Text;
-            uusiPosti.Postinro = uusiMokki.Postinro;
-            uusiPosti.Toimipaikka = uusiMokki.Alue;
+            int i = 0;
+            foreach(Posti posti in postiTiedot)
+            {
+                if(i < 1)
+                {
+                    if (posti.Postinro == txtBoxMokPostinro.Text)
+                    {
+                        MokkiTieto uusiMokki = new MokkiTieto();
+                        uusiMokki.Postinro = txtBoxMokPostinro.Text;
+                        uusiMokki.Mokkinimi = txtBoxMokNimi.Text;
+                        uusiMokki.Katuosoite = txtBoxMokOsoite.Text;
+                        uusiMokki.Alue = comboBoxAlue.SelectedIndex.ToString();
+                        uusiMokki.Varustelu = txtBoxMokVarust.Text;
+                        uusiMokki.Kuvaus = txtBoxMokKuvaus.Text;
+                        uusiMokki.Hinta = txtBoxMokHinta.Text;
+                        uusiMokki.Henkilomaara = txtBoxMokMaara.Text;
 
-            DatabaseRepository repository = new DatabaseRepository();
-            bool onnistui = repository.LisaaMokki(uusiMokki) && repository.LisaaPosti(uusiPosti);
-            if (onnistui)
-            {
-                MessageBox.Show("Mökki lisätty onnistuneesti.");
+                        DatabaseRepository repository = new DatabaseRepository();
+                        bool onnistui = repository.LisaaMokki(uusiMokki);
+                        if (onnistui)
+                        {
+                            MessageBox.Show("Mökki lisätty onnistuneesti.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Mökin lisäys epäonnistui.");
+                        }
+                        LataaMokitKannasta();
+                        PaivitaMokkiLista();
+                        i++;
+                    }
+                    else
+                    {
+                        Posti uusiPosti = new Posti();
+                        uusiPosti.Postinro = txtBoxMokPostinro.Text;
+                        uusiPosti.Toimipaikka = comboBoxAlue.Text;
+                        DatabaseRepository repository = new DatabaseRepository();
+                        repository.LisaaPosti(uusiPosti);
+
+                        MokkiTieto uusiMokki = new MokkiTieto();
+                        uusiMokki.Postinro = txtBoxMokPostinro.Text;
+                        uusiMokki.Mokkinimi = txtBoxMokNimi.Text;
+                        uusiMokki.Katuosoite = txtBoxMokOsoite.Text;
+                        uusiMokki.Alue = comboBoxAlue.SelectedIndex.ToString();
+                        uusiMokki.Varustelu = txtBoxMokVarust.Text;
+                        uusiMokki.Kuvaus = txtBoxMokKuvaus.Text;
+                        uusiMokki.Hinta = txtBoxMokHinta.Text;
+                        uusiMokki.Henkilomaara = txtBoxMokMaara.Text;
+
+                        bool onnistui = repository.LisaaMokki(uusiMokki);
+                        if (onnistui)
+                        {
+                            MessageBox.Show("Mökki lisätty onnistuneesti.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Mökin lisäys epäonnistui.");
+                        }
+                        LataaMokitKannasta();
+                        PaivitaMokkiLista();
+                        i++;
+                    }
+                }
+                
             }
-            else
-            {
-                MessageBox.Show("Mökin lisäys epäonnistui.");
-            }
-            LataaMokitKannasta();
-            PaivitaMokkiLista();
+            
         }
 
         private void btnChangeMokki_Click(object sender, EventArgs e)//en tiiä tarviiko sinänsä
