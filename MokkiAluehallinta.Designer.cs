@@ -91,7 +91,7 @@
             // 
             // btnClearAlue
             // 
-            this.btnClearAlue.Location = new System.Drawing.Point(15, 176);
+            this.btnClearAlue.Location = new System.Drawing.Point(14, 211);
             this.btnClearAlue.Name = "btnClearAlue";
             this.btnClearAlue.Size = new System.Drawing.Size(75, 23);
             this.btnClearAlue.TabIndex = 43;
@@ -103,7 +103,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 134);
+            this.label2.Location = new System.Drawing.Point(11, 135);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 37;
@@ -111,7 +111,7 @@
             // 
             // BtnDeleteAlue
             // 
-            this.BtnDeleteAlue.Location = new System.Drawing.Point(258, 176);
+            this.BtnDeleteAlue.Location = new System.Drawing.Point(257, 211);
             this.BtnDeleteAlue.Name = "BtnDeleteAlue";
             this.BtnDeleteAlue.Size = new System.Drawing.Size(75, 23);
             this.BtnDeleteAlue.TabIndex = 35;
@@ -121,7 +121,7 @@
             // 
             // btnChangeAlue
             // 
-            this.btnChangeAlue.Location = new System.Drawing.Point(177, 176);
+            this.btnChangeAlue.Location = new System.Drawing.Point(176, 211);
             this.btnChangeAlue.Name = "btnChangeAlue";
             this.btnChangeAlue.Size = new System.Drawing.Size(75, 23);
             this.btnChangeAlue.TabIndex = 34;
@@ -131,7 +131,7 @@
             // 
             // btnAddAlue
             // 
-            this.btnAddAlue.Location = new System.Drawing.Point(96, 176);
+            this.btnAddAlue.Location = new System.Drawing.Point(95, 211);
             this.btnAddAlue.Name = "btnAddAlue";
             this.btnAddAlue.Size = new System.Drawing.Size(75, 23);
             this.btnAddAlue.TabIndex = 33;
@@ -142,7 +142,7 @@
             // textBoxAlue
             // 
             this.textBoxAlue.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAlue.Location = new System.Drawing.Point(66, 131);
+            this.textBoxAlue.Location = new System.Drawing.Point(114, 131);
             this.textBoxAlue.Name = "textBoxAlue";
             this.textBoxAlue.Size = new System.Drawing.Size(196, 21);
             this.textBoxAlue.TabIndex = 27;
@@ -151,7 +151,7 @@
             // 
             this.listBoxAlue.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxAlue.FormattingEnabled = true;
-            this.listBoxAlue.Location = new System.Drawing.Point(15, 242);
+            this.listBoxAlue.Location = new System.Drawing.Point(14, 277);
             this.listBoxAlue.Name = "listBoxAlue";
             this.listBoxAlue.Size = new System.Drawing.Size(156, 290);
             this.listBoxAlue.TabIndex = 26;
@@ -331,7 +331,7 @@
             // 
             this.listBoxMokki.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxMokki.FormattingEnabled = true;
-            this.listBoxMokki.Location = new System.Drawing.Point(177, 242);
+            this.listBoxMokki.Location = new System.Drawing.Point(176, 277);
             this.listBoxMokki.Name = "listBoxMokki";
             this.listBoxMokki.Size = new System.Drawing.Size(156, 290);
             this.listBoxMokki.TabIndex = 64;
@@ -341,7 +341,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(174, 226);
+            this.label3.Location = new System.Drawing.Point(173, 261);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 65;
@@ -351,7 +351,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(12, 226);
+            this.label4.Location = new System.Drawing.Point(11, 261);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 13);
             this.label4.TabIndex = 66;

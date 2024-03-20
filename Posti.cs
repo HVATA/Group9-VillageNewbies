@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Group9_VillageNewbies
 {
-    internal class Posti
+    public class Posti
     {
         public string Postinro { get; set; }
         public string Toimipaikka { get; set; }
@@ -15,6 +15,10 @@ namespace Group9_VillageNewbies
         {
             Postinro = postinro;
             Toimipaikka = toimipaikka;
+        }
+
+        public Posti()
+        {
         }
     }
 }

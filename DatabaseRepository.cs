@@ -63,7 +63,6 @@ namespace Group9_VillageNewbies
                         {
                             string postinro = reader["postinro"].ToString();
                             string toimipaikka = reader["toimipaikka"].ToString();
-
                             postit.Add(new Posti(postinro, toimipaikka));
                         }
                     }
@@ -76,6 +75,57 @@ namespace Group9_VillageNewbies
             }
             return postit;
         }
+        public bool LisaaPosti(Posti posti)
+        {
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                    string query = "INSERT INTO posti (postinro, toimipaikka) VALUES (?, ?)";
+                    using (OdbcCommand command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("postinro", posti.Postinro);
+                        command.Parameters.AddWithValue("toimipaikka", posti.Toimipaikka);
+                    
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Virhe tietokantaan lisättäessä: {ex.Message}");
+                return false;
+            }
+        }
+        public bool PoistaPosti(Posti posti) //Ei toiminut ainakaan alue-hallinnassa
+        {
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "DELETE FROM posti WHERE postinro = ? AND toimipaikka = ?";
+                    using (OdbcCommand command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("postinro", posti.Postinro);
+                        command.Parameters.AddWithValue("toimipaikka", posti.Toimipaikka);
+                        command.ExecuteNonQuery();
+                    }
+
+
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Virhe tietokannassa: {ex.Message}");
+                return false;
+            }
+        }
+
 
         // Metodi uuden asiakkaan tietojen lisäämiseksi
         public bool LisaaAsiakas(Asiakas asiakas)
@@ -112,15 +162,23 @@ namespace Group9_VillageNewbies
             {
                 using (OdbcConnection connection = new OdbcConnection(connectionString))
                 {
+                    connection.Open();
+
                     string query = "INSERT INTO alue (nimi) VALUES (?)";
                     using (OdbcCommand command = new OdbcCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("nimi", alue.AlueNimi);
- 
-
-                        connection.Open();
                         command.ExecuteNonQuery();
                     }
+                    /* Kommenteissa kun ylemäpää löytyy LisaaPosti-funktio
+                     * 
+                    string query2 = "INSERT INTO posti (postinro, toimipaikka) VALUES (?, ?)";
+                    using (OdbcCommand command = new OdbcCommand(query2, connection))
+                    {
+                        command.Parameters.AddWithValue("postinro", posti.Postinro);
+                        command.Parameters.AddWithValue("toimipaikka", posti.Toimipaikka);
+                        command.ExecuteNonQuery();
+                    }*/
                 }
                 return true;
             }
@@ -136,10 +194,40 @@ namespace Group9_VillageNewbies
             {
                 using (OdbcConnection connection = new OdbcConnection(connectionString))
                 {
+                    connection.Open();
+
                     string query = "DELETE FROM alue WHERE nimi = ?";
                     using (OdbcCommand command = new OdbcCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@nimi", alue.AlueNimi);
+                        command.Parameters.AddWithValue("nimi", alue.AlueNimi);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Virhe tietokannassa: {ex.Message}");
+                return false;
+            }
+        }
+        public bool LisaaMokki(MokkiTieto mokki)
+        {
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                    string query = "INSERT INTO mokki (alue_id, postinro, mokkinimi, katuosoite, hinta, kuvaus, henkilomaara, varustelu) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    using (OdbcCommand command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("alue_id", mokki.Alue);
+                        command.Parameters.AddWithValue("postinro", mokki.Postinro);
+                        command.Parameters.AddWithValue("mokkinimi", mokki.Mokkinimi);
+                        command.Parameters.AddWithValue("katuosoite", mokki.Katuosoite);
+                        command.Parameters.AddWithValue("hinta", mokki.Hinta);
+                        command.Parameters.AddWithValue("kuvaus", mokki.Kuvaus);
+                        command.Parameters.AddWithValue("henkilomaara", mokki.Henkilomaara);
+                        command.Parameters.AddWithValue("varustelu", mokki.Varustelu);
                         connection.Open();
                         command.ExecuteNonQuery();
                     }
@@ -149,6 +237,28 @@ namespace Group9_VillageNewbies
             catch (Exception ex)
             {
                 Console.WriteLine($"Virhe tietokantaan lisättäessä: {ex.Message}");
+                return false;
+            }
+        }
+        public bool PoistaMokki(MokkiTieto mokki)
+        {
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                    string query = "DELETE FROM mokki WHERE mokkinimi = ?";
+                    using (OdbcCommand command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("mokkinimi", mokki.Mokkinimi);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Virhe tietokannasta poistaessa: {ex.Message}");
                 return false;
             }
         }
