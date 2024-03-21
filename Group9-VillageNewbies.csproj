@@ -116,6 +116,7 @@
     <Compile Include="Palveluhallinta.Designer.cs">
       <DependentUpon>Palveluhallinta.cs</DependentUpon>
     </Compile>
+    <Compile Include="PalveluTiedot.cs" />
     <Compile Include="Posti.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
