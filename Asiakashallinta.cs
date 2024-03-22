@@ -24,7 +24,7 @@ namespace Group9_VillageNewbies
             InitializeComponent(); // Alusta komponentit
             LataaPaikkakunnat(); // Lataa paikkakunnat ComboBoxiin
             LataaAsiakkaatTietokannasta(); // Lataa asiakastiedot tietokannasta
-            PaivitaAsiakasLista(); // Päivitä listboxin tiedot
+            //PaivitaAsiakasLista(); // Päivitä listboxin tiedot
             dataGridView1.DataSource = asiakasTiedot; // Aseta asiakasTiedot lista DataSourceksi
 
             // Kytke Asiakashallinta_Load tapahtumakäsittelijä Load-tapahtumaan
@@ -42,18 +42,20 @@ namespace Group9_VillageNewbies
         }
 
         // Metodi, joka päivittää ListBoxin asiakastiedot tietokannasta
-        private void PaivitaAsiakasLista()
-        {
-            listBox1.Items.Clear(); // Tyhjennä listbox ennen uusien tietojen lisäämistä
-
-            // Käydään läpi asiakasTiedot-lista ja lisätään jokainen asiakas ListBoxiin
-            foreach (var asiakas in asiakasTiedot)
-            {
-                // Muodosta merkkijono, jossa on asiakkaan tiedot ja lisää se ListBoxiin
-                string asiakasTieto = $"{asiakas.Etunimi} {asiakas.Sukunimi}, {asiakas.Lahiosoite}, {asiakas.Postinro} {asiakas.Toimipaikka}, {asiakas.Puhelinnro}, {asiakas.Email}";
-                listBox1.Items.Add(asiakasTieto);
-            }
-        }
+        // kommentoi koko seuraaava metodi pois, koska se ei ole käytössä
+        //private void PaivitaAsiakasLista()  
+        //{
+        //    listBox1.Items.Clear(); // Tyhjennä listbox ennen uusien tietojen lisäämistä
+        //
+        //    // Käydään läpi asiakasTiedot-lista ja lisätään jokainen asiakas ListBoxiin
+        //    foreach (var asiakas in asiakasTiedot)
+        //    {
+        //        // Muodosta merkkijono, jossa on asiakkaan tiedot ja lisää se ListBoxiin
+        //        string asiakasTieto = $"{asiakas.Etunimi} {asiakas.Sukunimi}, {asiakas.Lahiosoite}, {asiakas.Postinro} {asiakas.Toimipaikka}, {asiakas.Puhelinnro}, {asiakas.Email}";
+        //        listBox1.Items.Add(asiakasTieto);
+        //    }
+        //}
+        
 
 
         private void LataaAsiakkaatTietokannasta()
@@ -80,58 +82,6 @@ namespace Group9_VillageNewbies
             }
         }
 
-        // Metodi joka suoritetaan kun käyttäjä valitsee jonkun asiakkaan ListBoxista
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listBox1.SelectedIndex != -1)
-            {
-                var tiedot = listBox1.SelectedItem.ToString().Split(',');
-                if (tiedot.Length >= 5) // Varmista, että kaikki kentät ovat läsnä
-                {
-                    // Erota nimet (oletetaan, että ne ovat ensimmäisessä kentässä ja erotettu pilkuilla)
-                    var nimet = tiedot[0].Trim().Split(' ');
-                    if (nimet.Length > 2)
-                    {
-                        textBox1.Text = string.Join(" ", nimet.Take(nimet.Length - 1)); // Etunimet
-                        textBox2.Text = nimet.Last(); // Sukunimi
-                    }
-                    else if (nimet.Length == 2)
-                    {
-                        textBox1.Text = nimet[0]; // Etunimi
-                        textBox2.Text = nimet[1]; // Sukunimi
-                    }
-
-                    textBox3.Text = tiedot[1].Trim(); // Osoite (sisältää talonumeron)
-
-                    // Erota postinumero ja paikkakunta (oletetaan, että ne ovat kolmannessa kentässä)
-                    var postiJaPaikka = tiedot[2].Trim().Split(' ');
-                    if (postiJaPaikka.Length >= 2)
-                    {
-                        textBox4.Text = postiJaPaikka[0]; // Postinumero
-                        //textBox5.Text = string.Join(" ", postiJaPaikka.Skip(1)); // Paikkakunta
-                    }
-
-                    textBox6.Text = tiedot[3].Trim(); // Puhelinnumero
-                    textBox7.Text = tiedot[4].Trim(); // Sähköpostiosoite
-
-                    // Aseta ComboBoxin valinta vastaamaan paikkakuntaa
-                    string paikkakuntaValinta = tiedot[2].Trim().Split(' ').Last(); // Oletetaan, että paikkakunta on viimeinen elementti tässä osassa
-
-                    // Käy läpi kaikki ComboBoxin itemit ja vertaa niitä paikkakuntaan
-                    foreach (var item in comboBoxPostinumero.Items)
-                    {
-                        Posti posti = (Posti)item;
-                        if (posti.Toimipaikka == paikkakuntaValinta)
-                        {
-                            comboBoxPostinumero.SelectedItem = item;
-                            break; // Lopeta silmukka kun oikea item löytyy
-                        }
-                    }
-                }
-            }
-        }
-
-
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
 
@@ -156,7 +106,7 @@ namespace Group9_VillageNewbies
             
         // Lajittele asiakasTiedot lista sukunimen perusteella
         asiakasTiedot.Sort((a, b) => a.Sukunimi.CompareTo(b.Sukunimi));
-            PaivitaAsiakasLista(); // Päivitä ListBox
+            //PaivitaAsiakasLista(); // Päivitä ListBox
             //järjestä Gridview
             bindingSource.Sort = "Sukunimi ASC";
             dataGridView1.Refresh();
@@ -166,7 +116,7 @@ namespace Group9_VillageNewbies
         {
             // Lajittele asiakasTiedot lista paikkakunnan perusteella
             asiakasTiedot.Sort((a, b) => a.Toimipaikka.CompareTo(b.Toimipaikka));
-            PaivitaAsiakasLista(); // Päivitä ListBox
+            //PaivitaAsiakasLista(); // Päivitä ListBox
             bindingSource.Sort = "Toimipaikka ASC";
             dataGridView1.Refresh();
         }
@@ -195,7 +145,7 @@ namespace Group9_VillageNewbies
             {
                 MessageBox.Show("Asiakkaan lisäys epäonnistui.");
             }
-            PaivitaAsiakasLista(); // Päivitä listboxin tiedot lisäyksen jälkeen
+            //PaivitaAsiakasLista(); // Päivitä listboxin tiedot lisäyksen jälkeen
         }
 
 
