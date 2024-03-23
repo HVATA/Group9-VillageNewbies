@@ -341,7 +341,6 @@ namespace Group9_VillageNewbies
             {
                 var tiedot = listBoxAlue.SelectedItem.ToString().Split(','); // Jakaa valitun kohteen sanallisesti
                 string alue = tiedot[0]; // Alueen nimi
-                string postinro = tiedot[1]; // Postinumero
 
                 textBoxAlue.Text = alue;
             }
