@@ -153,6 +153,30 @@ namespace Group9_VillageNewbies
                 return false;
                 }
             }
+        // Metodi asiakkaan tietojen poistamiseksi
+        public bool PoistaAsiakas(int asiakasId)
+        {
+            using (var connection = new OdbcConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    var query = "DELETE FROM asiakas WHERE asiakas_id = ?";
+                    using (var command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("?", asiakasId);
+                        int affectedRows = command.ExecuteNonQuery();
+                        return affectedRows > 0; // Palautetaan true jos poisto onnistui
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Virhe tietokannassa: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
         public bool LisaaAlue ( AlueTieto alue )
             {
             try

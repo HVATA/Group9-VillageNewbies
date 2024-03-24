@@ -8,6 +8,7 @@ namespace Group9_VillageNewbies
 {
         public class AsiakasTieto
         {
+            public int AsiakasId { get; set; }
             public string Etunimi { get; set; }
             public string Sukunimi { get; set; }
             public string Lahiosoite { get; set; }
@@ -18,9 +19,9 @@ namespace Group9_VillageNewbies
 
             public override string ToString()
             {
-                // Palauta merkkijono, joka näytetään ListBoxissa
-                return $"{Sukunimi} {Etunimi}, {Lahiosoite}, {Postinro} {Toimipaikka}, {Puhelinnro}, {Email}";
-            }
+                // Palauta merkkijono jossa tietoja pilkulla erotettuna
+                return $"{AsiakasId}, {Etunimi}, {Sukunimi}, {Lahiosoite}, {Postinro}, {Toimipaikka}, {Puhelinnro}, {Email}";
         }
+    }
 
 }

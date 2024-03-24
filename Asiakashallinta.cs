@@ -26,6 +26,7 @@ namespace Group9_VillageNewbies
             LataaAsiakkaatTietokannasta(); // Lataa asiakastiedot tietokannasta
             //PaivitaAsiakasLista(); // Päivitä listboxin tiedot
             dataGridView1.DataSource = asiakasTiedot; // Aseta asiakasTiedot lista DataSourceksi
+            dataGridView1.DataBindingComplete += dataGridView1_DataBindingComplete; // Kytke dataGridView1_DataBindingComplete tapahtumakäsittelijä DataBindingComplete-tapahtumaan
 
             // Kytke Asiakashallinta_Load tapahtumakäsittelijä Load-tapahtumaan
             this.Load += new System.EventHandler(this.Asiakashallinta_Load);
@@ -40,35 +41,21 @@ namespace Group9_VillageNewbies
         {
 
         }
-
-        // Metodi, joka päivittää ListBoxin asiakastiedot tietokannasta
-        // kommentoi koko seuraaava metodi pois, koska se ei ole käytössä
-        //private void PaivitaAsiakasLista()  
-        //{
-        //    listBox1.Items.Clear(); // Tyhjennä listbox ennen uusien tietojen lisäämistä
-        //
-        //    // Käydään läpi asiakasTiedot-lista ja lisätään jokainen asiakas ListBoxiin
-        //    foreach (var asiakas in asiakasTiedot)
-        //    {
-        //        // Muodosta merkkijono, jossa on asiakkaan tiedot ja lisää se ListBoxiin
-        //        string asiakasTieto = $"{asiakas.Etunimi} {asiakas.Sukunimi}, {asiakas.Lahiosoite}, {asiakas.Postinro} {asiakas.Toimipaikka}, {asiakas.Puhelinnro}, {asiakas.Email}";
-        //        listBox1.Items.Add(asiakasTieto);
-        //    }
-        //}
-        
+       
 
 
         private void LataaAsiakkaatTietokannasta()
         {
             DatabaseRepository repository = new DatabaseRepository();
             asiakasTiedot.Clear(); // Tyhjennä lista varmuuden vuoksi
-            DataTable asiakkaatTable = repository.ExecuteQuery(@"SELECT a.etunimi, a.sukunimi, a.lahiosoite, a.postinro, p.toimipaikka, a.puhelinnro, a.email FROM asiakas a JOIN posti p ON a.postinro = p.postinro");
+            DataTable asiakkaatTable = repository.ExecuteQuery(@"SELECT a.asiakas_id, a.etunimi, a.sukunimi, a.lahiosoite, a.postinro, p.toimipaikka, a.puhelinnro, a.email FROM asiakas a JOIN posti p ON a.postinro = p.postinro");
 
             foreach (DataRow row in asiakkaatTable.Rows)
             {
                 AsiakasTieto asiakas = new AsiakasTieto()
                 {
                     // Aseta tiedot row:sta
+                    AsiakasId = row["asiakas_id"] != DBNull.Value ? Convert.ToInt32(row["asiakas_id"]) : 0,
                     Etunimi = row["etunimi"].ToString(),
                     Sukunimi = row["sukunimi"].ToString(),
                     Lahiosoite = row["lahiosoite"].ToString(),
@@ -100,6 +87,43 @@ namespace Group9_VillageNewbies
             //}
             textBox1.Text = "POISTETTU!";
         }
+
+        private void btnDeleteCustomer_Click(object sender, EventArgs e)
+        {
+            // Tarkista, että DataGridView:ssä on valittu rivi
+            if (dataGridView1.SelectedCells.Count > 0)
+            {
+                // Ota ensimmäisen valitun solun rivin indeksi
+                int rowIndex = dataGridView1.SelectedCells[0].RowIndex;
+                // Ota DataGridView:n rivi, joka vastaa valittua riviä
+                DataGridViewRow selectedRow = dataGridView1.Rows[rowIndex];
+
+                // Ota valitun rivin asiakasId. Oletetaan, että AsiakasId on ensimmäinen sarake.
+                int asiakasId = Convert.ToInt32(selectedRow.Cells["AsiakasId"].Value); // muokkaa "AsiakasId" vastaamaan oikeaa sarakenimeä
+
+                DatabaseRepository repository = new DatabaseRepository();
+                bool onnistui = repository.PoistaAsiakas(asiakasId);
+
+                if (onnistui)
+                {
+                    MessageBox.Show("Asiakas poistettu onnistuneesti.");
+                    // Päivitä DataGridView uusilla tiedoilla tietokannasta
+                    LataaAsiakkaatDataGridViewiin();
+                    TyhjennaTekstikentat(); // Tyhjennä tekstikentät poiston jälkeen
+
+
+                }
+                else
+                {
+                    MessageBox.Show("Asiakkaan poisto epäonnistui.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Valitse poistettava asiakas.");
+            }
+        }
+
 
         private void btnSortBySurname_Click(object sender, EventArgs e)
         {
@@ -276,7 +300,33 @@ namespace Group9_VillageNewbies
             LataaAsiakkaatTietokannasta(); // Lataa uudet tiedot tietokannasta
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = asiakasTiedot; // Aseta päivitetyt tiedot DataGridViewin DataSourceksi
+                                  
         }
+
+
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            // Piilota AsiakasId-sarake
+            if (dataGridView1.Columns.Contains("AsiakasId"))
+            {
+                dataGridView1.Columns["AsiakasId"].Visible = false;
+            }
+        }
+
+
+
+        //tyhjennä tekstikentät metodi
+        private void TyhjennaTekstikentat()
+        {
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            textBox4.Clear();
+            textBox6.Clear();
+            textBox7.Clear();
+            comboBoxPostinumero.SelectedItem = null;
+        }
+
 
     }
 }
