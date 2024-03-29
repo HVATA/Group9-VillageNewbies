@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -175,7 +176,66 @@ namespace Group9_VillageNewbies
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "Päivitetty!";
+            // Sähköpostin tarkistuksen regex
+            string emailPattern = @"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$";
+            // Puhelinnumeron tarkistuksen regex (yksinkertaistettu esimerkki)
+            string phonePattern = @"^(\+358|0)\d{2,3}-?\d{5,7}$"; // Esimerkki hyväksyy 10-15 numeroa, mahdollisesti "+" etuliitteellä
+                                                                  
+            // Tarkista sähköpostin muoto
+            if (!Regex.IsMatch(textBox7.Text, emailPattern))
+            {
+                MessageBox.Show("Sähköpostiosoite ei ole oikeaa muotoa.");
+                return; // Keskeytä metodi tässä vaiheessa
+            }
+
+            // Tarkista puhelinnumeron muoto
+            if (!Regex.IsMatch(textBox6.Text, phonePattern))
+            {
+                MessageBox.Show("Puhelinnumero ei ole oikeaa muotoa.");
+                return; // Keskeytä metodi tässä vaiheessa
+            }
+
+            // Tarkista, että jokin asiakas on valittuna (esim. DataGridViewista)
+            if (dataGridView1.SelectedCells.Count > 0)
+            {
+                // Ota ensimmäisen valitun solun rivin indeksi
+                int rowIndex = dataGridView1.SelectedCells[0].RowIndex;
+                // Ota DataGridView:n rivi, joka vastaa valittua riviä
+                DataGridViewRow selectedRow = dataGridView1.Rows[rowIndex];
+                // Ota valitun rivin asiakasId
+                int asiakasId = Convert.ToInt32(selectedRow.Cells["AsiakasId"].Value);
+
+                // Kerää päivitettävät tiedot tekstikentistä
+                AsiakasTieto paivitettyAsiakas = new AsiakasTieto
+                {
+                    AsiakasId = asiakasId,
+                    Etunimi = textBox1.Text,
+                    Sukunimi = textBox2.Text,
+                    Lahiosoite = textBox3.Text,
+                    Postinro = textBox4.Text,
+                    Puhelinnro = textBox6.Text,
+                    Email = textBox7.Text,
+                    // Lisää muut tarvittavat kentät...
+                };
+
+                // Kutsu repository-metodia päivittämään asiakkaan tiedot
+                DatabaseRepository repository = new DatabaseRepository();
+                bool onnistui = repository.MuutaAsiakkaanTiedot(paivitettyAsiakas);
+
+                if (onnistui)
+                {
+                    MessageBox.Show("Asiakkaan tiedot päivitetty onnistuneesti.");
+                    LataaAsiakkaatDataGridViewiin(); // Päivitä DataGridView uusilla tiedoilla
+                }
+                else
+                {
+                    MessageBox.Show("Asiakkaan tietojen päivittäminen epäonnistui.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Valitse ensin päivitettävä asiakas.");
+            }
         }
 
         private void btnClear_Click(object sender, EventArgs e)

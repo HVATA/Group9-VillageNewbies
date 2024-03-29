@@ -284,7 +284,50 @@ namespace Group9_VillageNewbies
                 }
             }
 
+        public bool MuutaAsiakkaanTiedot(AsiakasTieto muokattuAsiakas)
+        {
+            using (var connection = new OdbcConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (var command = new OdbcCommand())
+                    {
+                        command.Connection = connection;
+                        command.CommandText = @"
+                    UPDATE asiakas
+                    SET
+                        etunimi = ?,
+                        sukunimi = ?,
+                        lahiosoite = ?,
+                        postinro = ?,
+                        puhelinnro = ?,
+                        email = ?
+                    WHERE asiakas_id = ?";
 
+                        // Lisää parametrit ODBC:n tapaan käyttäen kysymysmerkkejä ja sijoittamalla arvot järjestyksessä
+                        command.Parameters.Add(new OdbcParameter("etunimi", muokattuAsiakas.Etunimi));
+                        command.Parameters.Add(new OdbcParameter("sukunimi", muokattuAsiakas.Sukunimi));
+                        command.Parameters.Add(new OdbcParameter("lahiosoite", muokattuAsiakas.Lahiosoite));
+                        command.Parameters.Add(new OdbcParameter("postinro", muokattuAsiakas.Postinro));
+                        command.Parameters.Add(new OdbcParameter("puhelinnro", muokattuAsiakas.Puhelinnro));
+                        command.Parameters.Add(new OdbcParameter("email", muokattuAsiakas.Email));
+                        command.Parameters.Add(new OdbcParameter("asiakas_id", muokattuAsiakas.AsiakasId));
 
+                        int result = command.ExecuteNonQuery();
+                        return result > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Virhe päivitettäessä asiakkaan tietoja: {ex.Message}");
+                    return false;
+                }
+            }
         }
+
+
+
+
     }
+}
