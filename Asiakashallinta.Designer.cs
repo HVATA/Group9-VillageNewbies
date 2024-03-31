@@ -59,7 +59,7 @@
             this.textBox1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(207, 91);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(518, 24);
+            this.textBox1.Size = new System.Drawing.Size(518, 21);
             this.textBox1.TabIndex = 2;
             // 
             // textBox2
@@ -67,7 +67,7 @@
             this.textBox2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.Location = new System.Drawing.Point(207, 118);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(518, 24);
+            this.textBox2.Size = new System.Drawing.Size(518, 21);
             this.textBox2.TabIndex = 3;
             // 
             // textBox3
@@ -75,7 +75,7 @@
             this.textBox3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox3.Location = new System.Drawing.Point(207, 145);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(518, 24);
+            this.textBox3.Size = new System.Drawing.Size(518, 21);
             this.textBox3.TabIndex = 4;
             // 
             // textBox4
@@ -83,7 +83,7 @@
             this.textBox4.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox4.Location = new System.Drawing.Point(206, 171);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(518, 24);
+            this.textBox4.Size = new System.Drawing.Size(518, 21);
             this.textBox4.TabIndex = 5;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
@@ -92,7 +92,7 @@
             this.textBox6.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox6.Location = new System.Drawing.Point(207, 226);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(518, 24);
+            this.textBox6.Size = new System.Drawing.Size(518, 21);
             this.textBox6.TabIndex = 7;
             // 
             // textBox7
@@ -100,7 +100,7 @@
             this.textBox7.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox7.Location = new System.Drawing.Point(207, 253);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(518, 24);
+            this.textBox7.Size = new System.Drawing.Size(518, 21);
             this.textBox7.TabIndex = 8;
             // 
             // btnAdd
@@ -109,7 +109,7 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 9;
-            this.btnAdd.Text = "Add";
+            this.btnAdd.Text = "Lisää";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -119,7 +119,7 @@
             this.btnChange.Name = "btnChange";
             this.btnChange.Size = new System.Drawing.Size(75, 23);
             this.btnChange.TabIndex = 10;
-            this.btnChange.Text = "Change";
+            this.btnChange.Text = "Muuta";
             this.btnChange.UseVisualStyleBackColor = true;
             this.btnChange.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
@@ -129,7 +129,7 @@
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(75, 23);
             this.BtnDelete.TabIndex = 11;
-            this.BtnDelete.Text = "Delete";
+            this.BtnDelete.Text = "Poista";
             this.BtnDelete.UseVisualStyleBackColor = true;
             this.BtnDelete.Click += new System.EventHandler(this.btnDeleteCustomer_Click);
             // 
@@ -139,7 +139,7 @@
             this.label1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(52, 99);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 17);
+            this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 12;
             this.label1.Text = "Etuními :";
             this.label1.Click += new System.EventHandler(this.label1_Click_2);
@@ -150,7 +150,7 @@
             this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(52, 126);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 17);
+            this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 13;
             this.label2.Text = "Sukunimi :";
             // 
@@ -160,7 +160,7 @@
             this.label3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(52, 153);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(98, 17);
+            this.label3.Size = new System.Drawing.Size(82, 13);
             this.label3.TabIndex = 14;
             this.label3.Text = "Lähiosoite :";
             // 
@@ -170,7 +170,7 @@
             this.label4.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(52, 180);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(117, 17);
+            this.label4.Size = new System.Drawing.Size(97, 13);
             this.label4.TabIndex = 15;
             this.label4.Text = "Postinumero :";
             // 
@@ -180,7 +180,7 @@
             this.label5.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(52, 207);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(145, 17);
+            this.label5.Size = new System.Drawing.Size(124, 13);
             this.label5.TabIndex = 16;
             this.label5.Text = "Postitoimipaikka :";
             // 
@@ -190,7 +190,7 @@
             this.label6.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(52, 234);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(136, 17);
+            this.label6.Size = new System.Drawing.Size(113, 13);
             this.label6.TabIndex = 17;
             this.label6.Text = "Puhelinnumero :";
             // 
@@ -200,7 +200,7 @@
             this.label7.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(52, 261);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(105, 17);
+            this.label7.Size = new System.Drawing.Size(87, 13);
             this.label7.TabIndex = 18;
             this.label7.Text = "Sähköposti :";
             // 
@@ -210,7 +210,7 @@
             this.label8.Font = new System.Drawing.Font("Verdana", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(202, 21);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(415, 36);
+            this.label8.Size = new System.Drawing.Size(332, 29);
             this.label8.TabIndex = 19;
             this.label8.Text = "VillagePeople asiakkaat";
             // 
@@ -220,7 +220,7 @@
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 20;
-            this.btnClear.Text = "Clear";
+            this.btnClear.Text = "Tyhjennä";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
@@ -263,7 +263,7 @@
             this.label9.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(53, 320);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(76, 17);
+            this.label9.Size = new System.Drawing.Size(64, 13);
             this.label9.TabIndex = 24;
             this.label9.Text = "Järjestä:";
             // 

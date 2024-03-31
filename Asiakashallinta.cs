@@ -147,31 +147,49 @@ namespace Group9_VillageNewbies
         }
 
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            Asiakas uusiAsiakas = new Asiakas()
-            {
-                Postinro = textBox4.Text,
-                Etunimi = textBox1.Text,
-                Sukunimi = textBox2.Text,
-                Lahiosoite = textBox3.Text,
-                Email = textBox7.Text,
-                Puhelinnro = textBox6.Text
-            };
+private void btnAdd_Click(object sender, EventArgs e)
+{
+    // Sähköpostin muodon tarkistus
+    string emailPattern = @"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$";
+    if (!Regex.IsMatch(textBox7.Text, emailPattern))
+    {
+        MessageBox.Show("Sähköpostiosoite ei ole kelvollisessa muodossa.");
+        return; // Keskeytä lisäys jos sähköposti on virheellinen
+    }
 
-            DatabaseRepository repository = new DatabaseRepository();
-            bool onnistui = repository.LisaaAsiakas(uusiAsiakas);
-            if (onnistui)
-            {
-                MessageBox.Show("Asiakas lisätty onnistuneesti.");
-                LataaAsiakkaatDataGridViewiin(); // Päivitä DataGridView uusilla tiedoilla
-            }
-            else
-            {
-                MessageBox.Show("Asiakkaan lisäys epäonnistui.");
-            }
-            //PaivitaAsiakasLista(); // Päivitä listboxin tiedot lisäyksen jälkeen
-        }
+    // Puhelinnumeron muodon tarkistus
+    string phonePattern = @"^(\+358|0)\d{2,3}-?\d{5,7}$";
+    if (!Regex.IsMatch(textBox6.Text, phonePattern))
+    {
+        MessageBox.Show("Puhelinnumero ei ole kelvollisessa muodossa.");
+        return; // Keskeytä lisäys jos puhelinnumero on virheellinen
+    }
+
+    // Luo uusi asiakasobjekti
+    Asiakas uusiAsiakas = new Asiakas()
+    {
+        Postinro = textBox4.Text,
+        Etunimi = textBox1.Text,
+        Sukunimi = textBox2.Text,
+        Lahiosoite = textBox3.Text,
+        Email = textBox7.Text,
+        Puhelinnro = textBox6.Text
+    };
+
+    // Yritä lisätä asiakas tietokantaan
+    DatabaseRepository repository = new DatabaseRepository();
+    bool onnistui = repository.LisaaAsiakas(uusiAsiakas);
+    if (onnistui)
+    {
+        MessageBox.Show("Asiakas lisätty onnistuneesti.");
+        LataaAsiakkaatDataGridViewiin(); // Päivitä DataGridView uusilla tiedoilla
+    }
+    else
+    {
+        MessageBox.Show("Asiakkaan lisäys epäonnistui.");
+    }
+}
+
 
 
         private void btnUpdate_Click(object sender, EventArgs e)
