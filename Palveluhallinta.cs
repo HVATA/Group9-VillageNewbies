@@ -35,14 +35,12 @@ namespace Group9_VillageNewbies
 
             // Päivitä BindingSource alueiden tiedoilla
             alueBindingSource.DataSource = aluetiedot;
-            alueComboBox.DataSource = alueBindingSource;
+            AlueComboBox.DataSource = alueBindingSource;
 
-            // Aseta ValueMember ja DisplayMember
-            alueComboBox.ValueMember = "AlueId"; // Tarkista, että tämä vastaa alueen uniikkia tunnistetta
-            alueComboBox.DisplayMember = "Nimi"; // Tarkista, että tämä vastaa alueen nimeä
+            
 
             // Asetetaan "Kaikki palvelut" -valinta oletusvalinnaksi
-            alueComboBox.SelectedIndex = 0;
+            AlueComboBox.SelectedIndex = 0;
             }
 
         private void LataaPalvelutTietokannasta ()
@@ -52,34 +50,68 @@ namespace Group9_VillageNewbies
 
             // Päivitä BindingSource palvelutietojen tiedoilla
             palveluBindingSource.DataSource = palveluTiedot;
-            dataGridView1.DataSource = palveluBindingSource;
+            DataGridView1.DataSource = palveluBindingSource;
             }
 
-        private void alueComboBox_SelectedIndexChanged ( object sender, EventArgs e )
-            {
-            int valittuAlueId = (int) alueComboBox.SelectedValue;
-
-            if (valittuAlueId == -1) // Kaikki palvelut valittu
-                {
-                // Haetaan kaikki palvelutietojen tiedot tietokannasta
-                List<PalveluTiedot> kaikkiPalveluTiedot = PalveluTiedot.HaePalveluTiedot();
-
-                // Päivitä DataGridView kaikilla palvelutiedoilla
-                palveluBindingSource.DataSource = kaikkiPalveluTiedot;
-                }
-            else
-                {
-                // Haetaan valitun alueen palvelutietojen tiedot ja päivitetään näkymä
-                List<PalveluTiedot> alueenPalveluTiedot = PalveluTiedot.HaeAlueenPalveluTiedot(valittuAlueId);
-                palveluBindingSource.DataSource = alueenPalveluTiedot;
-                }
-            }
+        
 
         private void Palveluhallinta_Load ( object sender, EventArgs e )
             {
             // TODO: This line of code loads data into the 'dataSet1.palvelu' table. You can move, or remove it, as needed.
             this.palveluTableAdapter.Fill(this.dataSet1.palvelu);
-
             }
+
+        private void BtnDelete_Click ( object sender, EventArgs e )
+            {
+            // Täytä tarvittavat toiminnot poista-painikkeen painalluksen käsittelyyn
+            }
+
+        private void BtnAdd_Click ( object sender, EventArgs e )
+            {
+            // Täytä tarvittavat toiminnot lisää-painikkeen painalluksen käsittelyyn
+            }
+
+        private void BtnChange_Click ( object sender, EventArgs e )
+            {
+            // Täytä tarvittavat toiminnot muuta-painikkeen painalluksen käsittelyyn
+            }
+
+        private void AlueComboBox_SelectedIndexChanged ( object sender, EventArgs e )
+            {
+            // Tarkista, että SelectedItem ei ole null
+            if (AlueComboBox.SelectedItem != null)
+                {
+                // Hae valittu alue
+                Alue valittuAlue = (Alue) AlueComboBox.SelectedItem;
+
+                // Tarkista, että valittu alue ei ole null ja että sen nimi ei ole tyhjä
+                if (valittuAlue != null && !string.IsNullOrEmpty(valittuAlue.Nimi))
+                    {
+                    int valittuAlueId = valittuAlue.AlueId;
+
+                    if (valittuAlueId == -1) // Kaikki palvelut valittu
+                        {
+                        // Haetaan kaikki palvelutietojen tiedot tietokannasta
+                        List<PalveluTiedot> kaikkiPalveluTiedot = PalveluTiedot.HaePalveluTiedot();
+
+                        // Päivitä DataGridView kaikilla palvelutiedoilla
+                        palveluBindingSource.DataSource = kaikkiPalveluTiedot;
+                        }
+                    else
+                        {
+                        // Haetaan valitun alueen palvelutietojen tiedot ja päivitetään näkymä
+                        List<PalveluTiedot> alueenPalveluTiedot = PalveluTiedot.HaeAlueenPalveluTiedot(valittuAlueId);
+                        palveluBindingSource.DataSource = alueenPalveluTiedot;
+                        }
+                    }
+                else
+                    {
+                    // Jos valittu alue tai sen nimi on tyhjä, näytä virheilmoitus
+                    MessageBox.Show("Virhe: Valittu alue tai sen nimi on tyhjä.", "Virhe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+
+
         }
     }
