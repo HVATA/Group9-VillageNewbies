@@ -28,23 +28,21 @@
         /// </summary>
         private void InitializeComponent ()
             {
-            this.alueComboBox = new System.Windows.Forms.ComboBox();
+            this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.alueNimiDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nimiDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hintaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kuvausDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSet1 = new Group9_VillageNewbies.DataSet1();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.palveluTableAdapter = new Group9_VillageNewbies.DataSet1TableAdapters.palveluTableAdapter();
+            this.palveluTableAdapter1 = new Group9_VillageNewbies.DataSet1TableAdapters.palveluTableAdapter();
+            this.alueComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // alueComboBox
-            // 
-            this.alueComboBox.FormattingEnabled = true;
-            this.alueComboBox.Location = new System.Drawing.Point(225, 12);
-            this.alueComboBox.Name = "alueComboBox";
-            this.alueComboBox.Size = new System.Drawing.Size(386, 21);
-            this.alueComboBox.TabIndex = 0;
-            this.alueComboBox.SelectedIndexChanged += new System.EventHandler(this.alueComboBox_SelectedIndexChanged);
             // 
             // dataGridView1
             // 
@@ -55,10 +53,10 @@
             this.nimiDataGridViewTextBoxColumn,
             this.hintaDataGridViewTextBoxColumn,
             this.kuvausDataGridViewTextBoxColumn});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 40);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 151);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(788, 409);
+            this.dataGridView1.Size = new System.Drawing.Size(788, 298);
             this.dataGridView1.TabIndex = 2;
             // 
             // alueNimiDataGridViewTextBoxColumn
@@ -87,28 +85,60 @@
             this.kuvausDataGridViewTextBoxColumn.HeaderText = "Kuvaus";
             this.kuvausDataGridViewTextBoxColumn.Name = "kuvausDataGridViewTextBoxColumn";
             // 
+            // dataSet1
+            // 
+            this.dataSet1.DataSetName = "DataSet1";
+            this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataMember = "palvelu";
+            this.bindingSource1.DataSource = this.dataSet1;
+            // 
+            // palveluTableAdapter
+            // 
+            this.palveluTableAdapter.ClearBeforeFill = true;
+            // 
+            // palveluTableAdapter1
+            // 
+            this.palveluTableAdapter1.ClearBeforeFill = true;
+            // 
+            // alueComboBox
+            // 
+            this.alueComboBox.FormattingEnabled = true;
+            this.alueComboBox.Location = new System.Drawing.Point(256, 77);
+            this.alueComboBox.Name = "alueComboBox";
+            this.alueComboBox.Size = new System.Drawing.Size(121, 21);
+            this.alueComboBox.TabIndex = 3;
+            // 
             // Palveluhallinta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(812, 461);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.alueComboBox);
+            this.Controls.Add(this.dataGridView1);
             this.Name = "Palveluhallinta";
             this.Text = "Palveluhallinta";
+            this.Load += new System.EventHandler(this.Palveluhallinta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
 
             }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox alueComboBox;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn alueNimiDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nimiDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hintaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn kuvausDataGridViewTextBoxColumn;
+        private DataSet1 dataSet1;
+        private System.Windows.Forms.BindingSource bindingSource1;
+        private DataSet1TableAdapters.palveluTableAdapter palveluTableAdapter;
+        private DataSet1TableAdapters.palveluTableAdapter palveluTableAdapter1;
+        private System.Windows.Forms.ComboBox alueComboBox;
         }
     }

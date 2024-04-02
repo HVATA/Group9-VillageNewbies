@@ -36,8 +36,10 @@ namespace Group9_VillageNewbies
             // Päivitä BindingSource alueiden tiedoilla
             alueBindingSource.DataSource = aluetiedot;
             alueComboBox.DataSource = alueBindingSource;
-            alueComboBox.DisplayMember = "Nimi";
-            alueComboBox.ValueMember = "AlueId";
+
+            // Aseta ValueMember ja DisplayMember
+            alueComboBox.ValueMember = "AlueId"; // Tarkista, että tämä vastaa alueen uniikkia tunnistetta
+            alueComboBox.DisplayMember = "Nimi"; // Tarkista, että tämä vastaa alueen nimeä
 
             // Asetetaan "Kaikki palvelut" -valinta oletusvalinnaksi
             alueComboBox.SelectedIndex = 0;
@@ -71,6 +73,13 @@ namespace Group9_VillageNewbies
                 List<PalveluTiedot> alueenPalveluTiedot = PalveluTiedot.HaeAlueenPalveluTiedot(valittuAlueId);
                 palveluBindingSource.DataSource = alueenPalveluTiedot;
                 }
+            }
+
+        private void Palveluhallinta_Load ( object sender, EventArgs e )
+            {
+            // TODO: This line of code loads data into the 'dataSet1.palvelu' table. You can move, or remove it, as needed.
+            this.palveluTableAdapter.Fill(this.dataSet1.palvelu);
+
             }
         }
     }
