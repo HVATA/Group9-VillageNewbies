@@ -74,6 +74,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Laskujenhallinta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Laskujenhallinta.Designer.cs">
+      <DependentUpon>Laskujenhallinta.cs</DependentUpon>
+    </Compile>
     <Compile Include="LisaaPaikkakuntaForm.cs">
       <SubType>Form</SubType>
     </Compile>
