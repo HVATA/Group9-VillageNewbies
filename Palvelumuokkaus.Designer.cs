@@ -148,7 +148,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(419, 474);
+            this.ClientSize = new System.Drawing.Size(408, 462);
             this.Controls.Add(this.BtnBack);
             this.Controls.Add(this.BtnTallenna);
             this.Controls.Add(this.KuvausTextBox);

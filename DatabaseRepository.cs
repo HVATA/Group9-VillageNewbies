@@ -42,6 +42,35 @@ namespace Group9_VillageNewbies
                 }
             return dataTable;
             }
+        public int ExecuteNonQuery ( string query )
+            {
+            int rowsAffected = 0;
+            using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                OdbcCommand command = new OdbcCommand(query, connection);
+                try
+                    {
+                    connection.Open();
+                    rowsAffected = command.ExecuteNonQuery();
+                    }
+                catch (OdbcException odbcEx)
+                    {
+                    Console.WriteLine("ODBC Virhe tietokannassa: " + odbcEx.Message);
+                    }
+                catch (Exception ex)
+                    {
+                    Console.WriteLine("Yleinen virhe tietokannassa: " + ex.Message);
+                    }
+                finally
+                    {
+                    if (connection.State == ConnectionState.Open)
+                        {
+                        connection.Close();
+                        }
+                    }
+                }
+            return rowsAffected;
+            }
 
         public List<Posti> HaeKaikkiPostit ()
             {
