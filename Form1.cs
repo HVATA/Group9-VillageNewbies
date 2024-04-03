@@ -39,7 +39,8 @@ namespace Group9_VillageNewbies
 
         private void btn_lasku_Click(object sender, EventArgs e)
         {
-
+            Laskujenhallinta laskut = new Laskujenhallinta();
+            laskut.Show();
         }
     }
 }
