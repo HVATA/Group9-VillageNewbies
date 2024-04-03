@@ -167,7 +167,6 @@
             }
 
         #endregion
-        private System.Windows.Forms.DataGridView DataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn alueNimiDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nimiDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hintaDataGridViewTextBoxColumn;
@@ -180,5 +179,6 @@
         private System.Windows.Forms.Button BtnAdd;
         private System.Windows.Forms.Button BtnChange;
         private System.Windows.Forms.ComboBox AlueComboBox;
+        private System.Windows.Forms.DataGridView DataGridView1;
         }
     }

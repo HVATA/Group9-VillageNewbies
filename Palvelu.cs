@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 
 namespace Group9_VillageNewbies
@@ -15,6 +12,7 @@ namespace Group9_VillageNewbies
         public string Hinta { get; set; }
         public string Alv { get; set; }
         public int AlueId { get; set; }
+        public string AlueNimi { get; set; }
 
         public Palvelu ( string palvelu_id, string nimi, string kuvaus, string hinta, string alv, int alueId )
             {
@@ -25,13 +23,15 @@ namespace Group9_VillageNewbies
             Alv = alv;
             AlueId = alueId;
             }
-
-        public PalveluTiedot ProjisoiPalveluTiedoiksi ()
+        public Palvelu ( string nimi, string kuvaus, string hinta, string alueNimi )
             {
-            return new PalveluTiedot(Nimi, Kuvaus, Hinta, "");
+            Nimi = nimi;
+            Kuvaus = kuvaus;
+            Hinta = hinta;
+            AlueNimi = alueNimi;
             }
 
-        public static List<Palvelu> HaeKaikkiPalvelut ()
+        public static List<Palvelu> HaeKaikkiPalveluTiedot ()
             {
             List<Palvelu> palvelut = new List<Palvelu>();
             DatabaseRepository repository = new DatabaseRepository();
@@ -53,34 +53,47 @@ namespace Group9_VillageNewbies
 
             return palvelut;
             }
-
-        public static List<PalveluTiedot> HaeKaikkiPalveluTiedot ()
+        public static List<Palvelu> HaeKaikkiPalvelut ()
             {
-            List<Palvelu> kaikkiPalvelut = HaeKaikkiPalvelut();
-            List<PalveluTiedot> palveluTiedot = new List<PalveluTiedot>();
+            List<Palvelu> palvelut = new List<Palvelu>();
+            DatabaseRepository repository = new DatabaseRepository();
+            DataTable palveluTable = repository.ExecuteQuery("SELECT p.nimi AS PalvelunNimi, p.kuvaus AS PalvelunKuvaus, p.hinta AS PalvelunHinta, a.nimi AS AlueenNimi " +
+                                                        "FROM palvelu p " +
+                                                        "INNER JOIN alue a ON p.alue_id = a.alue_id");
 
-            foreach (var palvelu in kaikkiPalvelut)
+            foreach (DataRow row in palveluTable.Rows)
                 {
-                palveluTiedot.Add(palvelu.ProjisoiPalveluTiedoiksi());
+                Palvelu palvelu = new Palvelu(
+                    row["PalvelunNimi"].ToString(),
+                    row["PalvelunKuvaus"].ToString(),
+                    row["PalvelunHinta"].ToString(),
+                    row["AlueenNimi"].ToString()
+                );
+                palvelut.Add(palvelu);
                 }
 
-            return palveluTiedot;
+            return palvelut;
             }
 
-        public static List<PalveluTiedot> HaeAlueenPalveluTiedot ( int alueId )
+
+        public static List<Palvelu> HaeAlueenPalvelut ( int alueId )
             {
-            List<Palvelu> kaikkiPalvelut = HaeKaikkiPalvelut();
-            List<PalveluTiedot> alueenPalveluTiedot = new List<PalveluTiedot>();
-
-            foreach (var palvelu in kaikkiPalvelut)
+            List<Palvelu> alueenpalvelut = new List<Palvelu>();
+            DatabaseRepository repository = new DatabaseRepository();
+            DataTable results = repository.ExecuteQuery("SELECT p.nimi AS PalvelunNimi, p.kuvaus AS PalvelunKuvaus, p.hinta AS PalvelunHinta, a.nimi AS AlueenNimi " +
+                                                        "FROM palvelu p " +
+                                                        "INNER JOIN alue a ON p.alue_id = a.alue_id " +
+                                                        "WHERE a.alue_id = " + alueId);
+            foreach (DataRow row in results.Rows)
                 {
-                if (palvelu.AlueId == alueId)
-                    {
-                    alueenPalveluTiedot.Add(palvelu.ProjisoiPalveluTiedoiksi());
-                    }
+                alueenpalvelut.Add(new Palvelu(
+                    row["PalvelunNimi"].ToString(),
+                    row["PalvelunKuvaus"].ToString(),
+                    row["PalvelunHinta"].ToString(),
+                    row["AlueenNimi"].ToString()
+                ));
                 }
-
-            return alueenPalveluTiedot;
+            return alueenpalvelut;
             }
         }
     }

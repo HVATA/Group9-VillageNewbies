@@ -116,7 +116,12 @@
     <Compile Include="Palveluhallinta.Designer.cs">
       <DependentUpon>Palveluhallinta.cs</DependentUpon>
     </Compile>
-    <Compile Include="PalveluTiedot.cs" />
+    <Compile Include="Palvelumuokkaus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Palvelumuokkaus.Designer.cs">
+      <DependentUpon>Palvelumuokkaus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Posti.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Palveluhallinta.resx">
       <DependentUpon>Palveluhallinta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Palvelumuokkaus.resx">
+      <DependentUpon>Palvelumuokkaus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

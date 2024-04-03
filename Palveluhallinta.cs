@@ -46,11 +46,32 @@ namespace Group9_VillageNewbies
         private void LataaPalvelutTietokannasta ()
             {
             // Haetaan kaikki palvelutietojen tiedot tietokannasta
-            List<PalveluTiedot> palveluTiedot = PalveluTiedot.HaePalveluTiedot();
+            List<Palvelu> palveluTiedot = Palvelu.HaeKaikkiPalvelut();
 
             // Päivitä BindingSource palvelutietojen tiedoilla
             palveluBindingSource.DataSource = palveluTiedot;
             DataGridView1.DataSource = palveluBindingSource;
+
+            // Piilota palvelu_id -sarake alv -sarake ja alue_id -sarake
+            DataGridView1.Columns["Palvelu_id"].Visible = false;
+            DataGridView1.Columns["Alv"].Visible = false;
+            DataGridView1.Columns["AlueId"].Visible = false;
+
+            // Aseta ensimmäisen kolumnin (PalvelunKuvaus) leveys Fill-tilaan
+            DataGridView1.Columns["kuvausDataGridViewTextBoxColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            // Aseta muiden kolumnien leveydet
+            DataGridView1.Columns["nimiDataGridViewTextBoxColumn"].Width = 100;
+            DataGridView1.Columns["hintaDataGridViewTextBoxColumn"].Width = 100;
+            DataGridView1.Columns["alueNimiDataGridViewTextBoxColumn"].Width = 100;
+
+            // Aseta otsikoiden järjestys
+            DataGridView1.Columns["alueNimiDataGridViewTextBoxColumn"].DisplayIndex = 0;
+            DataGridView1.Columns["nimiDataGridViewTextBoxColumn"].DisplayIndex = 1;
+            DataGridView1.Columns["hintaDataGridViewTextBoxColumn"].DisplayIndex = 2;
+            DataGridView1.Columns["KuvausDataGridViewTextBoxColumn"].DisplayIndex = 3;
+
+
             }
 
         
@@ -91,17 +112,15 @@ namespace Group9_VillageNewbies
 
                     if (valittuAlueId == -1) // Kaikki palvelut valittu
                         {
-                        // Haetaan kaikki palvelutietojen tiedot tietokannasta
-                        List<PalveluTiedot> kaikkiPalveluTiedot = PalveluTiedot.HaePalveluTiedot();
 
                         // Päivitä DataGridView kaikilla palvelutiedoilla
-                        palveluBindingSource.DataSource = kaikkiPalveluTiedot;
+                        palveluBindingSource.DataSource = Palvelu.HaeKaikkiPalvelut();
                         }
                     else
                         {
                         // Haetaan valitun alueen palvelutietojen tiedot ja päivitetään näkymä
-                        List<PalveluTiedot> alueenPalveluTiedot = PalveluTiedot.HaeAlueenPalveluTiedot(valittuAlueId);
-                        palveluBindingSource.DataSource = alueenPalveluTiedot;
+                        
+                        palveluBindingSource.DataSource = Palvelu.HaeAlueenPalvelut(valittuAlueId);
                         }
                     }
                 else
