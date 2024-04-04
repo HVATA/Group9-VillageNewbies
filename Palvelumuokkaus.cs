@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Group9_VillageNewbies
@@ -14,22 +7,20 @@ namespace Group9_VillageNewbies
         {
         private bool onkoMuokkausTila;
 
-        // Konstruktori muokkaustoiminnolle
-        public Palvelumuokkaus ( string nimi, string kuvaus, string hinta, string alueNimi )
+        public Palvelumuokkaus ( string nimi, string kuvaus, string hinta, string alueNimi, string palvelu_id )
             {
             InitializeComponent();
             onkoMuokkausTila = true;
 
-            // Täytä lomakkeen kentät saaduilla tiedoilla
             PalveluNimiTextBox.Text = nimi;
             KuvausTextBox.Text = kuvaus;
             HintaTextBox.Text = hinta;
             AlueNimiTextBox.Text = alueNimi;
+            Palvelu_idTextBox.Text = palvelu_id;
 
             this.Text = "Muokkaa palvelua";
             }
 
-        // Konstruktori lisäystoiminnolle
         public Palvelumuokkaus ()
             {
             InitializeComponent();
@@ -46,15 +37,47 @@ namespace Group9_VillageNewbies
 
         private void BtnTallenna_Click ( object sender, EventArgs e )
             {
+            string nimi = PalveluNimiTextBox.Text;
+            string kuvaus = KuvausTextBox.Text;
+            string hinta = HintaTextBox.Text;
+            string alueNimi = AlueNimiTextBox.Text;
+            string palvelu_id = Palvelu_idTextBox.Text;
+            int alv = 24;
+            int alue_id = Palvelu.HaeAlueIdNimenPerusteella(alueNimi);
+
             if (onkoMuokkausTila)
                 {
-                // Toteuta muokkaustoiminto
+                bool muokkausOnnistui = Palvelu.MuokkaaPalvelu(palvelu_id.ToString(), nimi, kuvaus, hinta, alv, alue_id);
+                if (muokkausOnnistui)
+                    {
+                    MessageBox.Show("Palvelun muokkaus onnistui.", "Onnistui", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                    }
+                else
+                    {
+                    MessageBox.Show("Palvelun muokkaus epäonnistui.", "Virhe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             else
                 {
-                // Toteuta lisäystoiminto
+                if (alue_id != -1)
+                    {
+                    bool lisaysOnnistui = Palvelu.LisaaPalvelu(nimi, kuvaus, hinta, 24, alue_id);
+                    if (lisaysOnnistui)
+                        {
+                        MessageBox.Show("Palvelun lisäys onnistui.", "Onnistui", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                        }
+                    else
+                        {
+                        MessageBox.Show("Palvelun lisäys epäonnistui.", "Virhe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                else
+                    {
+                    MessageBox.Show("Aluetta ei löytynyt annetulla nimellä.", "Virhe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-            this.Close();
             }
         }
     }

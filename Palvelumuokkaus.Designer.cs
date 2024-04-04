@@ -38,6 +38,7 @@
             this.KuvausTextBox = new System.Windows.Forms.TextBox();
             this.BtnTallenna = new System.Windows.Forms.Button();
             this.BtnBack = new System.Windows.Forms.Button();
+            this.Palvelu_idTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBox1
@@ -143,12 +144,22 @@
             this.BtnBack.UseVisualStyleBackColor = true;
             this.BtnBack.Click += new System.EventHandler(this.BtnBack_Click);
             // 
+            // Palvelu_idTextBox
+            // 
+            this.Palvelu_idTextBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Palvelu_idTextBox.Location = new System.Drawing.Point(313, 267);
+            this.Palvelu_idTextBox.Name = "Palvelu_idTextBox";
+            this.Palvelu_idTextBox.Size = new System.Drawing.Size(83, 20);
+            this.Palvelu_idTextBox.TabIndex = 11;
+            this.Palvelu_idTextBox.Visible = false;
+            // 
             // Palvelumuokkaus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(408, 462);
+            this.Controls.Add(this.Palvelu_idTextBox);
             this.Controls.Add(this.BtnBack);
             this.Controls.Add(this.BtnTallenna);
             this.Controls.Add(this.KuvausTextBox);
@@ -161,6 +172,7 @@
             this.Controls.Add(this.textBox1);
             this.Name = "Palvelumuokkaus";
             this.Text = "Palvelumuokkaus";
+            
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,5 +189,6 @@
         private System.Windows.Forms.TextBox KuvausTextBox;
         private System.Windows.Forms.Button BtnTallenna;
         private System.Windows.Forms.Button BtnBack;
+        private System.Windows.Forms.TextBox Palvelu_idTextBox;
         }
     }

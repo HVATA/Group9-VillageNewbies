@@ -138,10 +138,14 @@ namespace Group9_VillageNewbies
         public static bool LisaaPalvelu ( string nimi, string kuvaus, string hinta, int alv, int alueId )
             {
             bool lisaysOnnistui = false;
+            // lisää int tyyppi joka on random numero 1-5 välillä
+            Random rnd = new Random();
+            int tyyppi = rnd.Next(1, 5);
+
             try
                 {
                 DatabaseRepository repository = new DatabaseRepository();
-                string query = "INSERT INTO palvelu (nimi, kuvaus, hinta, alv, alue_id) VALUES ('" + nimi + "', '" + kuvaus + "', '" + hinta + "', " + alv + ", " + alueId + ")";
+                string query = "INSERT INTO palvelu (nimi, tyyppi, kuvaus, hinta, alv, alue_id) VALUES ('" + nimi + "', '" + tyyppi + "', '" + kuvaus + "', '" + hinta + "', " + alv + ", " + alueId + ")";
                 repository.ExecuteNonQuery(query);
                 lisaysOnnistui = true;
                 }
@@ -168,6 +172,7 @@ namespace Group9_VillageNewbies
                 }
             return muokkausOnnistui;
             }
+
         public static int HaeAlueIdNimenPerusteella ( string alueenNimi )
             {
             int alueId = -1; // Alueen id, joka palautetaan (-1 jos aluetta ei löydy)
@@ -195,10 +200,6 @@ namespace Group9_VillageNewbies
 
             return alueId;
             }
-
-
-
-
 
         }
     }

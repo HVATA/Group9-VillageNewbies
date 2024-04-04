@@ -24,6 +24,10 @@ namespace Group9_VillageNewbies
             LataaAlueetTietokannasta();
             LataaPalvelutTietokannasta();
             }
+        private void Palveluhallinta_Activated ( object sender, EventArgs e )
+            {
+            LataaPalvelutTietokannasta(); // Päivitä palvelutiedot, kun lomake tulee aktiiviseksi
+            }
 
         private void LataaAlueetTietokannasta ()
             {
@@ -43,7 +47,7 @@ namespace Group9_VillageNewbies
             AlueComboBox.SelectedIndex = 0;
             }
 
-        private void LataaPalvelutTietokannasta ()
+        public void LataaPalvelutTietokannasta ()
             {
             // Haetaan kaikki palvelutietojen tiedot tietokannasta
             List<Palvelu> palveluTiedot = Palvelu.HaeKaikkiPalveluTiedot();
@@ -178,13 +182,13 @@ namespace Group9_VillageNewbies
                 string kuvaus = selectedRow.Cells["kuvausDataGridViewTextBoxColumn"].Value.ToString();
                 string hinta = selectedRow.Cells["hintaDataGridViewTextBoxColumn"].Value.ToString();
                 string alueNimi = selectedRow.Cells["alueNimiDataGridViewTextBoxColumn"].Value.ToString();
-                
+                string palvelu_id = selectedRow.Cells["Palvelu_id"].Value.ToString();
 
                 // Avaa Palvelumuokkaus-lomake valitun rivin tiedoilla
-                Palvelumuokkaus muokkauslomake = new Palvelumuokkaus(nimi, kuvaus, hinta, alueNimi);
+                Palvelumuokkaus muokkauslomake = new Palvelumuokkaus(nimi, kuvaus, hinta, alueNimi, palvelu_id);
                 muokkauslomake.ShowDialog();
 
-                // Päivitä näkymä
+                // Päivitä palvelutiedot muokkauksen jälkeen
                 LataaPalvelutTietokannasta();
                 }
             else
@@ -193,19 +197,18 @@ namespace Group9_VillageNewbies
                 }
             }
 
+
         private void BtnAdd_Click ( object sender, EventArgs e )
             {
             // Avaa Palvelumuokkaus-lomake uuden palvelun lisäämistä varten
             Palvelumuokkaus lisayslomake = new Palvelumuokkaus();
             lisayslomake.ShowDialog();
 
-            // Tarkista, onko käyttäjä tallentanut uuden palvelun ja päivitä näkymä
-            if (lisayslomake.DialogResult == DialogResult.OK)
-                {
-                // Uusi palvelu on lisätty, päivitä näkymä
-                LataaPalvelutTietokannasta();
-                }
+            // Päivitä palvelutiedot lisäyksen jälkeen
+            LataaPalvelutTietokannasta();
             }
+
+
 
 
 
