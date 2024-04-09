@@ -95,7 +95,7 @@
             this.btnClearAlue.Name = "btnClearAlue";
             this.btnClearAlue.Size = new System.Drawing.Size(75, 23);
             this.btnClearAlue.TabIndex = 43;
-            this.btnClearAlue.Text = "Clear";
+            this.btnClearAlue.Text = "Tyhjennä";
             this.btnClearAlue.UseVisualStyleBackColor = true;
             this.btnClearAlue.Click += new System.EventHandler(this.btnClearAlue_Click);
             // 
@@ -115,7 +115,7 @@
             this.BtnDeleteAlue.Name = "BtnDeleteAlue";
             this.BtnDeleteAlue.Size = new System.Drawing.Size(75, 23);
             this.BtnDeleteAlue.TabIndex = 35;
-            this.BtnDeleteAlue.Text = "Delete";
+            this.BtnDeleteAlue.Text = "Poista";
             this.BtnDeleteAlue.UseVisualStyleBackColor = true;
             this.BtnDeleteAlue.Click += new System.EventHandler(this.BtnDeleteAlue_Click);
             // 
@@ -125,7 +125,7 @@
             this.btnChangeAlue.Name = "btnChangeAlue";
             this.btnChangeAlue.Size = new System.Drawing.Size(75, 23);
             this.btnChangeAlue.TabIndex = 34;
-            this.btnChangeAlue.Text = "Change";
+            this.btnChangeAlue.Text = "Muokkaa";
             this.btnChangeAlue.UseVisualStyleBackColor = true;
             this.btnChangeAlue.Click += new System.EventHandler(this.btnChangeAlue_Click);
             // 
@@ -135,7 +135,7 @@
             this.btnAddAlue.Name = "btnAddAlue";
             this.btnAddAlue.Size = new System.Drawing.Size(75, 23);
             this.btnAddAlue.TabIndex = 33;
-            this.btnAddAlue.Text = "Add";
+            this.btnAddAlue.Text = "Lisää";
             this.btnAddAlue.UseVisualStyleBackColor = true;
             this.btnAddAlue.Click += new System.EventHandler(this.btnAddAlue_Click);
             // 
@@ -293,7 +293,7 @@
             this.btnClearMokki.Name = "btnClearMokki";
             this.btnClearMokki.Size = new System.Drawing.Size(75, 23);
             this.btnClearMokki.TabIndex = 63;
-            this.btnClearMokki.Text = "Clear";
+            this.btnClearMokki.Text = "Tyhjennä";
             this.btnClearMokki.UseVisualStyleBackColor = true;
             this.btnClearMokki.Click += new System.EventHandler(this.btnClearMokki_Click);
             // 
@@ -303,7 +303,7 @@
             this.btnDeleteMokki.Name = "btnDeleteMokki";
             this.btnDeleteMokki.Size = new System.Drawing.Size(75, 23);
             this.btnDeleteMokki.TabIndex = 62;
-            this.btnDeleteMokki.Text = "Delete";
+            this.btnDeleteMokki.Text = "Poista";
             this.btnDeleteMokki.UseVisualStyleBackColor = true;
             this.btnDeleteMokki.Click += new System.EventHandler(this.btnDeleteMokki_Click);
             // 
@@ -313,7 +313,7 @@
             this.btnChangeMokki.Name = "btnChangeMokki";
             this.btnChangeMokki.Size = new System.Drawing.Size(75, 23);
             this.btnChangeMokki.TabIndex = 61;
-            this.btnChangeMokki.Text = "Change";
+            this.btnChangeMokki.Text = "Muokkaa";
             this.btnChangeMokki.UseVisualStyleBackColor = true;
             this.btnChangeMokki.Click += new System.EventHandler(this.btnChangeMokki_Click);
             // 
@@ -323,7 +323,7 @@
             this.btnAddMokki.Name = "btnAddMokki";
             this.btnAddMokki.Size = new System.Drawing.Size(75, 23);
             this.btnAddMokki.TabIndex = 60;
-            this.btnAddMokki.Text = "Add";
+            this.btnAddMokki.Text = "Lisää";
             this.btnAddMokki.UseVisualStyleBackColor = true;
             this.btnAddMokki.Click += new System.EventHandler(this.btnAddMokki_Click);
             // 

@@ -10,6 +10,7 @@ namespace Group9_VillageNewbies
     public class AlueTieto
     {
         public string AlueNimi { get; set; }
+        public string Alue_id { get; set; } 
 
         public override string ToString()
         {

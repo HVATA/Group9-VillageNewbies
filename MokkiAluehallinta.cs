@@ -18,6 +18,7 @@ namespace Group9_VillageNewbies
         List<MokkiTieto> mokkiTiedot = new List<MokkiTieto>();
         List<Posti> postiTiedot = new List<Posti>();
         private bool btnAddAlueClicked = false;
+        AlueTieto aluetiedot2 = new AlueTieto();
         public MokkiAluehallinta()
         {
             InitializeComponent();
@@ -42,6 +43,7 @@ namespace Group9_VillageNewbies
                 {
                     // Aseta tiedot row:sta
                     AlueNimi = row["nimi"].ToString(),
+                    Alue_id = row["alue_id"].ToString(),
 
                 };
                 alueTiedot.Add(alue);
@@ -68,7 +70,7 @@ namespace Group9_VillageNewbies
             foreach (var alue in alueTiedot)
             {
 
-                string alueTieto = $"{alue.AlueNimi}";
+                string alueTieto = $"{alue.AlueNimi}" + "," + $"{alue.Alue_id}";
                 listBoxAlue.Items.Add(alueTieto);
 
             }
@@ -151,7 +153,45 @@ namespace Group9_VillageNewbies
 
         private void btnChangeAlue_Click(object sender, EventArgs e)//jää pohtimaan
         {
+            if (!string.IsNullOrEmpty(textBoxAlue.Text))
+            {
+                for (int i = 0; i < listBoxAlue.Items.Count; i++)
+                {
+                    string itemText = listBoxAlue.Items[i].ToString();
+                    string[] parts = itemText.Split(',');
+                    string alueid = parts[1].Trim();
+                    string aluenimi = parts[0].Trim();
+                    if (alueid == aluetiedot2.Alue_id) //Tarkistetaan onko valittu alueid sama kuin listboxista aiemmin valittu alueid
+                    {
+                        if(aluenimi == textBoxAlue.Text) //Tarkistetaan onko valitulle aluetiedolle vaihdettu aluenimi vai ei
+                        {
+                            MessageBox.Show("Ei muutettavaa");
+                        }
+                        else
+                        {
+                            //Muutetaan aluetietokantaan
+                            DatabaseRepository repository = new DatabaseRepository();
+                            bool onnistui = repository.MuutaAlueTieto(new AlueTieto() { AlueNimi = textBoxAlue.Text, Alue_id = aluetiedot2.Alue_id });
+                            if (onnistui)
+                            {
+                                MessageBox.Show("Alue muutettu onnistuneesti.");
 
+                            }
+                            else
+                            {
+                                MessageBox.Show("Alueen muuttaminen epäonnistui.");
+                            }
+                            break; // Poistu silmukasta kun aluetieto on muutettu
+                        } 
+                    }
+                }
+                LataaAlueetKannasta();
+                PaivitaAlueLista(); // Päivitä listboxin tiedot lisäyksen jälkeen
+            }
+            else
+            {
+                MessageBox.Show("Muokatakseni aluetietoja, valitse alue ensin listasta tekstikenttään ja vaihda sen nimeä");
+            }
         }
 
         private void BtnDeleteAlue_Click(object sender, EventArgs e)
@@ -296,7 +336,14 @@ namespace Group9_VillageNewbies
 
         private void btnChangeMokki_Click(object sender, EventArgs e)//en tiiä tarviiko sinänsä
         {
+            if (!string.IsNullOrEmpty(txtBoxMokNimi.Text))
+            {
 
+            }
+            else
+            {
+                MessageBox.Show("Muokatakseni mokkitietoja, valitse mokki ensin listasta tekstikenttään ja vaihda sen ni");
+            }
         }
 
         private void btnDeleteMokki_Click(object sender, EventArgs e)
@@ -339,13 +386,27 @@ namespace Group9_VillageNewbies
         {
             if (listBoxAlue.SelectedIndex != -1)
             {
+                AlueTieto alueTieto2 = new AlueTieto();
                 var tiedot = listBoxAlue.SelectedItem.ToString().Split(','); // Jakaa valitun kohteen sanallisesti
                 string alue = tiedot[0]; // Alueen nimi
-
                 textBoxAlue.Text = alue;
+
+                for (int i = 0; i < alueTiedot.Count; i++)
+                {
+                    if (alue == alueTiedot[i].ToString())
+                    {
+                        alueTieto2 = alueTiedot[i];
+                        break;
+                    }
+                }
+                aluetiedot2.Alue_id = alueTieto2.Alue_id;
+                aluetiedot2.AlueNimi = alueTieto2.AlueNimi;
+                MessageBox.Show("Alueen nimi: " + aluetiedot2.AlueNimi + "\n" + "Alueen id: " + aluetiedot2.Alue_id);
+                
+
+
             }
         }
-
         private void listBoxMokki_SelectedIndexChanged(object sender, EventArgs e)//Valitaan mitkä tiedot tuodaan lomakkeelle
         {
 
