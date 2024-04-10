@@ -311,7 +311,7 @@ namespace Group9_VillageNewbies
                         MokkiTieto uusiMokki = new MokkiTieto();
                         uusiMokki.Mokki_id = iMokkiIdTarkistus.ToString();
                         uusiMokki.Postinro = txtBoxMokPostinro.Text;
-                        uusiMokki.Mokkinimi = txtBoxMokID.Text;
+                        uusiMokki.Mokkinimi = txtBoxMokNimi.Text;
                         uusiMokki.Katuosoite = txtBoxMokOsoite.Text;
                         uusiMokki.Alue = comboBoxAlue.SelectedIndex.ToString();
                         uusiMokki.Varustelu = txtBoxMokVarust.Text;
@@ -344,7 +344,7 @@ namespace Group9_VillageNewbies
                         MokkiTieto uusiMokki = new MokkiTieto();
                         uusiMokki.Mokki_id = iMokkiIdTarkistus.ToString();
                         uusiMokki.Postinro = txtBoxMokPostinro.Text;
-                        uusiMokki.Mokkinimi = txtBoxMokID.Text;
+                        uusiMokki.Mokkinimi = txtBoxMokNimi.Text;
                         uusiMokki.Katuosoite = txtBoxMokOsoite.Text;
                         uusiMokki.Alue = comboBoxAlue.SelectedIndex.ToString();
                         uusiMokki.Varustelu = txtBoxMokVarust.Text;
@@ -398,12 +398,14 @@ namespace Group9_VillageNewbies
                         {
                             MessageBox.Show("Mökin tietojen muuttaminen epäonnistui.");
                         }*/
-                        LataaMokitKannasta();
-                        PaivitaMokkiLista();
+                        //LataaMokitKannasta();
+                        //PaivitaMokkiLista();
 
                         
                     }
                 }
+                LataaMokitKannasta();
+                PaivitaMokkiLista();
             }
             else
             {
@@ -466,7 +468,7 @@ namespace Group9_VillageNewbies
                 }
                 aluetieto2.Alue_id = alueTieto2.Alue_id;
                 aluetieto2.AlueNimi = alueTieto2.AlueNimi;
-                MessageBox.Show("Alueen nimi: " + aluetieto2.AlueNimi + "\n" + "Alueen id: " + aluetieto2.Alue_id);
+                //MessageBox.Show("Alueen nimi: " + aluetieto2.AlueNimi + "\n" + "Alueen id: " + aluetieto2.Alue_id);
                 
 
 
