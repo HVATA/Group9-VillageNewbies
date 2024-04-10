@@ -16,6 +16,7 @@ namespace Group9_VillageNewbies
         public string Henkilomaara { get; set; }
         public string Varustelu { get; set; }
         public string Alue { get; set; }
+        public string Mokki_id { get; set; }
 
         public override string ToString()
         {

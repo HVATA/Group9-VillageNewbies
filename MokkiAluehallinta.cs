@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Linq;
 
 namespace Group9_VillageNewbies
 {
@@ -18,7 +19,9 @@ namespace Group9_VillageNewbies
         List<MokkiTieto> mokkiTiedot = new List<MokkiTieto>();
         List<Posti> postiTiedot = new List<Posti>();
         private bool btnAddAlueClicked = false;
-        AlueTieto aluetiedot2 = new AlueTieto();
+        AlueTieto aluetieto2 = new AlueTieto();
+        int iAlueIdTarkistus = 1;
+        int iMokkiIdTarkistus = 1;
         public MokkiAluehallinta()
         {
             InitializeComponent();
@@ -29,6 +32,19 @@ namespace Group9_VillageNewbies
             LataaMokitKannasta();
             PaivitaMokkiLista();
             LisaaComboBoxinAlueet();
+            /*foreach(MokkiTieto mokki in mokkiTiedot) //Tarkistetaan että mokki_id tulee kannasta
+            {
+                MessageBox.Show(mokki.Mokki_id);
+            }*/
+            ////////////////////////////////////////////////////////////////////////////////////
+            foreach(AlueTieto al in alueTiedot)
+            {
+                iAlueIdTarkistus++;
+            };
+            foreach(MokkiTieto mok in mokkiTiedot)
+            {
+                iMokkiIdTarkistus++;
+            }
         }
         private void LataaAlueetKannasta()//Haetaan alueet kannasta
         {
@@ -47,29 +63,20 @@ namespace Group9_VillageNewbies
 
                 };
                 alueTiedot.Add(alue);
+               
             }
+            alueTiedot.Sort((a, b) => string.Compare(a.Alue_id, b.Alue_id)); //Järjestetää listaan alue_id:n mukaisesti
         }
-        /*
-        private void PoistaAlueListasta()
-        {
-            foreach (AlueTieto alueTieto in alueTiedot)
-            {
-                if(alueTieto.AlueNimi == textBoxAlue.Text)
-                {
-                    alueTiedot.Remove(alueTieto);
-                }
-            }
-        }*/
         private void PaivitaAlueLista()
         {
             listBoxAlue.Items.Clear(); // Tyhjennä listbox ennen uusien tietojen lisäämistä
 
             DatabaseRepository repository = new DatabaseRepository();
             List<Posti> postit = repository.HaeKaikkiPostit();
-
+            int iTark = 1;
             foreach (var alue in alueTiedot)
             {
-
+                
                 string alueTieto = $"{alue.AlueNimi}" + "," + $"{alue.Alue_id}";
                 listBoxAlue.Items.Add(alueTieto);
 
@@ -89,6 +96,7 @@ namespace Group9_VillageNewbies
                 MokkiTieto mokki = new MokkiTieto()
                 {
                     // Aseta tiedot row:sta
+                    Mokki_id = row["mokki_id"].ToString(),
                     Alue = row["alueen_nimi"].ToString(),
                     Postinro = row["postinro"].ToString(),
                     Mokkinimi = row["mokkinimi"].ToString(),
@@ -110,6 +118,7 @@ namespace Group9_VillageNewbies
             foreach (var mokki in mokkiTiedot)
             {
                 // Muodosta merkkijono, jossa on asiakkaan tiedot ja lisää se ListBoxiin
+                string mok_id = $"{mokki.Mokki_id}";
                 string mok_alue = $"{mokki.Alue}";
                 string mok_postinro = $"{mokki.Postinro}";
                 string mok_mokkinimi = $"{mokki.Mokkinimi}";
@@ -121,7 +130,30 @@ namespace Group9_VillageNewbies
                 listBoxMokki.Items.Add(mokki);
             }
         }
-
+        private void LisaaComboBoxinAlueet()
+        {
+            alueTiedot.Sort((a, b) => string.Compare(a.Alue_id, b.Alue_id));
+            comboBoxAlue.Items.Add("Valitse mökkille tarkoitettu alue");
+            foreach (AlueTieto alueTieto in alueTiedot)
+            {
+                comboBoxAlue.Items.Add(alueTieto.AlueNimi);
+            }
+        }
+        private void PaivitaComboBox()
+        {
+            comboBoxAlue.Items.Clear();
+            foreach (AlueTieto alueTieto in alueTiedot)
+            {
+                if(alueTieto.Alue_id == aluetieto2.Alue_id)
+                {
+                    foreach (AlueTieto alueInfo in alueTiedot)
+                    {
+                        
+                        comboBoxAlue.Items.Add(alueInfo.AlueNimi);
+                    }
+                }
+            }
+        }
         private void btnClearAlue_Click(object sender, EventArgs e)
         {
             // Tyhjennä kaikki tekstikentät
@@ -133,7 +165,9 @@ namespace Group9_VillageNewbies
             btnAddAlueClicked = true; //apuvälineenä aluecomboxiin tiedon välityksessä
             AlueTieto uusiAlue = new AlueTieto()
             {
-                AlueNimi = textBoxAlue.Text
+                AlueNimi = textBoxAlue.Text,
+                Alue_id = iAlueIdTarkistus.ToString(),
+               
             };
 
             DatabaseRepository repository = new DatabaseRepository();
@@ -161,7 +195,7 @@ namespace Group9_VillageNewbies
                     string[] parts = itemText.Split(',');
                     string alueid = parts[1].Trim();
                     string aluenimi = parts[0].Trim();
-                    if (alueid == aluetiedot2.Alue_id) //Tarkistetaan onko valittu alueid sama kuin listboxista aiemmin valittu alueid
+                    if (alueid == aluetieto2.Alue_id) //Tarkistetaan onko valittu alueid sama kuin listboxista aiemmin valittu alueid
                     {
                         if(aluenimi == textBoxAlue.Text) //Tarkistetaan onko valitulle aluetiedolle vaihdettu aluenimi vai ei
                         {
@@ -171,7 +205,7 @@ namespace Group9_VillageNewbies
                         {
                             //Muutetaan aluetietokantaan
                             DatabaseRepository repository = new DatabaseRepository();
-                            bool onnistui = repository.MuutaAlueTieto(new AlueTieto() { AlueNimi = textBoxAlue.Text, Alue_id = aluetiedot2.Alue_id });
+                            bool onnistui = repository.MuutaAlueTieto(new AlueTieto() { AlueNimi = textBoxAlue.Text, Alue_id = aluetieto2.Alue_id });
                             if (onnistui)
                             {
                                 MessageBox.Show("Alue muutettu onnistuneesti.");
@@ -186,7 +220,8 @@ namespace Group9_VillageNewbies
                     }
                 }
                 LataaAlueetKannasta();
-                PaivitaAlueLista(); // Päivitä listboxin tiedot lisäyksen jälkeen
+                PaivitaAlueLista();
+                PaivitaComboBox();
             }
             else
             {
@@ -258,7 +293,7 @@ namespace Group9_VillageNewbies
             txtBoxMokHinta.Clear();
             txtBoxMokKuvaus.Clear();
             txtBoxMokMaara.Clear();
-            txtBoxMokNimi.Clear();
+            txtBoxMokID.Clear();
             txtBoxMokOsoite.Clear();
             txtBoxMokPostinro.Clear();
             txtBoxMokVarust.Clear();
@@ -274,8 +309,9 @@ namespace Group9_VillageNewbies
                     if (posti.Postinro == txtBoxMokPostinro.Text)
                     {
                         MokkiTieto uusiMokki = new MokkiTieto();
+                        uusiMokki.Mokki_id = iMokkiIdTarkistus.ToString();
                         uusiMokki.Postinro = txtBoxMokPostinro.Text;
-                        uusiMokki.Mokkinimi = txtBoxMokNimi.Text;
+                        uusiMokki.Mokkinimi = txtBoxMokID.Text;
                         uusiMokki.Katuosoite = txtBoxMokOsoite.Text;
                         uusiMokki.Alue = comboBoxAlue.SelectedIndex.ToString();
                         uusiMokki.Varustelu = txtBoxMokVarust.Text;
@@ -304,10 +340,11 @@ namespace Group9_VillageNewbies
                         uusiPosti.Toimipaikka = comboBoxAlue.Text;
                         DatabaseRepository repository = new DatabaseRepository();
                         repository.LisaaPosti(uusiPosti);
-
+                        
                         MokkiTieto uusiMokki = new MokkiTieto();
+                        uusiMokki.Mokki_id = iMokkiIdTarkistus.ToString();
                         uusiMokki.Postinro = txtBoxMokPostinro.Text;
-                        uusiMokki.Mokkinimi = txtBoxMokNimi.Text;
+                        uusiMokki.Mokkinimi = txtBoxMokID.Text;
                         uusiMokki.Katuosoite = txtBoxMokOsoite.Text;
                         uusiMokki.Alue = comboBoxAlue.SelectedIndex.ToString();
                         uusiMokki.Varustelu = txtBoxMokVarust.Text;
@@ -334,23 +371,51 @@ namespace Group9_VillageNewbies
             
         }
 
-        private void btnChangeMokki_Click(object sender, EventArgs e)//en tiiä tarviiko sinänsä
+        private void btnChangeMokki_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtBoxMokNimi.Text))
+            if (!string.IsNullOrEmpty(txtBoxMokID.Text))
             {
+                foreach(MokkiTieto mokki in mokkiTiedot) //Tarkistetaan että mitä muutetaan
+                {
+                    if(mokki.Mokki_id == (txtBoxMokID.Text))
+                    {
+                        mokki.Alue = comboBoxAlue.SelectedIndex.ToString();
+                        mokki.Postinro = txtBoxMokPostinro.Text;
+                        mokki.Mokkinimi = txtBoxMokNimi.Text;
+                        mokki.Katuosoite = txtBoxMokOsoite.Text;
+                        mokki.Hinta = txtBoxMokHinta.Text;
+                        mokki.Kuvaus = txtBoxMokKuvaus.Text;
+                        mokki.Henkilomaara = txtBoxMokMaara.Text;
+                        mokki.Varustelu = txtBoxMokVarust.Text;
 
+                        DatabaseRepository repository = new DatabaseRepository();
+                        repository.MuutaMokkiTieto(mokki);
+                        /*
+                        {
+                            MessageBox.Show("Mökin tiedot muutettu onnistuneesti.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Mökin tietojen muuttaminen epäonnistui.");
+                        }*/
+                        LataaMokitKannasta();
+                        PaivitaMokkiLista();
+
+                        
+                    }
+                }
             }
             else
             {
-                MessageBox.Show("Muokatakseni mokkitietoja, valitse mokki ensin listasta tekstikenttään ja vaihda sen ni");
+                MessageBox.Show("Muokataksesi mökkitietoja, valitse mökki ensin listasta tekstikenttään.");
             }
         }
 
         private void btnDeleteMokki_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtBoxMokNimi.Text))
+            if (!string.IsNullOrEmpty(txtBoxMokID.Text))
             {
-                string poistettavaMokki = txtBoxMokNimi.Text;
+                string poistettavaMokki = txtBoxMokID.Text;
 
                 // Poista alue myös tietokannasta
                 DatabaseRepository repository = new DatabaseRepository();
@@ -399,9 +464,9 @@ namespace Group9_VillageNewbies
                         break;
                     }
                 }
-                aluetiedot2.Alue_id = alueTieto2.Alue_id;
-                aluetiedot2.AlueNimi = alueTieto2.AlueNimi;
-                MessageBox.Show("Alueen nimi: " + aluetiedot2.AlueNimi + "\n" + "Alueen id: " + aluetiedot2.Alue_id);
+                aluetieto2.Alue_id = alueTieto2.Alue_id;
+                aluetieto2.AlueNimi = alueTieto2.AlueNimi;
+                MessageBox.Show("Alueen nimi: " + aluetieto2.AlueNimi + "\n" + "Alueen id: " + aluetieto2.Alue_id);
                 
 
 
@@ -419,6 +484,7 @@ namespace Group9_VillageNewbies
                     if (mokki.Mokkinimi == selectedMokki)
                     {
                         comboBoxAlue.Text = $"{mokki.Alue}";
+                        txtBoxMokID.Text = $"{mokki.Mokki_id}";
                         txtBoxMokPostinro.Text = $"{mokki.Postinro}";
                         txtBoxMokNimi.Text = $"{mokki.Mokkinimi}";
                         txtBoxMokOsoite.Text = $"{mokki.Katuosoite}";
@@ -432,14 +498,9 @@ namespace Group9_VillageNewbies
                     }
                 }
             }
+            
         }
-        private void LisaaComboBoxinAlueet()
-        {
-            foreach (AlueTieto alueTieto in alueTiedot)
-            {
-                comboBoxAlue.Items.Add(alueTieto.AlueNimi);
-            }
-        }
+        
         private void LisaaUusiAlueComboBoxiin()
         {
 
@@ -453,6 +514,15 @@ namespace Group9_VillageNewbies
             }
         }
         private void comboBoxAlue_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBoxAlue.SelectedIndex == 0)
+            {
+                MessageBox.Show("Valitse alue");
+            }
+
+        }
+
+        private void MokkiAluehallinta_Load(object sender, EventArgs e)
         {
 
         }

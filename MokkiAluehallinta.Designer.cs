@@ -40,7 +40,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtBoxMokNimi = new System.Windows.Forms.TextBox();
+            this.txtBoxMokID = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtBoxMokHinta = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -63,6 +63,8 @@
             this.comboBoxAlue = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtBoxMokPostinro = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtBoxMokNimi = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -181,25 +183,26 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(449, 161);
+            this.label10.Location = new System.Drawing.Point(425, 193);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(44, 13);
+            this.label10.Size = new System.Drawing.Size(68, 13);
             this.label10.TabIndex = 49;
-            this.label10.Text = "Nimi :";
+            this.label10.Text = "MokkiID :";
             // 
-            // txtBoxMokNimi
+            // txtBoxMokID
             // 
-            this.txtBoxMokNimi.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxMokNimi.Location = new System.Drawing.Point(503, 158);
-            this.txtBoxMokNimi.Name = "txtBoxMokNimi";
-            this.txtBoxMokNimi.Size = new System.Drawing.Size(196, 21);
-            this.txtBoxMokNimi.TabIndex = 48;
+            this.txtBoxMokID.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxMokID.Location = new System.Drawing.Point(503, 190);
+            this.txtBoxMokID.Name = "txtBoxMokID";
+            this.txtBoxMokID.ReadOnly = true;
+            this.txtBoxMokID.Size = new System.Drawing.Size(196, 21);
+            this.txtBoxMokID.TabIndex = 48;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(449, 215);
+            this.label11.Location = new System.Drawing.Point(449, 247);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(49, 13);
             this.label11.TabIndex = 53;
@@ -208,7 +211,7 @@
             // txtBoxMokHinta
             // 
             this.txtBoxMokHinta.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxMokHinta.Location = new System.Drawing.Point(503, 212);
+            this.txtBoxMokHinta.Location = new System.Drawing.Point(503, 244);
             this.txtBoxMokHinta.Name = "txtBoxMokHinta";
             this.txtBoxMokHinta.Size = new System.Drawing.Size(196, 21);
             this.txtBoxMokHinta.TabIndex = 52;
@@ -217,7 +220,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(409, 188);
+            this.label12.Location = new System.Drawing.Point(409, 220);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(84, 13);
             this.label12.TabIndex = 51;
@@ -226,7 +229,7 @@
             // txtBoxMokOsoite
             // 
             this.txtBoxMokOsoite.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxMokOsoite.Location = new System.Drawing.Point(503, 185);
+            this.txtBoxMokOsoite.Location = new System.Drawing.Point(503, 217);
             this.txtBoxMokOsoite.Name = "txtBoxMokOsoite";
             this.txtBoxMokOsoite.Size = new System.Drawing.Size(196, 21);
             this.txtBoxMokOsoite.TabIndex = 50;
@@ -235,7 +238,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(435, 389);
+            this.label13.Location = new System.Drawing.Point(435, 413);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(62, 13);
             this.label13.TabIndex = 59;
@@ -244,7 +247,7 @@
             // txtBoxMokKuvaus
             // 
             this.txtBoxMokKuvaus.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxMokKuvaus.Location = new System.Drawing.Point(503, 386);
+            this.txtBoxMokKuvaus.Location = new System.Drawing.Point(503, 410);
             this.txtBoxMokKuvaus.Multiline = true;
             this.txtBoxMokKuvaus.Name = "txtBoxMokKuvaus";
             this.txtBoxMokKuvaus.Size = new System.Drawing.Size(196, 79);
@@ -254,7 +257,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(420, 304);
+            this.label14.Location = new System.Drawing.Point(420, 328);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(77, 13);
             this.label14.TabIndex = 57;
@@ -263,7 +266,7 @@
             // txtBoxMokVarust
             // 
             this.txtBoxMokVarust.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxMokVarust.Location = new System.Drawing.Point(503, 301);
+            this.txtBoxMokVarust.Location = new System.Drawing.Point(503, 325);
             this.txtBoxMokVarust.Multiline = true;
             this.txtBoxMokVarust.Name = "txtBoxMokVarust";
             this.txtBoxMokVarust.Size = new System.Drawing.Size(196, 79);
@@ -273,7 +276,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(392, 242);
+            this.label15.Location = new System.Drawing.Point(392, 274);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(106, 13);
             this.label15.TabIndex = 55;
@@ -282,7 +285,7 @@
             // txtBoxMokMaara
             // 
             this.txtBoxMokMaara.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxMokMaara.Location = new System.Drawing.Point(503, 239);
+            this.txtBoxMokMaara.Location = new System.Drawing.Point(503, 271);
             this.txtBoxMokMaara.Name = "txtBoxMokMaara";
             this.txtBoxMokMaara.Size = new System.Drawing.Size(196, 21);
             this.txtBoxMokMaara.TabIndex = 54;
@@ -393,7 +396,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(428, 269);
+            this.label5.Location = new System.Drawing.Point(428, 301);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(69, 13);
             this.label5.TabIndex = 70;
@@ -402,10 +405,28 @@
             // txtBoxMokPostinro
             // 
             this.txtBoxMokPostinro.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxMokPostinro.Location = new System.Drawing.Point(503, 266);
+            this.txtBoxMokPostinro.Location = new System.Drawing.Point(503, 298);
             this.txtBoxMokPostinro.Name = "txtBoxMokPostinro";
             this.txtBoxMokPostinro.Size = new System.Drawing.Size(196, 21);
             this.txtBoxMokPostinro.TabIndex = 69;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(449, 168);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(44, 13);
+            this.label6.TabIndex = 72;
+            this.label6.Text = "Nimi :";
+            // 
+            // txtBoxMokNimi
+            // 
+            this.txtBoxMokNimi.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxMokNimi.Location = new System.Drawing.Point(503, 163);
+            this.txtBoxMokNimi.Name = "txtBoxMokNimi";
+            this.txtBoxMokNimi.Size = new System.Drawing.Size(196, 21);
+            this.txtBoxMokNimi.TabIndex = 71;
             // 
             // MokkiAluehallinta
             // 
@@ -413,6 +434,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Cyan;
             this.ClientSize = new System.Drawing.Size(796, 573);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtBoxMokNimi);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtBoxMokPostinro);
             this.Controls.Add(this.comboBoxAlue);
@@ -435,7 +458,7 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.txtBoxMokOsoite);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.txtBoxMokNimi);
+            this.Controls.Add(this.txtBoxMokID);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnClearAlue);
@@ -450,6 +473,7 @@
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "MokkiAluehallinta";
             this.Text = "Aluehallinta";
+            this.Load += new System.EventHandler(this.MokkiAluehallinta_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -470,7 +494,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtBoxMokNimi;
+        private System.Windows.Forms.TextBox txtBoxMokID;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtBoxMokHinta;
         private System.Windows.Forms.Label label12;
@@ -493,5 +517,7 @@
         private System.Windows.Forms.ComboBox comboBoxAlue;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtBoxMokPostinro;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtBoxMokNimi;
     }
     }

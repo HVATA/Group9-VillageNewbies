@@ -214,10 +214,12 @@ namespace Group9_VillageNewbies
                 {
                     connection.Open();
 
-                    string query = "INSERT INTO alue (nimi) VALUES (?)";
+                    string query = "INSERT INTO alue (alue_id, nimi) VALUES (?, ?)";
                     using (OdbcCommand command = new OdbcCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("alue_id", alue.Alue_id);
                         command.Parameters.AddWithValue("nimi", alue.AlueNimi);
+                        
                         command.ExecuteNonQuery();
                     }
                     /* Kommenteissa kun ylemäpää löytyy LisaaPosti-funktio
@@ -267,9 +269,10 @@ namespace Group9_VillageNewbies
             {
                 using (OdbcConnection connection = new OdbcConnection(connectionString))
                 {
-                    string query = "INSERT INTO mokki (alue_id, postinro, mokkinimi, katuosoite, hinta, kuvaus, henkilomaara, varustelu) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    string query = "INSERT INTO mokki (mokki_id, alue_id, postinro, mokkinimi, katuosoite, hinta, kuvaus, henkilomaara, varustelu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     using (OdbcCommand command = new OdbcCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("mokki_id", mokki.Mokki_id);
                         command.Parameters.AddWithValue("alue_id", mokki.Alue);
                         command.Parameters.AddWithValue("postinro", mokki.Postinro);
                         command.Parameters.AddWithValue("mokkinimi", mokki.Mokkinimi);
@@ -343,7 +346,7 @@ namespace Group9_VillageNewbies
                 }
             }
         }
-        public bool MuutaMokkiTieto(MokkiTieto mokkiTieto)
+        public void MuutaMokkiTieto(MokkiTieto mokkiTieto)
         {
             using (var connection = new OdbcConnection(connectionString))
             {
@@ -356,13 +359,13 @@ namespace Group9_VillageNewbies
                         command.CommandText = @"
                         UPDATE mokki
                         SET
-                            alue_id = ?
-                            postinro = ?
-                            mokkinimi = ?
-                            katuosoite = ?
-                            hinta = ?
-                            kuvaus = ?
-                            henkilomaara = ?
+                            alue_id = ?,
+                            postinro = ?,
+                            mokkinimi = ?,
+                            katuosoite = ?,
+                            hinta = ?,
+                            kuvaus = ?,
+                            henkilomaara = ?,
                             varustelu = ?
                         WHERE mokki_id = ?";
 
@@ -375,15 +378,14 @@ namespace Group9_VillageNewbies
                         command.Parameters.Add(new OdbcParameter("kuvaus", mokkiTieto.Kuvaus));
                         command.Parameters.Add(new OdbcParameter("henkilomaara", mokkiTieto.Henkilomaara));
                         command.Parameters.Add(new OdbcParameter("varustelu", mokkiTieto.Varustelu));
+                        command.Parameters.Add(new OdbcParameter("mokki_id", mokkiTieto.Mokki_id));
 
-                        int result = command.ExecuteNonQuery();
-                        return result > 0;
+                        command.ExecuteNonQuery();
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Virhe päivitettäessä aluetietoja: {ex.Message}");
-                    return false;
+                    
                 }
             }
         }
