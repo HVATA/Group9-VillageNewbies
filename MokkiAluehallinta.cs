@@ -417,7 +417,7 @@ namespace Group9_VillageNewbies
         {
             if (!string.IsNullOrEmpty(txtBoxMokID.Text))
             {
-                string poistettavaMokki = txtBoxMokID.Text;
+                string poistettavaMokki = txtBoxMokNimi.Text;
 
                 // Poista alue myös tietokannasta
                 DatabaseRepository repository = new DatabaseRepository();
