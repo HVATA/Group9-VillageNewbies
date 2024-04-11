@@ -22,6 +22,7 @@ namespace Group9_VillageNewbies
         AlueTieto aluetieto2 = new AlueTieto();
         int iAlueIdTarkistus = 1;
         int iMokkiIdTarkistus = 1;
+        public AlueTieto ValittuAlue;
         public MokkiAluehallinta()
         {
             InitializeComponent();
@@ -32,19 +33,11 @@ namespace Group9_VillageNewbies
             LataaMokitKannasta();
             PaivitaMokkiLista();
             LisaaComboBoxinAlueet();
-            /*foreach(MokkiTieto mokki in mokkiTiedot) //Tarkistetaan että mokki_id tulee kannasta
-            {
-                MessageBox.Show(mokki.Mokki_id);
-            }*/
-            ////////////////////////////////////////////////////////////////////////////////////
+
             foreach(AlueTieto al in alueTiedot)
             {
                 iAlueIdTarkistus++;
             };
-            foreach(MokkiTieto mok in mokkiTiedot)
-            {
-                iMokkiIdTarkistus++;
-            }
         }
         private void LataaAlueetKannasta()//Haetaan alueet kannasta
         {
@@ -84,7 +77,7 @@ namespace Group9_VillageNewbies
         }
         private void LataaMokitKannasta()//Haetaan alueet kannasta
         {
-
+            int IDTarkistusMokki = 1;
             mokkiTiedot.Clear(); // Tyhjennä lista varmuuden vuoksi
             DatabaseRepository repository = new DatabaseRepository();
             DataTable mokkiTable = repository.ExecuteQuery(@"SELECT mokki.*, alue.nimi AS alueen_nimi
@@ -109,6 +102,8 @@ namespace Group9_VillageNewbies
                 };
                 mokkiTiedot.Add(mokki);
             }
+            iMokkiIdTarkistus = mokkiTiedot.Count;
+            iMokkiIdTarkistus = iMokkiIdTarkistus + IDTarkistusMokki;
         }
         private void PaivitaMokkiLista()//Lisätää haetut alueet listaan
         {
@@ -132,7 +127,7 @@ namespace Group9_VillageNewbies
         }
         private void LisaaComboBoxinAlueet()
         {
-            alueTiedot.Sort((a, b) => string.Compare(a.Alue_id, b.Alue_id));
+            
             comboBoxAlue.Items.Add("Valitse mökkille tarkoitettu alue");
             foreach (AlueTieto alueTieto in alueTiedot)
             {
@@ -292,83 +287,89 @@ namespace Group9_VillageNewbies
         {
             txtBoxMokHinta.Clear();
             txtBoxMokKuvaus.Clear();
+            txtBoxMokNimi.Clear();
             txtBoxMokMaara.Clear();
             txtBoxMokID.Clear();
             txtBoxMokOsoite.Clear();
             txtBoxMokPostinro.Clear();
             txtBoxMokVarust.Clear();
+            comboBoxAlue.SelectedIndex = 0;
         }
 
         private void btnAddMokki_Click(object sender, EventArgs e)
         {
             int i = 0;
+            string postinroText = txtBoxMokPostinro.Text;
             foreach(Posti posti in postiTiedot)
             {
                 if(i < 1)
                 {
                     if (posti.Postinro == txtBoxMokPostinro.Text)
                     {
-                        MokkiTieto uusiMokki = new MokkiTieto();
-                        uusiMokki.Mokki_id = iMokkiIdTarkistus.ToString();
-                        uusiMokki.Postinro = txtBoxMokPostinro.Text;
-                        uusiMokki.Mokkinimi = txtBoxMokNimi.Text;
-                        uusiMokki.Katuosoite = txtBoxMokOsoite.Text;
-                        uusiMokki.Alue = comboBoxAlue.SelectedIndex.ToString();
-                        uusiMokki.Varustelu = txtBoxMokVarust.Text;
-                        uusiMokki.Kuvaus = txtBoxMokKuvaus.Text;
-                        uusiMokki.Hinta = txtBoxMokHinta.Text;
-                        uusiMokki.Henkilomaara = txtBoxMokMaara.Text;
-
-                        DatabaseRepository repository = new DatabaseRepository();
-                        bool onnistui = repository.LisaaMokki(uusiMokki);
-                        if (onnistui)
-                        {
-                            MessageBox.Show("Mökki lisätty onnistuneesti.");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Mökin lisäys epäonnistui.");
-                        }
-                        LataaMokitKannasta();
-                        PaivitaMokkiLista();
-                        i++;
-                    }
-                    else
-                    {
-                        Posti uusiPosti = new Posti();
-                        uusiPosti.Postinro = txtBoxMokPostinro.Text;
-                        uusiPosti.Toimipaikka = comboBoxAlue.Text;
-                        DatabaseRepository repository = new DatabaseRepository();
-                        repository.LisaaPosti(uusiPosti);
-                        
-                        MokkiTieto uusiMokki = new MokkiTieto();
-                        uusiMokki.Mokki_id = iMokkiIdTarkistus.ToString();
-                        uusiMokki.Postinro = txtBoxMokPostinro.Text;
-                        uusiMokki.Mokkinimi = txtBoxMokNimi.Text;
-                        uusiMokki.Katuosoite = txtBoxMokOsoite.Text;
-                        uusiMokki.Alue = comboBoxAlue.SelectedIndex.ToString();
-                        uusiMokki.Varustelu = txtBoxMokVarust.Text;
-                        uusiMokki.Kuvaus = txtBoxMokKuvaus.Text;
-                        uusiMokki.Hinta = txtBoxMokHinta.Text;
-                        uusiMokki.Henkilomaara = txtBoxMokMaara.Text;
-
-                        bool onnistui = repository.LisaaMokki(uusiMokki);
-                        if (onnistui)
-                        {
-                            MessageBox.Show("Mökki lisätty onnistuneesti.");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Mökin lisäys epäonnistui.");
-                        }
-                        LataaMokitKannasta();
-                        PaivitaMokkiLista();
                         i++;
                     }
                 }
                 
             }
-            
+            if(i == 1)
+            {
+                MokkiTieto uusiMokki = new MokkiTieto();
+                uusiMokki.Mokki_id = iMokkiIdTarkistus.ToString();
+                uusiMokki.Postinro = txtBoxMokPostinro.Text;
+                uusiMokki.Mokkinimi = txtBoxMokNimi.Text;
+                uusiMokki.Katuosoite = txtBoxMokOsoite.Text;
+                uusiMokki.Alue = ValittuAlue.Alue_id;
+                uusiMokki.Varustelu = txtBoxMokVarust.Text;
+                uusiMokki.Kuvaus = txtBoxMokKuvaus.Text;
+                uusiMokki.Hinta = txtBoxMokHinta.Text;
+                uusiMokki.Henkilomaara = txtBoxMokMaara.Text;
+
+                DatabaseRepository repository = new DatabaseRepository();
+                bool onnistui = repository.LisaaMokki(uusiMokki);
+                if (onnistui)
+                {
+                    MessageBox.Show("Mökki lisätty onnistuneesti.");
+                }
+                else
+                {
+                    MessageBox.Show("Mökin lisäys epäonnistui.");
+                }
+                LataaMokitKannasta();
+                PaivitaMokkiLista();
+            }
+            else
+            {
+                Posti uusiPosti = new Posti();
+                uusiPosti.Postinro = txtBoxMokPostinro.Text;
+                uusiPosti.Toimipaikka = comboBoxAlue.Text;
+                DatabaseRepository repository = new DatabaseRepository();
+                repository.LisaaPosti(uusiPosti);
+
+                MokkiTieto uusiMokki = new MokkiTieto();
+                uusiMokki.Mokki_id = iMokkiIdTarkistus.ToString();
+                uusiMokki.Postinro = txtBoxMokPostinro.Text;
+                uusiMokki.Mokkinimi = txtBoxMokNimi.Text;
+                uusiMokki.Katuosoite = txtBoxMokOsoite.Text;
+                uusiMokki.Alue = ValittuAlue.Alue_id;
+                uusiMokki.Varustelu = txtBoxMokVarust.Text;
+                uusiMokki.Kuvaus = txtBoxMokKuvaus.Text;
+                uusiMokki.Hinta = txtBoxMokHinta.Text;
+                uusiMokki.Henkilomaara = txtBoxMokMaara.Text;
+
+                bool onnistui = repository.LisaaMokki(uusiMokki);
+                if (onnistui)
+                {
+                    MessageBox.Show("Mökki lisätty onnistuneesti.");
+                }
+                else
+                {
+                    MessageBox.Show("Mökin lisäys epäonnistui.");
+                }
+                LataaMokitKannasta();
+                PaivitaMokkiLista();
+                i++;
+            }
+
         }
 
         private void btnChangeMokki_Click(object sender, EventArgs e)
@@ -520,7 +521,17 @@ namespace Group9_VillageNewbies
             if(comboBoxAlue.SelectedIndex == 0)
             {
                 MessageBox.Show("Valitse alue");
+
             }
+            foreach(var alue in alueTiedot)
+            {
+                if(alue.AlueNimi == comboBoxAlue.Text)
+                {
+                    ValittuAlue = alue;
+                }
+            }
+            
+           
 
         }
 
