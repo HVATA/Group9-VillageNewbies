@@ -65,6 +65,7 @@
             this.txtBoxMokPostinro = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtBoxMokNimi = new System.Windows.Forms.TextBox();
+            this.btn_back2menuALMOK = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,6 +74,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Teal;
+            this.panel1.Controls.Add(this.btn_back2menuALMOK);
             this.panel1.Controls.Add(this.header);
             this.panel1.Location = new System.Drawing.Point(3, 2);
             this.panel1.Name = "panel1";
@@ -428,6 +430,16 @@
             this.txtBoxMokNimi.Size = new System.Drawing.Size(196, 21);
             this.txtBoxMokNimi.TabIndex = 71;
             // 
+            // btn_back2menuALMOK
+            // 
+            this.btn_back2menuALMOK.Location = new System.Drawing.Point(11, 7);
+            this.btn_back2menuALMOK.Name = "btn_back2menuALMOK";
+            this.btn_back2menuALMOK.Size = new System.Drawing.Size(75, 23);
+            this.btn_back2menuALMOK.TabIndex = 6;
+            this.btn_back2menuALMOK.Text = "<Takaisin";
+            this.btn_back2menuALMOK.UseVisualStyleBackColor = true;
+            this.btn_back2menuALMOK.Click += new System.EventHandler(this.btn_back2menuALMOK_Click);
+            // 
             // MokkiAluehallinta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -519,5 +531,6 @@
         private System.Windows.Forms.TextBox txtBoxMokPostinro;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtBoxMokNimi;
+        private System.Windows.Forms.Button btn_back2menuALMOK;
     }
     }

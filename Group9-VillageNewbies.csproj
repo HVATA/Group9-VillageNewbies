@@ -67,6 +67,12 @@
   <ItemGroup>
     <Compile Include="Alue.cs" />
     <Compile Include="AlueTieto.cs" />
+    <Compile Include="AsiakasKysyPopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AsiakasKysyPopUp.Designer.cs">
+      <DependentUpon>AsiakasKysyPopUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="AsiakasTieto.cs" />
     <Compile Include="DatabaseRepository.cs" />
     <Compile Include="DataSet1.Designer.cs">
@@ -91,6 +97,12 @@
     </Compile>
     <Compile Include="Majoitusvaraustenhallinta.Designer.cs">
       <DependentUpon>Majoitusvaraustenhallinta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MajoitusVaraustenHallintaUusi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MajoitusVaraustenHallintaUusi.Designer.cs">
+      <DependentUpon>MajoitusVaraustenHallintaUusi.cs</DependentUpon>
     </Compile>
     <Compile Include="MokkiAluehallinta.cs">
       <SubType>Form</SubType>
@@ -136,6 +148,9 @@
     <EmbeddedResource Include="Asiakashallinta.resx">
       <DependentUpon>Asiakashallinta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AsiakasKysyPopUp.resx">
+      <DependentUpon>AsiakasKysyPopUp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Majoitusvaraustenhallinta.resx">
       <DependentUpon>Majoitusvaraustenhallinta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MajoitusVaraustenHallintaUusi.resx">
+      <DependentUpon>MajoitusVaraustenHallintaUusi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MokkiAluehallinta.resx">
       <DependentUpon>MokkiAluehallinta.cs</DependentUpon>

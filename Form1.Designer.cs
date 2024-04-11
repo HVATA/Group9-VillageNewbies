@@ -44,6 +44,7 @@ namespace Group9_VillageNewbies
             this.btn_aluemokki = new System.Windows.Forms.Button();
             this.header = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_majava2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,12 +123,26 @@ namespace Group9_VillageNewbies
             this.panel1.Size = new System.Drawing.Size(795, 64);
             this.panel1.TabIndex = 6;
             // 
+            // btn_majava2
+            // 
+            this.btn_majava2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btn_majava2.BackColor = System.Drawing.Color.PowderBlue;
+            this.btn_majava2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_majava2.Location = new System.Drawing.Point(315, 244);
+            this.btn_majava2.Name = "btn_majava2";
+            this.btn_majava2.Size = new System.Drawing.Size(154, 72);
+            this.btn_majava2.TabIndex = 7;
+            this.btn_majava2.Text = "Majoitusvarausten hallinta2";
+            this.btn_majava2.UseVisualStyleBackColor = false;
+            this.btn_majava2.Click += new System.EventHandler(this.btn_majava2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Cyan;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.btn_majava2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_aluemokki);
             this.Controls.Add(this.btn_lasku);
@@ -172,6 +187,7 @@ namespace Group9_VillageNewbies
         private Button btn_aluemokki;
         private Label header;
         private Panel panel1;
+        private Button btn_majava2;
     }
 
 }

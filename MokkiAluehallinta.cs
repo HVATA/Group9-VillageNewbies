@@ -524,9 +524,14 @@ namespace Group9_VillageNewbies
 
         }
 
-        private void MokkiAluehallinta_Load(object sender, EventArgs e)
+        private void MokkiAluehallinta_Load(object sender, EventArgs e) //VAHINKO FUNKTIO EN JAKSA POISTAA
         {
 
+        }
+
+        private void btn_back2menuALMOK_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

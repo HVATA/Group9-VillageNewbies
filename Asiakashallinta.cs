@@ -405,6 +405,16 @@ private void btnAdd_Click(object sender, EventArgs e)
             comboBoxPostinumero.SelectedItem = null;
         }
 
+        private void btn_back2menuAS_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
+        private void btn_back2VAR_Click(object sender, EventArgs e)
+        {
+            MajoitusVaraustenHallintaUusi majava2 = new MajoitusVaraustenHallintaUusi();
+            majava2.Show();
+            this.Close();
+        }
     }
 }
