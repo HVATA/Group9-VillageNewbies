@@ -63,10 +63,6 @@ namespace Group9_VillageNewbies
         private void PaivitaAlueLista()
         {
             listBoxAlue.Items.Clear(); // Tyhjennä listbox ennen uusien tietojen lisäämistä
-
-            DatabaseRepository repository = new DatabaseRepository();
-            List<Posti> postit = repository.HaeKaikkiPostit();
-            int iTark = 1;
             foreach (var alue in alueTiedot)
             {
                 
@@ -178,6 +174,7 @@ namespace Group9_VillageNewbies
             LataaAlueetKannasta();
             PaivitaAlueLista(); // Päivitä listboxin tiedot lisäyksen jälkeen
             LisaaUusiAlueComboBoxiin();
+            iAlueIdTarkistus++;
         }
 
         private void btnChangeAlue_Click(object sender, EventArgs e)//jää pohtimaan
@@ -281,6 +278,8 @@ namespace Group9_VillageNewbies
             {
                 MessageBox.Show("Kirjoita alue, joka haluat poistaa.");
             }
+
+            iAlueIdTarkistus--;
         }
 
         private void btnClearMokki_Click(object sender, EventArgs e)//tyhjentää mökkitietojen kentät

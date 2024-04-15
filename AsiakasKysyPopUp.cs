@@ -26,8 +26,8 @@ namespace Group9_VillageNewbies
 
         private void btn_asVanha_Click(object sender, EventArgs e)
         {
-            MajoitusVaraustenHallintaUusi majava2 = new MajoitusVaraustenHallintaUusi();
-            majava2.Show();
+            VarausAddEditDelete varausAddEditDelete = new VarausAddEditDelete();
+            varausAddEditDelete.ShowDialog();
             this.Close();
         }
     }

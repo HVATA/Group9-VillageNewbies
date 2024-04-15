@@ -45,8 +45,10 @@ namespace Group9_VillageNewbies
 
         private void btn_majava2_Click(object sender, EventArgs e)
         {
-            AsiakasKysyPopUp askypop = new AsiakasKysyPopUp();
-            askypop.Show();
+            
+            MajoitusVaraustenHallintaUusi majava2 = new MajoitusVaraustenHallintaUusi();
+            majava2.Show();
+
         }
     }
 }
