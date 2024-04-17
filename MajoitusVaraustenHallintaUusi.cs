@@ -111,7 +111,7 @@ namespace Group9_VillageNewbies
             comboBox_VarFindAsiakas.Items.Add("Valitse asiakas");
             foreach (AsiakasTieto asiak in asiakasTiedot)
             {
-                comboBox_VarFindAsiakas.Items.Add(asiak.Sukunimi + ", " + asiak.AsiakasId);
+                comboBox_VarFindAsiakas.Items.Add(asiak.Etunimi + " " + asiak.Sukunimi + " " + asiak.AsiakasId);
             }
         }
         private void btn_back2menuVar_Click(object sender, EventArgs e)
@@ -146,6 +146,18 @@ namespace Group9_VillageNewbies
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
+        private void PaivitaMokkiComboBox()
+        {
+            comboBox_VarFindMokki.Items.Clear();
+            comboBox_VarFindMokki.Items.Add("Valitse mokki");
+            foreach (MokkiTieto mokki in mokkiTiedot)
+            {
+                if(mokki.Alue == sFindAlue) 
+                {
+                    comboBox_VarFindMokki.Items.Add(mokki.Mokkinimi + ", " + mokki.Mokki_id);
+                }
+            }
+        }
 
         private void btn_EtsiVaraus_Click(object sender, EventArgs e)
         {
@@ -177,28 +189,51 @@ namespace Group9_VillageNewbies
             AsiakasKysyPopUp askypop = new AsiakasKysyPopUp();
             askypop.Show();
         }
-
-        private void comboBox_VarFindMokki_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         private void comboBox_VarFindAlue_SelectedIndexChanged(object sender, EventArgs e)
         {
             sFindAlue = comboBox_VarFindAlue.SelectedIndex.ToString();
             foreach (var alue in alueTiedot)
             {
-                if(alue.AlueNimi == comboBox_VarFindAlue.Text)
+                if (alue.AlueNimi == comboBox_VarFindAlue.Text)
                 {
                     sFindAlue = alue.AlueNimi;
                 }
             }
             MessageBox.Show(sFindAlue);
+            PaivitaMokkiComboBox();
         }
+        private void comboBox_VarFindMokki_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            sFindMokki = comboBox_VarFindMokki.SelectedIndex.ToString();
+            foreach(var mokki in mokkiTiedot)
+            {
+                if(mokki.Mokkinimi == comboBox_VarFindMokki.Text)
+                {
+                    sFindMokki = mokki.Mokkinimi;
+                }
+            }
+            MessageBox.Show(sFindMokki);
+        }
+        
 
         private void comboBox_VarFindAsiakas_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            string itemText = comboBox_VarFindAsiakas.SelectedItem.ToString(); // Käytä valitun kohteen tekstiä
+            string[] parts = itemText.Split(' ');
+            if (parts.Length >= 3) // Tarkista, että osia on tarpeeksi
+            {
+                string aEtunimi = parts[0].Trim();
+                string aSukunimi = parts[1].Trim();
+                string aId = parts[2].Trim();
+                foreach (var asiakas in asiakasTiedot)
+                {
+                    if (asiakas.AsiakasId.ToString() == aId) // Vertaa asiakas ID:tä, ei toimipaikkaa
+                    {
+                        sFindAsiakas = comboBox_VarFindAsiakas.Text;
+                    }
+                }
+            }
+            MessageBox.Show(sFindAsiakas);
         }
 
         private void dateTimePickerStart_ValueChanged(object sender, EventArgs e)
