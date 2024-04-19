@@ -130,7 +130,6 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Lasku.cs" />
-    <Compile Include="Mokki.cs" />
     <Compile Include="MokkiTieto.cs" />
     <Compile Include="Palvelu.cs" />
     <Compile Include="Palveluhallinta.cs">

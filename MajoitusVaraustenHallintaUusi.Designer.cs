@@ -45,9 +45,6 @@
             this.palveluBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.palveluTableAdapter = new Group9_VillageNewbies.DataSet1TableAdapters.palveluTableAdapter();
             this.dataGridView_Varaus = new System.Windows.Forms.DataGridView();
-            this.dataSet2 = new Group9_VillageNewbies.DataSet2();
-            this.varausBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.varausTableAdapter = new Group9_VillageNewbies.DataSet2TableAdapters.varausTableAdapter();
             this.varausidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.asiakasidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mokkimokkiidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,16 +52,20 @@
             this.vahvistuspvmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.varattualkupvmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.varattuloppupvmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.varausBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataSet2 = new Group9_VillageNewbies.DataSet2();
+            this.varausTableAdapter = new Group9_VillageNewbies.DataSet2TableAdapters.varausTableAdapter();
             this.comboBox_VarFindMokki = new System.Windows.Forms.ComboBox();
             this.comboBox_VarFindAlue = new System.Windows.Forms.ComboBox();
             this.comboBox_VarFindAsiakas = new System.Windows.Forms.ComboBox();
             this.btn_toAddEditDelete = new System.Windows.Forms.Button();
+            this.emptyHakuEhdot = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.palveluBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Varaus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.varausBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -212,20 +213,6 @@
             this.dataGridView_Varaus.Size = new System.Drawing.Size(744, 150);
             this.dataGridView_Varaus.TabIndex = 89;
             // 
-            // dataSet2
-            // 
-            this.dataSet2.DataSetName = "DataSet2";
-            this.dataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // varausBindingSource
-            // 
-            this.varausBindingSource.DataMember = "varaus";
-            this.varausBindingSource.DataSource = this.dataSet2;
-            // 
-            // varausTableAdapter
-            // 
-            this.varausTableAdapter.ClearBeforeFill = true;
-            // 
             // varausidDataGridViewTextBoxColumn
             // 
             this.varausidDataGridViewTextBoxColumn.DataPropertyName = "varaus_id";
@@ -268,6 +255,20 @@
             this.varattuloppupvmDataGridViewTextBoxColumn.HeaderText = "varattu_loppupvm";
             this.varattuloppupvmDataGridViewTextBoxColumn.Name = "varattuloppupvmDataGridViewTextBoxColumn";
             // 
+            // varausBindingSource
+            // 
+            this.varausBindingSource.DataMember = "varaus";
+            this.varausBindingSource.DataSource = this.dataSet2;
+            // 
+            // dataSet2
+            // 
+            this.dataSet2.DataSetName = "DataSet2";
+            this.dataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // varausTableAdapter
+            // 
+            this.varausTableAdapter.ClearBeforeFill = true;
+            // 
             // comboBox_VarFindMokki
             // 
             this.comboBox_VarFindMokki.FormattingEnabled = true;
@@ -305,12 +306,23 @@
             this.btn_toAddEditDelete.UseVisualStyleBackColor = true;
             this.btn_toAddEditDelete.Click += new System.EventHandler(this.btn_toAddEditDelete_Click);
             // 
+            // emptyHakuEhdot
+            // 
+            this.emptyHakuEhdot.Location = new System.Drawing.Point(202, 272);
+            this.emptyHakuEhdot.Name = "emptyHakuEhdot";
+            this.emptyHakuEhdot.Size = new System.Drawing.Size(119, 23);
+            this.emptyHakuEhdot.TabIndex = 94;
+            this.emptyHakuEhdot.Text = "Tyhjennä hakuehdot";
+            this.emptyHakuEhdot.UseVisualStyleBackColor = true;
+            this.emptyHakuEhdot.Click += new System.EventHandler(this.emptyHakuEhdot_Click);
+            // 
             // MajoitusVaraustenHallintaUusi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Cyan;
             this.ClientSize = new System.Drawing.Size(800, 561);
+            this.Controls.Add(this.emptyHakuEhdot);
             this.Controls.Add(this.btn_toAddEditDelete);
             this.Controls.Add(this.comboBox_VarFindAsiakas);
             this.Controls.Add(this.comboBox_VarFindAlue);
@@ -335,8 +347,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.palveluBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Varaus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.varausBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -374,5 +386,6 @@
         private System.Windows.Forms.ComboBox comboBox_VarFindAlue;
         private System.Windows.Forms.ComboBox comboBox_VarFindAsiakas;
         private System.Windows.Forms.Button btn_toAddEditDelete;
+        private System.Windows.Forms.Button emptyHakuEhdot;
     }
 }
