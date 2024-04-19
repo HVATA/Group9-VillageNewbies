@@ -21,6 +21,8 @@ namespace Group9_VillageNewbies
         public string sFindMokki = "";
         public string sFindAsiakas = "";
         public string hakuquery;
+        public DateTime dateStart = DateTime.Now;
+        public DateTime dateEnd = DateTime.Now;
         public MajoitusVaraustenHallintaUusi()
         {
             InitializeComponent();
@@ -155,13 +157,60 @@ namespace Group9_VillageNewbies
                 }
             }
         }
+        public bool ValidDate()
+        {
+            if (dateStart < dateEnd)
+                return true;
+            else if (dateStart.Equals(dateEnd))
+                return true;
+            else
+                return false;
+        }
 
         private void btn_EtsiVaraus_Click(object sender, EventArgs e)
         {
             string sAlueId = ""; //tähä tee ehdolliset hakuqueryt riippuen hausta!
             string sMokkiId = "";
             string sAsiakasId = "";
-            if (comboBox_VarFindAlue.SelectedIndex > -1 && comboBox_VarFindMokki.SelectedIndex > -1) //alue ja mokki etsintä
+            if (ValidDate() && comboBox_VarFindAlue.SelectedIndex > -1 && comboBox_VarFindAsiakas.SelectedIndex > -1 && comboBox_VarFindMokki.SelectedIndex > -1) //alue ja mokki etsintä
+            {
+                foreach (AlueTieto al in alueTiedot)
+                {
+                    if (al.AlueNimi == sFindAlue)
+                    {
+                        sAlueId = al.Alue_id;
+                    }
+                }
+                foreach (MokkiTieto mok in mokkiTiedot)
+                {
+                    if (mok.Mokkinimi == sFindMokki)
+                    {
+                        sMokkiId = mok.Mokki_id;
+                    }
+                }
+                foreach (AsiakasTieto asiak in asiakasTiedot)
+                {
+                    if (asiak.AsiakasId.ToString() == sFindAsiakas)
+                    {
+                        sAsiakasId = asiak.AsiakasId.ToString();
+                    }
+                }
+                MessageBox.Show("Haetaan varaukset ajankohdasta: " + dateStart.ToString("dd-mm-yyyy") + "-" + dateEnd.ToString("dd-mm-yyyy"));
+                hakuquery = "SELECT * FROM varaus WHERE varattu_alkupvm >= '" + dateStart.ToString("yyyy-MM-dd") + "' " +
+                            "AND varattu_loppupvm <= '" + dateEnd.ToString("yyyy-MM-dd") + "' " +
+                            "AND mokki_mokki_id = " + sMokkiId + " " +
+                            "AND asiakas_id = " + sAsiakasId + ";";
+                PaivitaGridview();
+            }
+            else if (ValidDate()) //alue ja mokki etsintä
+            {
+               
+                MessageBox.Show("Haetaan varaukset ajankohdasta: " + dateStart.ToString("dd-mm-yyyy") + "-" + dateEnd.ToString("dd-mm-yyyy"));
+                hakuquery = "SELECT * FROM varaus WHERE varattu_alkupvm >= '" + dateStart.ToString("yyyy-MM-dd") + "' " +
+                        "AND varattu_loppupvm <= '" + dateEnd.ToString("yyyy-MM-dd") + "';";
+                PaivitaGridview();
+            }
+            else if (comboBox_VarFindAlue.SelectedIndex > -1 && comboBox_VarFindMokki.SelectedIndex > -1) //alue ja mokki etsintä
             {
                 foreach (AlueTieto al in alueTiedot)
                 {
@@ -312,7 +361,11 @@ namespace Group9_VillageNewbies
 
         private void dateTimePickerStart_ValueChanged(object sender, EventArgs e)
         {
-
+            dateStart = dateTimePickerStart.Value;
+        }
+        private void dateTimePickerEnd_ValueChanged(object sender, EventArgs e)
+        {
+            dateEnd = dateTimePickerEnd.Value;
         }
 
         private void emptyHakuEhdot_Click(object sender, EventArgs e)
@@ -328,5 +381,7 @@ namespace Group9_VillageNewbies
 
             
         }
+
+        
     }
 }
