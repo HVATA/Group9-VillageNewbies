@@ -82,7 +82,7 @@ namespace Group9_VillageNewbies
             comboBox_VarFindMokki.Items.Add("Valitse mokki");
             foreach (MokkiTieto mok in mokkiTiedot)
             {
-                comboBox_VarFindMokki.Items.Add(mok.Mokkinimi + ", " + mok.Mokki_id);
+                comboBox_VarFindMokki.Items.Add(mok.Mokkinimi);
             }
         }
         private void LataaAsiakkaatTietokannasta()
@@ -154,24 +154,56 @@ namespace Group9_VillageNewbies
             {
                 if(mokki.Alue == sFindAlue) 
                 {
-                    comboBox_VarFindMokki.Items.Add(mokki.Mokkinimi + ", " + mokki.Mokki_id);
+                    comboBox_VarFindMokki.Items.Add(mokki.Mokkinimi);
                 }
             }
         }
 
         private void btn_EtsiVaraus_Click(object sender, EventArgs e)
         {
-            string sId = ""; //tähä tee ehdolliset hakuqueryt riippuen hausta!
-            foreach(AlueTieto al in alueTiedot)
+            string sAlueId = ""; //tähä tee ehdolliset hakuqueryt riippuen hausta!
+            string sMokkiId = "";
+            string sAsiakasId = "";
+            if(comboBox_VarFindAlue.SelectedIndex > -1) //pelkkä alue-etsintä
             {
-                if(al.AlueNimi == sFindAlue)
+                foreach (AlueTieto al in alueTiedot)
                 {
-                    sId = al.Alue_id;
+                    if (al.AlueNimi == sFindAlue)
+                    {
+                        sAlueId = al.Alue_id;
+                    }
                 }
+                MessageBox.Show(sAlueId); //Tarkistus
+                hakuquery = "SELECT * FROM varaus WHERE mokki_mokki_id IN (SELECT mokki_id FROM mokki WHERE alue_id = " + sAlueId + ");";
+                PaivitaGridview();
             }
-            MessageBox.Show(sId);
-            hakuquery = "SELECT * FROM varaus WHERE mokki_mokki_id IN (SELECT mokki_id FROM mokki WHERE alue_id = " + sId + ");";
-            PaivitaGridview();
+            else if (comboBox_VarFindMokki.SelectedIndex > -1)//pelkkä mokki-etsintä
+            {
+                foreach (MokkiTieto mok in mokkiTiedot)
+                {
+                    if (mok.Mokkinimi == sFindMokki)
+                    {
+                        sMokkiId = mok.Mokki_id;
+                    }
+                }
+                MessageBox.Show(sMokkiId); //Tarkistus
+                hakuquery = "SELECT * FROM varaus WHERE mokki_mokki_id = " + sMokkiId + ";";
+                PaivitaGridview();
+            }
+            else if (comboBox_VarFindAsiakas.SelectedIndex > -1)//pelkkä asiakas-etsintä
+            {
+                foreach (AsiakasTieto asiak in asiakasTiedot)
+                {
+                    if (asiak.AsiakasId.ToString() == sFindAsiakas)
+                    {
+                        sAsiakasId = asiak.AsiakasId.ToString();
+                    }
+                }
+                MessageBox.Show(sAsiakasId); //Tarkistus
+                hakuquery = "SELECT * FROM varaus WHERE mokki_mokki_id = " + sAsiakasId + ";";
+                PaivitaGridview();
+            }
+
         }
 
         private void MajoitusVaraustenHallintaUusi_Load(object sender, EventArgs e)
@@ -229,7 +261,7 @@ namespace Group9_VillageNewbies
                 {
                     if (asiakas.AsiakasId.ToString() == aId) // Vertaa asiakas ID:tä, ei toimipaikkaa
                     {
-                        sFindAsiakas = comboBox_VarFindAsiakas.Text;
+                        sFindAsiakas = aId;
                     }
                 }
             }
