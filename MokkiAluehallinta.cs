@@ -73,7 +73,6 @@ namespace Group9_VillageNewbies
         }
         private void LataaMokitKannasta()//Haetaan alueet kannasta
         {
-            int IDTarkistusMokki = 1;
             mokkiTiedot.Clear(); // Tyhjennä lista varmuuden vuoksi
             DatabaseRepository repository = new DatabaseRepository();
             DataTable mokkiTable = repository.ExecuteQuery(@"SELECT mokki.*, alue.nimi AS alueen_nimi
@@ -98,8 +97,8 @@ namespace Group9_VillageNewbies
                 };
                 mokkiTiedot.Add(mokki);
             }
-            iMokkiIdTarkistus = mokkiTiedot.Count;
-            iMokkiIdTarkistus = iMokkiIdTarkistus + IDTarkistusMokki;
+            iMokkiIdTarkistus = iMokkiIdTarkistus + mokkiTiedot.Count;
+            iMokkiIdTarkistus = iMokkiIdTarkistus + 1;
         }
         private void PaivitaMokkiLista()//Lisätää haetut alueet listaan
         {
@@ -333,6 +332,7 @@ namespace Group9_VillageNewbies
                 {
                     MessageBox.Show("Mökin lisäys epäonnistui.");
                 }
+                iMokkiIdTarkistus = 1;
                 LataaMokitKannasta();
                 PaivitaMokkiLista();
             }
