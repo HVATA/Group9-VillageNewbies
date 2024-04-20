@@ -79,18 +79,16 @@ namespace Group9_VillageNewbies
             // ja jättää pois ne, jotka ovat vain mökkien käytössä
             string query = @"SELECT DISTINCT p.postinro, p.toimipaikka
                             FROM posti p
-                            WHERE p.postinro IN (
-                                SELECT a.postinro FROM asiakas a
-                                UNION
-                                SELECT m.postinro FROM mokki m
-                                UNION
-                                SELECT p.postinro FROM posti p
-                                LEFT JOIN asiakas a ON p.postinro = a.postinro
-                                LEFT JOIN mokki m ON p.postinro = m.postinro
-                                WHERE a.asiakas_id IS NULL AND m.mokki_id IS NULL
+                            WHERE EXISTS (
+                                SELECT 1 FROM asiakas a WHERE a.postinro = p.postinro
                             )
-                            ORDER BY p.toimipaikka ASC;
-                            ";
+                            OR NOT EXISTS (
+                                -- Valitse postinumerot, joita käytetään vain mökeissä, eli ne joita ei käytetä asiakkailla
+                                SELECT 1 FROM mokki m WHERE m.postinro = p.postinro AND NOT EXISTS (
+                                    SELECT 1 FROM asiakas a2 WHERE a2.postinro = m.postinro
+                                )
+                            )
+                            ORDER BY p.toimipaikka ASC;";
 
             using (OdbcConnection connection = new OdbcConnection(connectionString))
             {
