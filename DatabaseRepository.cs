@@ -83,9 +83,14 @@ namespace Group9_VillageNewbies
                                 SELECT a.postinro FROM asiakas a
                                 UNION
                                 SELECT m.postinro FROM mokki m
-                                WHERE m.postinro IN (SELECT a.postinro FROM asiakas a)
+                                UNION
+                                SELECT p.postinro FROM posti p
+                                LEFT JOIN asiakas a ON p.postinro = a.postinro
+                                LEFT JOIN mokki m ON p.postinro = m.postinro
+                                WHERE a.asiakas_id IS NULL AND m.mokki_id IS NULL
                             )
-                            ORDER BY p.toimipaikka ASC;";
+                            ORDER BY p.toimipaikka ASC;
+                            ";
 
             using (OdbcConnection connection = new OdbcConnection(connectionString))
             {

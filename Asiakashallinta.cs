@@ -312,7 +312,7 @@ private void btnAdd_Click(object sender, EventArgs e)
         }
 
         //Hakee postinumerot ja paikkakunnat tietokannasta ja lisää ne ComboBoxiin
-        private void LataaPaikkakunnat()
+        private void LataaPaikkakunnat2()
         {
             DatabaseRepository repository = new DatabaseRepository();
             var postit = repository.HaeKaikkiPostit();
@@ -328,7 +328,22 @@ private void btnAdd_Click(object sender, EventArgs e)
             comboBoxPostinumero.Items.Add("Lisää paikkakunta..."); // Lisää loppuun uusi paikkakunta -valinta
         }
 
-        private void comboBoxPostinumero_SelectedIndexChanged(object sender, EventArgs e)
+        private void LataaPaikkakunnat()
+        {
+            DatabaseRepository repository = new DatabaseRepository();
+            var postit = repository.HaeKaikkiPostit();
+            comboBoxPostinumero.Items.Clear(); // Tyhjennä lista ennen uusien tietojen lisäämistä
+
+            foreach (var posti in postit)
+            {
+                string itemDisplay = $"{posti.Toimipaikka} ({posti.Postinro})"; // Muodosta haluttu näyttömuoto
+                comboBoxPostinumero.Items.Add(itemDisplay);
+            }
+
+            comboBoxPostinumero.Items.Add("Lisää paikkakunta..."); // Lisää loppuun uusi paikkakunta -valinta
+        }
+
+        private void comboBoxPostinumero_SelectedIndexChanged2(object sender, EventArgs e)
         {
             if (comboBoxPostinumero.SelectedItem != null)
             {
@@ -358,6 +373,35 @@ private void btnAdd_Click(object sender, EventArgs e)
             }
         }
 
+        private void comboBoxPostinumero_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxPostinumero.SelectedItem != null)
+            {
+                var valittuItem = comboBoxPostinumero.SelectedItem.ToString();
+
+                // Tarkista, onko valittu "Lisää paikkakunta..."
+                if (valittuItem == "Lisää paikkakunta...")
+                {
+                    AvaaLisaaPaikkakuntaLomake();
+                }
+                else
+                {
+                    try
+                    {
+                        // Erottele postinumero merkkijonosta
+                        string postinro = valittuItem.Split('(', ')')[1];
+                        textBox4.Text = postinro; // Aseta valitun postinumeron arvo textBox4:ään
+                    }
+                    catch
+                    {
+                        // Virheenkäsittely, jos postinumeron erotteleminen epäonnistuu
+                        MessageBox.Show("Virhe postinumeron käsittelyssä.");
+                    }
+                }
+            }
+        }
+
+
         private void AvaaLisaaPaikkakuntaLomake()
         {
             // Tässä voit avata lomakkeen uuden paikkakunnan lisäämiseksi
@@ -377,7 +421,7 @@ private void btnAdd_Click(object sender, EventArgs e)
             dataGridView1.DataSource = asiakasTiedot; // Aseta asiakasTiedot lista DataSourceksi
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellClick2(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0) // Varmista, että klikkaus ei ole otsikkorivillä
             {
@@ -403,6 +447,33 @@ private void btnAdd_Click(object sender, EventArgs e)
                 textBox7.Text = valittuAsiakas.Email;
             }
         }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Varmista, että klikkaus ei ole otsikkorivillä
+            {
+                var valittuAsiakas = (AsiakasTieto)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+
+                textBox1.Text = valittuAsiakas.Etunimi;
+                textBox2.Text = valittuAsiakas.Sukunimi;
+                textBox3.Text = valittuAsiakas.Lahiosoite;
+                textBox4.Text = valittuAsiakas.Postinro;
+                textBox6.Text = valittuAsiakas.Puhelinnro;
+                textBox7.Text = valittuAsiakas.Email;
+
+                // Etsi oikea comboboxin item vertaamalla postinumeron osaa merkkijonosta
+                foreach (var item in comboBoxPostinumero.Items)
+                {
+                    string itemString = item.ToString();
+                    if (itemString.Contains($"({valittuAsiakas.Postinro})")) // Tarkista sisältääkö item postinumeron
+                    {
+                        comboBoxPostinumero.SelectedItem = item;
+                        break;
+                    }
+                }
+            }
+        }
+
 
         private void LataaAsiakkaatDataGridViewiin()
         {
