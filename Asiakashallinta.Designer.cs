@@ -53,6 +53,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btn_back2menuAS = new System.Windows.Forms.Button();
             this.btn_back2VAR = new System.Windows.Forms.Button();
+            this.btnLisaaPaikkakunta = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,6 +86,7 @@
             this.textBox4.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox4.Location = new System.Drawing.Point(206, 171);
             this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(518, 21);
             this.textBox4.TabIndex = 5;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
@@ -275,7 +277,7 @@
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(54, 378);
+            this.dataGridView1.Location = new System.Drawing.Point(54, 417);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
@@ -297,7 +299,7 @@
             // 
             // btn_back2VAR
             // 
-            this.btn_back2VAR.Location = new System.Drawing.Point(56, 518);
+            this.btn_back2VAR.Location = new System.Drawing.Point(56, 544);
             this.btn_back2VAR.Name = "btn_back2VAR";
             this.btn_back2VAR.Size = new System.Drawing.Size(140, 52);
             this.btn_back2VAR.TabIndex = 27;
@@ -305,12 +307,24 @@
             this.btn_back2VAR.UseVisualStyleBackColor = true;
             this.btn_back2VAR.Click += new System.EventHandler(this.btn_back2VAR_Click);
             // 
+            // btnLisaaPaikkakunta
+            // 
+            this.btnLisaaPaikkakunta.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLisaaPaikkakunta.Location = new System.Drawing.Point(259, 295);
+            this.btnLisaaPaikkakunta.Name = "btnLisaaPaikkakunta";
+            this.btnLisaaPaikkakunta.Size = new System.Drawing.Size(465, 89);
+            this.btnLisaaPaikkakunta.TabIndex = 28;
+            this.btnLisaaPaikkakunta.Text = "LISÄÄ PAIKKAKUNTA";
+            this.btnLisaaPaikkakunta.UseVisualStyleBackColor = true;
+            this.btnLisaaPaikkakunta.Click += new System.EventHandler(this.btnLisaaPaikkakunta_Click);
+            // 
             // Asiakashallinta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(968, 628);
+            this.Controls.Add(this.btnLisaaPaikkakunta);
             this.Controls.Add(this.btn_back2VAR);
             this.Controls.Add(this.btn_back2menuAS);
             this.Controls.Add(this.dataGridView1);
@@ -370,5 +384,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btn_back2menuAS;
         private System.Windows.Forms.Button btn_back2VAR;
+        private System.Windows.Forms.Button btnLisaaPaikkakunta;
     }
 }

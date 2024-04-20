@@ -70,6 +70,39 @@ namespace Group9_VillageNewbies
             }
         }
 
+        private void LataaAsiakkaatTietokannasta2()
+        {
+            DatabaseRepository repository = new DatabaseRepository();
+            asiakasTiedot.Clear(); // Tyhjennä lista varmuuden vuoksi
+            string query = @"
+        SELECT a.asiakas_id, a.etunimi, a.sukunimi, a.lahiosoite, a.postinro, p.toimipaikka, a.puhelinnro, a.email 
+        FROM asiakas a 
+        JOIN posti p ON a.postinro = p.postinro
+        WHERE a.postinro NOT IN (
+            SELECT DISTINCT postinro FROM mokki
+        )";
+            DataTable asiakkaatTable = repository.ExecuteQuery(query);
+
+            foreach (DataRow row in asiakkaatTable.Rows)
+            {
+                AsiakasTieto asiakas = new AsiakasTieto()
+                {
+                    AsiakasId = row["asiakas_id"] != DBNull.Value ? Convert.ToInt32(row["asiakas_id"]) : 0,
+                    Etunimi = row["etunimi"].ToString(),
+                    Sukunimi = row["sukunimi"].ToString(),
+                    Lahiosoite = row["lahiosoite"].ToString(),
+                    Postinro = row["postinro"].ToString(),
+                    Toimipaikka = row["toimipaikka"].ToString(),
+                    Puhelinnro = row["puhelinnro"].ToString(),
+                    Email = row["email"].ToString(),
+                };
+                asiakasTiedot.Add(asiakas);
+            }
+        }
+
+
+
+
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
 
@@ -416,5 +449,13 @@ private void btnAdd_Click(object sender, EventArgs e)
             varausAddEditDelete.ShowDialog();
             this.Close();
         }
+
+        // Tämä metodi luodaan automaattisesti, kun tuplaklikkaat nappulaa suunnittelunäkymässä
+        private void btnLisaaPaikkakunta_Click(object sender, EventArgs e)
+        {
+            AvaaLisaaPaikkakuntaLomake();
+        }
+
+
     }
 }

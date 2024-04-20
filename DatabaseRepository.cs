@@ -75,6 +75,47 @@ namespace Group9_VillageNewbies
         public List<Posti> HaeKaikkiPostit()
         {
             List<Posti> postit = new List<Posti>();
+            // Päivitetty kysely, joka hakee kaikki postinumerot, jotka ovat asiakkaiden käytössä,
+            // ja jättää pois ne, jotka ovat vain mökkien käytössä
+            string query = @"SELECT DISTINCT p.postinro, p.toimipaikka
+                            FROM posti p
+                            WHERE p.postinro IN (
+                                SELECT a.postinro FROM asiakas a
+                                UNION
+                                SELECT m.postinro FROM mokki m
+                                WHERE m.postinro IN (SELECT a.postinro FROM asiakas a)
+                            )
+                            ORDER BY p.toimipaikka ASC;";
+
+            using (OdbcConnection connection = new OdbcConnection(connectionString))
+            {
+                OdbcCommand command = new OdbcCommand(query, connection);
+                try
+                {
+                    connection.Open();
+                    using (OdbcDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string postinro = reader["postinro"].ToString();
+                            string toimipaikka = reader["toimipaikka"].ToString();
+                            postit.Add(new Posti(postinro, toimipaikka));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Virhe tietokannassa: " + ex.Message);
+                    // Käsittele virhe tarvittaessa
+                }
+            }
+            return postit;
+        }
+
+
+        public List<Posti> HaeKaikkiPostit2()
+        {
+            List<Posti> postit = new List<Posti>();
             string query = "SELECT postinro, toimipaikka FROM posti ORDER BY toimipaikka ASC";
 
             using (OdbcConnection connection = new OdbcConnection(connectionString))
@@ -101,6 +142,49 @@ namespace Group9_VillageNewbies
             }
             return postit;
         }
+
+        public List<Posti> HaeKaikkiPostit1()
+        {
+            List<Posti> postit = new List<Posti>();
+            // Päivitetty kysely, joka hakee vain asiakkaiden käyttämiä postinumeroita, jotka eivät ole mökkien käytössä
+            string query = @"
+        SELECT p.postinro, p.toimipaikka 
+        FROM posti p
+        WHERE p.postinro IN (
+            SELECT DISTINCT a.postinro 
+            FROM asiakas a
+        ) AND p.postinro NOT IN (
+            SELECT DISTINCT m.postinro 
+            FROM mokki m
+        )
+        ORDER BY p.toimipaikka ASC";
+
+            using (OdbcConnection connection = new OdbcConnection(connectionString))
+            {
+                OdbcCommand command = new OdbcCommand(query, connection);
+                try
+                {
+                    connection.Open();
+                    using (OdbcDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string postinro = reader["postinro"].ToString();
+                            string toimipaikka = reader["toimipaikka"].ToString();
+                            postit.Add(new Posti(postinro, toimipaikka));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Virhe tietokannassa: " + ex.Message);
+                    // Käsittele virhe tarvittaessa
+                }
+            }
+            return postit;
+        }
+
+
         public bool LisaaPosti(Posti posti)
         {
             try
