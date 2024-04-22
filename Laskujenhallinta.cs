@@ -17,6 +17,7 @@ namespace Group9_VillageNewbies
         {
             InitializeComponent();
             dbRepository = new DatabaseRepository(); // Aseta oikea yhteysmerkkijono konstruktorissa, jos tarpeen
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick; // Liitä tapahtumankäsittelijä
             LoadInvoices();
         }
 
@@ -68,6 +69,29 @@ namespace Group9_VillageNewbies
             dataGridView1.Columns.Clear();
             dataGridView1.Refresh(); // Pakota DataGridView päivittymään
         }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                Lasku lasku = new Lasku
+                {
+                    LaskuId = Convert.ToInt32(row.Cells["lasku_id"].Value),
+                    VarausId = Convert.ToInt32(row.Cells["varaus_id"].Value),
+                    Summa = Convert.ToDouble(row.Cells["summa"].Value),
+                    Alv = Convert.ToDouble(row.Cells["alv"].Value),
+                    Maksettu = Convert.ToBoolean(row.Cells["maksettu"].Value),
+                    Erapvm = Convert.ToDateTime(row.Cells["erapvm"].Value)
+                };
+
+                // Avaa laskun tiedot lomake
+                LaskunTiedotForm laskunTiedotForm = new LaskunTiedotForm();
+                laskunTiedotForm.SetLaskuData(lasku);
+                laskunTiedotForm.ShowDialog();
+            }
+        }
+
 
 
     }

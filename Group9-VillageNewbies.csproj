@@ -91,6 +91,12 @@
     <Compile Include="Laskujenhallinta.Designer.cs">
       <DependentUpon>Laskujenhallinta.cs</DependentUpon>
     </Compile>
+    <Compile Include="LaskunTiedotForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaskunTiedotForm.Designer.cs">
+      <DependentUpon>LaskunTiedotForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LisaaPaikkakuntaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Laskujenhallinta.resx">
       <DependentUpon>Laskujenhallinta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaskunTiedotForm.resx">
+      <DependentUpon>LaskunTiedotForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LisaaPaikkakuntaForm.resx">
       <DependentUpon>LisaaPaikkakuntaForm.cs</DependentUpon>
