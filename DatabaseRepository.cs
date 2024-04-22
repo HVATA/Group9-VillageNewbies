@@ -519,8 +519,66 @@ namespace Group9_VillageNewbies
             }
         }
 
+        public DataTable GetInvoicesWithDetails()
+        {
+            string query = @"
+        SELECT 
+            l.lasku_id, l.varaus_id, a.etunimi, a.sukunimi, m.mokkinimi, m.katuosoite, l.summa, l.alv, l.erapvm, l.maksettu
+        FROM 
+            vn.lasku l
+        JOIN 
+            vn.varaus v ON l.varaus_id = v.varaus_id
+        JOIN 
+            vn.asiakas a ON v.asiakas_id = a.asiakas_id
+        JOIN 
+            vn.mokki m ON v.mokki_mokki_id = m.mokki_id
+        ORDER BY 
+            l.lasku_id";
+            return ExecuteQuery(query);
+        }
 
+        public DataTable GetUnpaidInvoices()
+        {
+            string query = @"
+        SELECT 
+            l.lasku_id, l.varaus_id, a.etunimi, a.sukunimi, m.mokkinimi, m.katuosoite, l.summa, l.alv, l.erapvm, l.maksettu
+        FROM 
+            vn.lasku l
+        JOIN 
+            vn.varaus v ON l.varaus_id = v.varaus_id
+        JOIN 
+            vn.asiakas a ON v.asiakas_id = a.asiakas_id
+        JOIN 
+            vn.mokki m ON v.mokki_mokki_id = m.mokki_id
+        WHERE 
+            l.maksettu = FALSE
+        ORDER BY 
+            l.lasku_id";
+            return ExecuteQuery(query);
+        }
+
+        public DataTable GetPaidInvoices()
+        {
+            string query = @"
+        SELECT 
+            l.lasku_id, l.varaus_id, a.etunimi, a.sukunimi, m.mokkinimi, m.katuosoite, l.summa, l.alv, l.erapvm, l.maksettu
+        FROM 
+            vn.lasku l
+        JOIN 
+            vn.varaus v ON l.varaus_id = v.varaus_id
+        JOIN 
+            vn.asiakas a ON v.asiakas_id = a.asiakas_id
+        JOIN 
+            vn.mokki m ON v.mokki_mokki_id = m.mokki_id
+        WHERE 
+            l.maksettu = TRUE
+        ORDER BY 
+            l.lasku_id";
+            return ExecuteQuery(query);
+        }
 
 
     }
+
+
 }

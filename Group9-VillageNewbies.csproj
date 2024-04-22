@@ -164,6 +164,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Laskujenhallinta.resx">
+      <DependentUpon>Laskujenhallinta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LisaaPaikkakuntaForm.resx">
       <DependentUpon>LisaaPaikkakuntaForm.cs</DependentUpon>
     </EmbeddedResource>
