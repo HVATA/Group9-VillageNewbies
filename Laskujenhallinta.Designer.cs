@@ -33,6 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnShowUnpaidInvoices = new System.Windows.Forms.Button();
             this.btnShowPaidInvoices = new System.Windows.Forms.Button();
+            this.btnOverdue = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,12 +87,23 @@
             this.btnShowPaidInvoices.UseVisualStyleBackColor = true;
             this.btnShowPaidInvoices.Click += new System.EventHandler(this.btnShowPaidInvoices_Click);
             // 
+            // btnOverdue
+            // 
+            this.btnOverdue.Location = new System.Drawing.Point(31, 452);
+            this.btnOverdue.Name = "btnOverdue";
+            this.btnOverdue.Size = new System.Drawing.Size(174, 23);
+            this.btnOverdue.TabIndex = 5;
+            this.btnOverdue.Text = "Näytä myöhässä olevat laskut";
+            this.btnOverdue.UseVisualStyleBackColor = true;
+            this.btnOverdue.Click += new System.EventHandler(this.btnShowUnpaidInvoices_Click);
+            // 
             // Laskujenhallinta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1133, 585);
+            this.Controls.Add(this.btnOverdue);
             this.Controls.Add(this.btnShowPaidInvoices);
             this.Controls.Add(this.btnShowUnpaidInvoices);
             this.Controls.Add(this.label2);
@@ -112,5 +124,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnShowUnpaidInvoices;
         private System.Windows.Forms.Button btnShowPaidInvoices;
+        private System.Windows.Forms.Button btnOverdue;
     }
 }

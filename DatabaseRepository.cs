@@ -577,6 +577,53 @@ namespace Group9_VillageNewbies
             return ExecuteQuery(query);
         }
 
+        public DataTable GetOverdueUnpaidInvoices()
+        {
+            string query = @"
+        SELECT 
+            l.lasku_id, l.varaus_id, a.etunimi, a.sukunimi, m.mokkinimi, m.katuosoite, l.summa, l.alv, l.erapvm, l.maksettu
+        FROM 
+            vn.lasku l
+        JOIN 
+            vn.varaus v ON l.varaus_id = v.varaus_id
+        JOIN 
+            vn.asiakas a ON v.asiakas_id = a.asiakas_id
+        JOIN 
+            vn.mokki m ON v.mokki_mokki_id = m.mokki_id
+        WHERE 
+            l.maksettu = FALSE AND l.erapvm < CURDATE()
+        ORDER BY 
+            l.lasku_id";
+            return ExecuteQuery(query);
+        }
+
+        public void UpdateInvoicePaymentStatus2(int invoiceId, bool isPaid)
+        {
+            string query = "UPDATE vn.lasku SET maksettu = @isPaid WHERE lasku_id = @invoiceId;";
+            using (OdbcConnection connection = new OdbcConnection(connectionString))
+            {
+                OdbcCommand command = new OdbcCommand(query, connection);
+                command.Parameters.AddWithValue("@isPaid", isPaid);
+                command.Parameters.AddWithValue("@invoiceId", invoiceId);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Virhe päivitettäessä laskun maksutilaa: " + ex.Message);
+                }
+            }
+        }
+
+        public void UpdateInvoicePaymentStatus(int invoiceId, bool isPaid)
+        {
+            string query = $"UPDATE lasku SET maksettu = {isPaid} WHERE lasku_id = {invoiceId}";
+            ExecuteNonQuery(query);
+        }
+
+
 
     }
 

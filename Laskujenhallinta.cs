@@ -62,6 +62,12 @@ namespace Group9_VillageNewbies
             dataGridView1.DataSource = dbRepository.GetPaidInvoices();
         }
 
+        private void btnOverdue_Click(object sender, EventArgs e)
+        {
+            ClearDataGridView();
+            dataGridView1.DataSource = dbRepository.GetOverdueUnpaidInvoices();
+        }
+
         private void ClearDataGridView()
         {
             dataGridView1.DataSource = null;

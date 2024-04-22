@@ -32,6 +32,11 @@
             this.textBoxErapvm = new System.Windows.Forms.TextBox();
             this.textBoxALV = new System.Windows.Forms.TextBox();
             this.checkBoxMaksettu = new System.Windows.Forms.CheckBox();
+            this.textBoxID = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxSumma
@@ -58,18 +63,73 @@
             // checkBoxMaksettu
             // 
             this.checkBoxMaksettu.AutoSize = true;
-            this.checkBoxMaksettu.Location = new System.Drawing.Point(93, 270);
+            this.checkBoxMaksettu.Location = new System.Drawing.Point(93, 265);
             this.checkBoxMaksettu.Name = "checkBoxMaksettu";
-            this.checkBoxMaksettu.Size = new System.Drawing.Size(80, 17);
+            this.checkBoxMaksettu.Size = new System.Drawing.Size(70, 17);
             this.checkBoxMaksettu.TabIndex = 4;
-            this.checkBoxMaksettu.Text = "checkBox1";
+            this.checkBoxMaksettu.Text = "Maksettu";
+            this.checkBoxMaksettu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBoxMaksettu.UseVisualStyleBackColor = true;
+            this.checkBoxMaksettu.CheckedChanged += new System.EventHandler(this.checkBoxMaksettu_CheckedChanged);
+            // 
+            // textBoxID
+            // 
+            this.textBoxID.Location = new System.Drawing.Point(93, 48);
+            this.textBoxID.Name = "textBoxID";
+            this.textBoxID.Size = new System.Drawing.Size(189, 20);
+            this.textBoxID.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(90, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Laskun numero";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(90, 163);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Eräpvm";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(90, 117);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(28, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "ALV";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(90, 75);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(93, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Laskun summa";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // LaskunTiedotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxID);
             this.Controls.Add(this.checkBoxMaksettu);
             this.Controls.Add(this.textBoxALV);
             this.Controls.Add(this.textBoxErapvm);
@@ -87,5 +147,10 @@
         private System.Windows.Forms.TextBox textBoxErapvm;
         private System.Windows.Forms.TextBox textBoxALV;
         private System.Windows.Forms.CheckBox checkBoxMaksettu;
+        private System.Windows.Forms.TextBox textBoxID;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
