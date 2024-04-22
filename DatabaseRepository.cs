@@ -519,7 +519,7 @@ namespace Group9_VillageNewbies
             }
         }
 
-        public DataTable GetInvoicesWithDetails()
+        public DataTable GetInvoicesWithDetail2s()
         {
             string query = @"
         SELECT 
@@ -534,6 +534,42 @@ namespace Group9_VillageNewbies
             vn.mokki m ON v.mokki_mokki_id = m.mokki_id
         ORDER BY 
             l.lasku_id";
+            return ExecuteQuery(query);
+        }
+
+        public DataTable GetInvoicesWithDetails()
+        {
+            string query = @"
+            SELECT 
+                l.lasku_id, 
+                l.varaus_id, 
+                a.etunimi, 
+                a.sukunimi, 
+                m.mokkinimi, 
+                m.katuosoite, 
+                l.summa + COALESCE(SUM(p.hinta * vp.lkm), 0) AS summa,
+                l.alv, 
+                l.erapvm, 
+                l.maksettu,
+                GROUP_CONCAT(p.nimi SEPARATOR ', ') AS Palvelut,
+                GROUP_CONCAT(vp.lkm SEPARATOR ', ') AS PalveluMaarat
+            FROM 
+                vn.lasku l
+            JOIN 
+                vn.varaus v ON l.varaus_id = v.varaus_id
+            JOIN 
+                vn.asiakas a ON v.asiakas_id = a.asiakas_id
+            JOIN 
+                vn.mokki m ON v.mokki_mokki_id = m.mokki_id
+            LEFT JOIN 
+                vn.varauksen_palvelut vp ON v.varaus_id = vp.varaus_id
+            LEFT JOIN 
+                vn.palvelu p ON vp.palvelu_id = p.palvelu_id
+            GROUP BY
+                l.lasku_id
+            ORDER BY 
+                l.lasku_id;
+            ";
             return ExecuteQuery(query);
         }
 

@@ -85,6 +85,7 @@ namespace Group9_VillageNewbies
                 {
                     LaskuId = Convert.ToInt32(row.Cells["lasku_id"].Value),
                     VarausId = Convert.ToInt32(row.Cells["varaus_id"].Value),
+                    //KokonaisSumma 
                     Summa = Convert.ToDouble(row.Cells["summa"].Value),
                     Alv = Convert.ToDouble(row.Cells["alv"].Value),
                     Maksettu = Convert.ToBoolean(row.Cells["maksettu"].Value),
@@ -94,6 +95,7 @@ namespace Group9_VillageNewbies
                 // Avaa laskun tiedot lomake
                 LaskunTiedotForm laskunTiedotForm = new LaskunTiedotForm();
                 laskunTiedotForm.SetLaskuData(lasku);
+                laskunTiedotForm.InvoiceUpdated += (s, args) => LoadInvoices(); // Tilaa tapahtuma
                 laskunTiedotForm.ShowDialog();
             }
         }

@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnCreatePdf = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxSumma
@@ -120,11 +121,22 @@
             this.label4.Text = "Laskun summa";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
+            // btnCreatePdf
+            // 
+            this.btnCreatePdf.Location = new System.Drawing.Point(95, 330);
+            this.btnCreatePdf.Name = "btnCreatePdf";
+            this.btnCreatePdf.Size = new System.Drawing.Size(152, 23);
+            this.btnCreatePdf.TabIndex = 10;
+            this.btnCreatePdf.Text = "Tee pdf-lasku";
+            this.btnCreatePdf.UseVisualStyleBackColor = true;
+            this.btnCreatePdf.Click += new System.EventHandler(this.btnCreatePdf_Click);
+            // 
             // LaskunTiedotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnCreatePdf);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -152,5 +164,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnCreatePdf;
     }
 }
