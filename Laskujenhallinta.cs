@@ -38,6 +38,11 @@ namespace Group9_VillageNewbies
             }
         }
 
+        private void btnAllInvoices_Click(object sender, EventArgs e)
+        {
+            LoadInvoices();
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -64,8 +69,16 @@ namespace Group9_VillageNewbies
 
         private void btnOverdue_Click(object sender, EventArgs e)
         {
-            ClearDataGridView();
-            dataGridView1.DataSource = dbRepository.GetOverdueUnpaidInvoices();
+            try
+            {
+                ClearDataGridView(); // Tyhjentää vanhan datan
+                dataGridView1.DataSource = dbRepository.GetOverdueUnpaidInvoices(); // Hakee myöhässä olevat maksamattomat laskut
+                dataGridView1.Refresh(); // Päivittää näkymän
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Virhe haettaessa myöhässä olevia laskuja: " + ex.Message, "Virhe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ClearDataGridView()

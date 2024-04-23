@@ -38,6 +38,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnCreatePdf = new System.Windows.Forms.Button();
+            this.btnSendEmail = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxSumma
@@ -131,11 +132,22 @@
             this.btnCreatePdf.UseVisualStyleBackColor = true;
             this.btnCreatePdf.Click += new System.EventHandler(this.btnCreatePdf_Click);
             // 
+            // btnSendEmail
+            // 
+            this.btnSendEmail.Location = new System.Drawing.Point(95, 359);
+            this.btnSendEmail.Name = "btnSendEmail";
+            this.btnSendEmail.Size = new System.Drawing.Size(152, 23);
+            this.btnSendEmail.TabIndex = 11;
+            this.btnSendEmail.Text = "Lähetä sähköpostiin";
+            this.btnSendEmail.UseVisualStyleBackColor = true;
+            this.btnSendEmail.Click += new System.EventHandler(this.btnSendEmail_Click);
+            // 
             // LaskunTiedotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnSendEmail);
             this.Controls.Add(this.btnCreatePdf);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -165,5 +177,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnCreatePdf;
+        private System.Windows.Forms.Button btnSendEmail;
     }
 }

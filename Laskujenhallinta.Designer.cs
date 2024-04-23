@@ -34,6 +34,7 @@
             this.btnShowUnpaidInvoices = new System.Windows.Forms.Button();
             this.btnShowPaidInvoices = new System.Windows.Forms.Button();
             this.btnOverdue = new System.Windows.Forms.Button();
+            this.btnAllInvoices = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,7 +70,8 @@
             // 
             // btnShowUnpaidInvoices
             // 
-            this.btnShowUnpaidInvoices.Location = new System.Drawing.Point(31, 394);
+            this.btnShowUnpaidInvoices.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowUnpaidInvoices.Location = new System.Drawing.Point(31, 410);
             this.btnShowUnpaidInvoices.Name = "btnShowUnpaidInvoices";
             this.btnShowUnpaidInvoices.Size = new System.Drawing.Size(174, 23);
             this.btnShowUnpaidInvoices.TabIndex = 3;
@@ -79,7 +81,8 @@
             // 
             // btnShowPaidInvoices
             // 
-            this.btnShowPaidInvoices.Location = new System.Drawing.Point(31, 423);
+            this.btnShowPaidInvoices.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowPaidInvoices.Location = new System.Drawing.Point(31, 439);
             this.btnShowPaidInvoices.Name = "btnShowPaidInvoices";
             this.btnShowPaidInvoices.Size = new System.Drawing.Size(174, 23);
             this.btnShowPaidInvoices.TabIndex = 4;
@@ -89,13 +92,25 @@
             // 
             // btnOverdue
             // 
-            this.btnOverdue.Location = new System.Drawing.Point(31, 452);
+            this.btnOverdue.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOverdue.Location = new System.Drawing.Point(31, 468);
             this.btnOverdue.Name = "btnOverdue";
             this.btnOverdue.Size = new System.Drawing.Size(174, 23);
             this.btnOverdue.TabIndex = 5;
             this.btnOverdue.Text = "Näytä myöhässä olevat laskut";
             this.btnOverdue.UseVisualStyleBackColor = true;
-            this.btnOverdue.Click += new System.EventHandler(this.btnShowUnpaidInvoices_Click);
+            this.btnOverdue.Click += new System.EventHandler(this.btnOverdue_Click);
+            // 
+            // btnAllInvoices
+            // 
+            this.btnAllInvoices.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAllInvoices.Location = new System.Drawing.Point(31, 381);
+            this.btnAllInvoices.Name = "btnAllInvoices";
+            this.btnAllInvoices.Size = new System.Drawing.Size(174, 23);
+            this.btnAllInvoices.TabIndex = 6;
+            this.btnAllInvoices.Text = "Näytä kaikki laskut";
+            this.btnAllInvoices.UseVisualStyleBackColor = true;
+            this.btnAllInvoices.Click += new System.EventHandler(this.btnAllInvoices_Click);
             // 
             // Laskujenhallinta
             // 
@@ -103,6 +118,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1133, 585);
+            this.Controls.Add(this.btnAllInvoices);
             this.Controls.Add(this.btnOverdue);
             this.Controls.Add(this.btnShowPaidInvoices);
             this.Controls.Add(this.btnShowUnpaidInvoices);
@@ -125,5 +141,6 @@
         private System.Windows.Forms.Button btnShowUnpaidInvoices;
         private System.Windows.Forms.Button btnShowPaidInvoices;
         private System.Windows.Forms.Button btnOverdue;
+        private System.Windows.Forms.Button btnAllInvoices;
     }
 }

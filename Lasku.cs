@@ -16,5 +16,7 @@ namespace Group9_VillageNewbies
         public double Summa { get; set; }
         public double Alv { get; set; }
         public bool Maksettu { get; set; }
+        //tiedostopolku
+        public string FilePath { get; set; }
     }
 }
