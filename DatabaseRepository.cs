@@ -549,7 +549,7 @@ namespace Group9_VillageNewbies
             }
         }
 
-        public DataTable GetInvoicesWithDetails()
+        public DataTable GetInvoicesWithDetails2()
         {
             string query = @"
         SELECT 
@@ -567,7 +567,7 @@ namespace Group9_VillageNewbies
             return ExecuteQuery(query);
         }
 
-        public DataTable GetInvoicesWithDetails2()
+        public DataTable GetInvoicesWithDetails()
         {
             string query = @"
             SELECT 
@@ -575,14 +575,17 @@ namespace Group9_VillageNewbies
                 l.varaus_id, 
                 a.etunimi, 
                 a.sukunimi, 
+                a.lahiosoite AS katuosoite, 
+                a.postinro AS postinumero, 
+                p.toimipaikka AS paikkakunta,
+                a.email AS sahkoposti, 
+                a.puhelinnro AS puhelinnumero,
                 m.mokkinimi, 
-                m.katuosoite, 
-                l.summa + COALESCE(SUM(p.hinta * vp.lkm), 0) AS summa,
+                m.katuosoite AS mokin_katuosoite, 
+                l.summa, 
                 l.alv, 
                 l.erapvm, 
-                l.maksettu,
-                GROUP_CONCAT(p.nimi SEPARATOR ', ') AS Palvelut,
-                GROUP_CONCAT(vp.lkm SEPARATOR ', ') AS PalveluMaarat
+                l.maksettu
             FROM 
                 vn.lasku l
             JOIN 
@@ -590,16 +593,11 @@ namespace Group9_VillageNewbies
             JOIN 
                 vn.asiakas a ON v.asiakas_id = a.asiakas_id
             JOIN 
+                vn.posti p ON a.postinro = p.postinro
+            JOIN 
                 vn.mokki m ON v.mokki_mokki_id = m.mokki_id
-            LEFT JOIN 
-                vn.varauksen_palvelut vp ON v.varaus_id = vp.varaus_id
-            LEFT JOIN 
-                vn.palvelu p ON vp.palvelu_id = p.palvelu_id
-            GROUP BY
-                l.lasku_id
             ORDER BY 
-                l.lasku_id;
-            ";
+                l.lasku_id;";
             return ExecuteQuery(query);
         }
 

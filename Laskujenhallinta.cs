@@ -31,6 +31,18 @@ namespace Group9_VillageNewbies
             try
             {
                 dataGridView1.DataSource = dbRepository.GetInvoicesWithDetails();
+                dataGridView1.Columns["sahkoposti"].Visible = false; // Esimerkki sähköpostiosoitteen piilottamisesta
+                dataGridView1.Columns["puhelinnumero"].Visible = false; // Esimerkki puhelinnumeron piilottamisesta
+                dataGridView1.Columns["etunimi"].HeaderText = "Etunimi"; // Muuttaa etunimi-sarakkeen otsikon
+                dataGridView1.Columns["sukunimi"].HeaderText = "Sukunimi"; // Muuttaa sukunimi-sarakkeen otsikon
+                dataGridView1.Columns["katuosoite"].HeaderText = "Katuosoite"; // Muuttaa katuosoite-sarakkeen otsikon
+                dataGridView1.Columns["postinumero"].Visible = false; // Muuttaa postinumero-sarakkeen otsikon
+                dataGridView1.Columns["lasku_id"].Visible = false; // Piilottaa lasku_id sarakkeen
+                dataGridView1.Columns["varaus_id"].Visible = false; // Piilottaa varaus_id sarakkeen
+                dataGridView1.Columns["summa"].DefaultCellStyle.Format = "0.00 €"; // Muotoilee summa-sarakkeen valuutaksi
+                dataGridView1.Columns["alv"].Visible = false; 
+                dataGridView1.Refresh(); // Pakota DataGridView päivittymään
+
             }
             catch (Exception ex)
             {
@@ -96,9 +108,16 @@ namespace Group9_VillageNewbies
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                 Lasku lasku = new Lasku
                 {
+                    Etunimi = row.Cells["etunimi"].Value.ToString(),
+                    Sukunimi = row.Cells["sukunimi"].Value.ToString(),
+                    Lahiosoite = row.Cells["katuosoite"].Value.ToString(),
+                    Postinro = row.Cells["postinumero"].Value.ToString(),
+                    //Email = row.Cells["email"].Value.ToString(),
+                    //Puhelinnro = row.Cells["puhelinnro"].Value.ToString(),
+                    //LaskunPvm = Convert.ToDateTime(row.Cells["laskun_pvm"].Value),
+                    Mokkinimi = row.Cells["mokkinimi"].Value.ToString(),
                     LaskuId = Convert.ToInt32(row.Cells["lasku_id"].Value),
                     VarausId = Convert.ToInt32(row.Cells["varaus_id"].Value),
-                    //KokonaisSumma 
                     Summa = Convert.ToDouble(row.Cells["summa"].Value),
                     Alv = Convert.ToDouble(row.Cells["alv"].Value),
                     Maksettu = Convert.ToBoolean(row.Cells["maksettu"].Value),

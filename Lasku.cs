@@ -16,7 +16,14 @@ namespace Group9_VillageNewbies
         public double Summa { get; set; }
         public double Alv { get; set; }
         public bool Maksettu { get; set; }
-        //tiedostopolku
         public string FilePath { get; set; }
+        public string Postinro { get; set; }
+        public string Etunimi { get; set; }
+        public string Sukunimi { get; set; }
+        public string Lahiosoite { get; set; }
+        public string Email { get; set; }
+        public string Puhelinnro { get; set; }
+        public string Mokkinimi { get; set; }
+
     }
 }
