@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
+using System.Windows.Forms;
 
 namespace Group9_VillageNewbies
 {
@@ -306,7 +307,7 @@ namespace Group9_VillageNewbies
                     {
                         command.Parameters.AddWithValue("alue_id", alue.Alue_id);
                         command.Parameters.AddWithValue("nimi", alue.AlueNimi);
-                        
+
                         command.ExecuteNonQuery();
                     }
                     /* Kommenteissa kun ylemäpää löytyy LisaaPosti-funktio
@@ -410,6 +411,68 @@ namespace Group9_VillageNewbies
                 return false;
             }
         }
+        public void MuutaVaraus(Varaus varaus)
+        {
+            using (var connection = new OdbcConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (var command = new OdbcCommand())
+                    {
+                        command.Connection = connection;
+                        command.CommandText = @"
+                UPDATE varaus
+                SET
+                    asiakas_id = ?,
+                    mokki_mokki_id = ?,
+                    varattu_pvm = ?,
+                    vahvistus_pvm = ?,
+                    varattu_alkupvm = ?,
+                    varattu_loppupvm = ?
+                WHERE varaus_id = ?";
+
+                        // Lisää parametrit ODBC:n tapaan käyttäen kysymysmerkkejä ja sijoittamalla arvot järjestyksessä
+                        command.Parameters.Add(new OdbcParameter("asiakas_id", varaus.Asiakas_id));
+                        command.Parameters.Add(new OdbcParameter("mokki_mokki_id", varaus.Mokki_Mokki_id));
+                        command.Parameters.Add(new OdbcParameter("varattu_pvm", varaus.Varattu_pvm));
+                        command.Parameters.Add(new OdbcParameter("vahvistus_pvm", varaus.Vahvistu_pvm));
+                        command.Parameters.Add(new OdbcParameter("varattu_alkupvm", varaus.Varattu_alkupvm));
+                        command.Parameters.Add(new OdbcParameter("varattu_loppupvm", varaus.Varattu_loppupvm));
+                        command.Parameters.Add(new OdbcParameter("varaus_id", varaus.Varaus_id));
+
+                        command.ExecuteNonQuery();
+                    }
+                   
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Virhe tietokantaa muutettaessa: {ex.Message}");
+                }
+            }
+        }
+        public bool PoistaVaraus(Varaus varaus)
+        {
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                    string query = "DELETE FROM varaus WHERE varaus_id = ?";
+                    using (OdbcCommand command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("varaus_id", varaus.Varaus_id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Virhe tietokannasta poistaessa: {ex.Message}");
+                return false;
+            }
+        }
         public bool PoistaMokki(MokkiTieto mokki)
         {
             try
@@ -449,8 +512,8 @@ namespace Group9_VillageNewbies
                         WHERE alue_id = ?";
 
                         // Lisää parametrit ODBC:n tapaan käyttäen kysymysmerkkejä ja sijoittamalla arvot järjestyksessä
-                        command.Parameters.Add(new OdbcParameter("nimi", alueTieto.AlueNimi)); 
-                        command.Parameters.Add(new OdbcParameter("alue_id", alueTieto.Alue_id)); 
+                        command.Parameters.Add(new OdbcParameter("nimi", alueTieto.AlueNimi));
+                        command.Parameters.Add(new OdbcParameter("alue_id", alueTieto.Alue_id));
 
                         int result = command.ExecuteNonQuery();
                         return result > 0;
@@ -502,7 +565,7 @@ namespace Group9_VillageNewbies
                 }
                 catch (Exception ex)
                 {
-                    
+                    Console.WriteLine($"Virhe tietokantaa muutettaessa: {ex.Message}");
                 }
             }
         }

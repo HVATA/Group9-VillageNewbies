@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Odbc;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace Group9_VillageNewbies
         public string lisaysquery;
         public string poistoquery;
         public string muokkausquery;
+        public string hakuquery;
         public string sAlueMok;
         public int varaus_id = 0;
         public int asiakas_id;
@@ -173,6 +175,7 @@ namespace Group9_VillageNewbies
                 varausTiedot.Add(varaus);
             }
         }
+        
         private void btn_back2Var_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -201,7 +204,15 @@ namespace Group9_VillageNewbies
             }
             else
             {
-                varaus_id = varausTiedot.Count + 1;
+                int suurinId = 0;
+                foreach(Varaus v in varausTiedot)
+                {
+                    if(v.Varaus_id > suurinId)
+                    {
+                        suurinId = v.Varaus_id;
+                    }
+                }
+                varaus_id = suurinId + 1;
                 Varaus uusiVaraus = new Varaus(
                     varaus_id, asiakas_id, mokki_mokki_id,
                     varattu_pvm, vahvistus_pvm, varattu_alkupvm,
@@ -214,12 +225,38 @@ namespace Group9_VillageNewbies
 
         private void btn_EditVaraus_Click(object sender, EventArgs e)
         {
+            if (comboBox_VarVarAlue.SelectedIndex == -1)
+            {
+                MessageBox.Show("Valise alue");
+            }
+            else if (comboBox_VarVarMokki.SelectedIndex == -1)
+            {
+                MessageBox.Show("Valise mökki");
+            }
+            else if (comboBox_VarVarAsiakas.SelectedIndex == -1)
+            {
+                MessageBox.Show("Valise asiakas");
+            }
+            else
+            {
+                Varaus pVaraus = new Varaus(
+                    varaus_id, asiakas_id, mokki_mokki_id,
+                    varattu_pvm, vahvistus_pvm, varattu_alkupvm,
+                    varattu_loppupvm);
+                DatabaseRepository db = new DatabaseRepository();
+                db.MuutaVaraus(pVaraus);
 
+            }
         }
 
         private void btn_DeleteVaraus_Click(object sender, EventArgs e)
         {
-            varaus_id = varausTiedot.Count - 1; //Tän pitäis toimia
+            Varaus pVaraus = new Varaus(
+                    varaus_id, asiakas_id, mokki_mokki_id,
+                    varattu_pvm, vahvistus_pvm, varattu_alkupvm,
+                    varattu_loppupvm);
+            DatabaseRepository db = new DatabaseRepository();
+            db.PoistaVaraus(pVaraus);
 
         }
 
@@ -308,7 +345,7 @@ namespace Group9_VillageNewbies
                 DateTime vahvistus_pvm = Convert.ToDateTime(row.Cells["vahvistuspvmDataGridViewTextBoxColumn"].Value);
                 DateTime varattu_alkupvm = Convert.ToDateTime(row.Cells["varattualkupvmDataGridViewTextBoxColumn"].Value);
                 DateTime varattu_loppupvm = Convert.ToDateTime(row.Cells["varattuloppupvmDataGridViewTextBoxColumn"].Value);
-
+                varaus_id = varausId;
                 // Luodaan uusi Varaus-olio ja asetetaan sille arvot valitusta DataGridView-rivistä
                 Varaus varaus = new Varaus
                 {
@@ -345,14 +382,9 @@ namespace Group9_VillageNewbies
                 dateTimePickerVarStart.Value = varattu_alkupvm;
                 dateTimePickerVarEnd.Value = varattu_loppupvm;
                
-            }
-
-
-
-
-
-            
+            }  
 
         }
+        
     }
 }
