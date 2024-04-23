@@ -39,6 +39,10 @@ namespace Group9_VillageNewbies
             Hinta = hinta;
             AlueNimi = alueNimi;
             }
+        public Palvelu()
+        {
+           
+        }
         public static List<Palvelu> HaeKaikkiPalveluTiedot ()
             {
             List<Palvelu> palvelut = new List<Palvelu>();

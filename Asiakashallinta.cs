@@ -516,9 +516,10 @@ private void btnAdd_Click(object sender, EventArgs e)
 
         private void btn_back2VAR_Click(object sender, EventArgs e)
         {
+            this.Close();
             VarausAddEditDelete varausAddEditDelete = new VarausAddEditDelete();
             varausAddEditDelete.ShowDialog();
-            this.Close();
+            
         }
 
         // Tämä metodi luodaan automaattisesti, kun tuplaklikkaat nappulaa suunnittelunäkymässä

@@ -19,16 +19,18 @@ namespace Group9_VillageNewbies
 
         private void btn_asUusi_Click(object sender, EventArgs e)
         {
+            this.Close();
             Asiakashallinta asiakas = new Asiakashallinta();
             asiakas.Show();
-            this.Close();
+            
         }
 
         private void btn_asVanha_Click(object sender, EventArgs e)
         {
+            this.Close();
             VarausAddEditDelete varausAddEditDelete = new VarausAddEditDelete();
             varausAddEditDelete.ShowDialog();
-            this.Close();
+            
         }
     }
 }
