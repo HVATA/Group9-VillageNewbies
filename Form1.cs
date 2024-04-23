@@ -17,11 +17,6 @@ namespace Group9_VillageNewbies
             InitializeComponent();
         }
 
-        private void btn_majoitus_Click(object sender, EventArgs e)
-        {
-            Majoitusvaraustenhallinta majava = new Majoitusvaraustenhallinta();
-            majava.Show();
-        }
 
         //AsiakasDemo avataan
         private void btn_asiakas_Click(object sender, EventArgs e)

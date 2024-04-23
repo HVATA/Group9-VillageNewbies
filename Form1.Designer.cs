@@ -38,7 +38,6 @@ namespace Group9_VillageNewbies
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_majoitus = new System.Windows.Forms.Button();
             this.btn_asiakas = new System.Windows.Forms.Button();
             this.btn_lasku = new System.Windows.Forms.Button();
             this.btn_aluemokki = new System.Windows.Forms.Button();
@@ -47,19 +46,6 @@ namespace Group9_VillageNewbies
             this.btn_majava2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btn_majoitus
-            // 
-            this.btn_majoitus.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btn_majoitus.BackColor = System.Drawing.Color.PowderBlue;
-            this.btn_majoitus.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_majoitus.Location = new System.Drawing.Point(60, 70);
-            this.btn_majoitus.Name = "btn_majoitus";
-            this.btn_majoitus.Size = new System.Drawing.Size(154, 72);
-            this.btn_majoitus.TabIndex = 1;
-            this.btn_majoitus.Text = "Majoitusvarausten hallinta";
-            this.btn_majoitus.UseVisualStyleBackColor = false;
-            this.btn_majoitus.Click += new System.EventHandler(this.btn_majoitus_Click);
             // 
             // btn_asiakas
             // 
@@ -128,11 +114,11 @@ namespace Group9_VillageNewbies
             this.btn_majava2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btn_majava2.BackColor = System.Drawing.Color.PowderBlue;
             this.btn_majava2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_majava2.Location = new System.Drawing.Point(315, 244);
+            this.btn_majava2.Location = new System.Drawing.Point(60, 70);
             this.btn_majava2.Name = "btn_majava2";
             this.btn_majava2.Size = new System.Drawing.Size(154, 72);
             this.btn_majava2.TabIndex = 7;
-            this.btn_majava2.Text = "Majoitusvarausten hallinta2";
+            this.btn_majava2.Text = "Majoitusvarausten hallinta";
             this.btn_majava2.UseVisualStyleBackColor = false;
             this.btn_majava2.Click += new System.EventHandler(this.btn_majava2_Click);
             // 
@@ -147,7 +133,6 @@ namespace Group9_VillageNewbies
             this.Controls.Add(this.btn_aluemokki);
             this.Controls.Add(this.btn_lasku);
             this.Controls.Add(this.btn_asiakas);
-            this.Controls.Add(this.btn_majoitus);
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "Form1";
             this.Text = "Päävalikko";
@@ -159,29 +144,6 @@ namespace Group9_VillageNewbies
 
         #endregion
         private System.Windows.Forms.Button button1;
-
-        /*
-        private void button1_Click(object sender, EventArgs e)
-        {
-            AsiakasRepository asiakasRepository = new AsiakasRepository();
-            List<Asiakas> asiakkaat = asiakasRepository.HaeAsiakkaat();
-            foreach (Asiakas asiakas in asiakkaat)
-            {
-                textBox1.Text += asiakas.Etunimi + " " + asiakas.Sukunimi + "\n";
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            AsiakasRepository asiakasRepository = new AsiakasRepository();
-            List<Asiakas> asiakkaat = asiakasRepository.HaeAsiakkaat();
-            foreach (Asiakas asiakas in asiakkaat)
-            {
-                textBox2.Text += asiakas.Etunimi + " " + asiakas.Sukunimi + "\n";
-            }
-        }
-        */
-        private Button btn_majoitus;
         private Button btn_asiakas;
         private Button btn_lasku;
         private Button btn_aluemokki;
