@@ -38,13 +38,16 @@ namespace Group9_VillageNewbies
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btn_asiakas = new System.Windows.Forms.Button();
             this.btn_lasku = new System.Windows.Forms.Button();
             this.btn_aluemokki = new System.Windows.Forms.Button();
             this.header = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_majava2 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_asiakas
@@ -122,12 +125,23 @@ namespace Group9_VillageNewbies
             this.btn_majava2.UseVisualStyleBackColor = false;
             this.btn_majava2.Click += new System.EventHandler(this.btn_majava2_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.ErrorImage")));
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(293, 266);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(194, 135);
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Cyan;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btn_majava2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_aluemokki);
@@ -138,6 +152,7 @@ namespace Group9_VillageNewbies
             this.Text = "Päävalikko";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -150,6 +165,7 @@ namespace Group9_VillageNewbies
         private Label header;
         private Panel panel1;
         private Button btn_majava2;
+        private PictureBox pictureBox1;
     }
 
 }

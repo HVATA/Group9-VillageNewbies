@@ -34,6 +34,8 @@ namespace Group9_VillageNewbies
         public void SetLaskuData(Lasku lasku)
         {
             currentInvoice = lasku; // Tallenna lasku muuttujaan
+            Text = $"Laskun tiedot - Lasku ID: {lasku.LaskuId}"; // Aseta ikkunan otsikko
+            textBoxEtunimi.Text = lasku.Etunimi;
             textBoxID.Text = lasku.LaskuId.ToString();
             textBoxSumma.Text = lasku.Summa.ToString() + " €";
             textBoxALV.Text = lasku.Alv.ToString();
@@ -234,5 +236,14 @@ namespace Group9_VillageNewbies
                 SendEmailWithPdfAttachment();
             }
 
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
