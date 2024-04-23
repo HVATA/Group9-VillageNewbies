@@ -184,7 +184,7 @@ namespace Group9_VillageNewbies
             }
         }
 
-        private void SendEmailWithPdfAttachment(Lasku lasku)
+        private void SendEmailWithPdfAttachment2(Lasku lasku)
         {
             try
             {
@@ -212,9 +212,53 @@ namespace Group9_VillageNewbies
                 MessageBox.Show("Virhe sähköpostin lähetyksessä: " + ex.ToString());
             }
         }
+
+        private void SendEmailWithPdfAttachment()
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                string recipientEmail = textBoxEmail.Text; // Ota sähköpostiosoite TextBoxista
+                if (string.IsNullOrWhiteSpace(recipientEmail))
+                {
+                    MessageBox.Show("Anna sähköpostiosoite.");
+                    return;
+                }
+
+                mail.From = new MailAddress("saku.karkkainen@gmail.com");
+                mail.To.Add(recipientEmail);
+                mail.Subject = "Lasku";
+                mail.Body = "Liitteenä on laskunne.";
+
+                // Lisää liite käyttäen laskun tallennettua tiedostopolku
+                if (!File.Exists(currentInvoice.FilePath))
+                {
+                    MessageBox.Show("PDF-tiedostoa ei ole olemassa.");
+                    return;
+                }
+
+                Attachment attachment = new Attachment(currentInvoice.FilePath);
+                mail.Attachments.Add(attachment);
+
+                SmtpServer.Port = 587; // Vaihda tarvittaessa
+                SmtpServer.Credentials = new System.Net.NetworkCredential("sakuka@gmail.com", "hcebsvpklbvpxmyn");
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+                MessageBox.Show("Sähköposti lähetetty onnistuneesti.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Virhe sähköpostin lähetyksessä: " + ex.ToString());
+            }
+        }
+
+
         private void btnSendEmail_Click(object sender, EventArgs e)
             {
-                SendEmailWithPdfAttachment(currentInvoice);
+                SendEmailWithPdfAttachment();
             }
 
     }

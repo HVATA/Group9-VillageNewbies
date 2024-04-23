@@ -39,6 +39,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnCreatePdf = new System.Windows.Forms.Button();
             this.btnSendEmail = new System.Windows.Forms.Button();
+            this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBoxSumma
@@ -124,6 +125,7 @@
             // 
             // btnCreatePdf
             // 
+            this.btnCreatePdf.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreatePdf.Location = new System.Drawing.Point(95, 330);
             this.btnCreatePdf.Name = "btnCreatePdf";
             this.btnCreatePdf.Size = new System.Drawing.Size(152, 23);
@@ -134,6 +136,7 @@
             // 
             // btnSendEmail
             // 
+            this.btnSendEmail.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSendEmail.Location = new System.Drawing.Point(95, 359);
             this.btnSendEmail.Name = "btnSendEmail";
             this.btnSendEmail.Size = new System.Drawing.Size(152, 23);
@@ -142,11 +145,19 @@
             this.btnSendEmail.UseVisualStyleBackColor = true;
             this.btnSendEmail.Click += new System.EventHandler(this.btnSendEmail_Click);
             // 
+            // textBoxEmail
+            // 
+            this.textBoxEmail.Location = new System.Drawing.Point(290, 361);
+            this.textBoxEmail.Name = "textBoxEmail";
+            this.textBoxEmail.Size = new System.Drawing.Size(236, 20);
+            this.textBoxEmail.TabIndex = 12;
+            // 
             // LaskunTiedotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.btnSendEmail);
             this.Controls.Add(this.btnCreatePdf);
             this.Controls.Add(this.label4);
@@ -178,5 +189,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnCreatePdf;
         private System.Windows.Forms.Button btnSendEmail;
+        private System.Windows.Forms.TextBox textBoxEmail;
     }
 }
