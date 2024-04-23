@@ -93,33 +93,6 @@ namespace Group9_VillageNewbies
                 MessageBox.Show($"Virhe luodessa PDF-tiedostoa: {ex.Message}", "Virhe", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void CreatePdf3()
-        {
-            try
-            {
-                string pdfPath = @"C:\Users\sakuk\OneDrive\Opiskelut\Savonia\ohjelmistotuotanto1\testilasku.pdf"; // Esimerkkipolku, muuta tarpeen mukaan
-
-                Document doc = new Document(PageSize.A4);
-                PdfWriter.GetInstance(doc, new FileStream(pdfPath, FileMode.Create));
-                doc.Open();
-
-                doc.Add(new Paragraph("Laskun Tiedot"));
-                doc.Add(new Paragraph($"Laskun ID: {currentInvoice.LaskuId}"));
-                doc.Add(new Paragraph($"Summa: {currentInvoice.Summa}"));
-                doc.Add(new Paragraph($"ALV: {currentInvoice.Alv}"));
-                doc.Add(new Paragraph($"Eräpäivä: {currentInvoice.Erapvm.ToShortDateString()}"));
-                doc.Add(new Paragraph($"Maksettu: {(currentInvoice.Maksettu ? "Kyllä" : "Ei")}"));
-
-                doc.Close();
-                MessageBox.Show("PDF luotu onnistuneesti osoitteeseen: " + pdfPath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Virhe luodessa PDF-tiedostoa: {ex.Message}", "Virhe", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void CreatePdf(Lasku lasku)
         {
             // Luodaan PDF-tiedoston polku käyttäen laskun ID:tä tiedostonimenä
