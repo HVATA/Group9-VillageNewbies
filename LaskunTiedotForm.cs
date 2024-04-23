@@ -200,7 +200,7 @@ namespace Group9_VillageNewbies
                     return;
                 }
 
-                mail.From = new MailAddress("saku.karkkainen@gmail.com");
+                mail.From = new MailAddress("saku.karkkainen@village.com");
                 mail.To.Add(recipientEmail);
                 mail.Subject = "Lasku";
                 mail.Body = "Liitteenä on laskunne.";
