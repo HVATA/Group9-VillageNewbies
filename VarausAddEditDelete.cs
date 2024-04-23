@@ -296,7 +296,9 @@ namespace Group9_VillageNewbies
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            MessageBox.Show("häh");
+            //var valittuVaraus = (Varaus)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+            /*if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
@@ -310,37 +312,22 @@ namespace Group9_VillageNewbies
                     Convert.ToDateTime(row.Cells["varaus_alkupvm"].Value),
                     Convert.ToDateTime(row.Cells["varaus_loppupvm"].Value)
                 );
-                foreach(MokkiTieto mok in mokkiTiedot)
+
+                reach(MokkiTieto mok in mokkiTiedot)
                 {
                     if(Convert.ToInt32(mok.Mokki_id) == varaus.Mokki_Mokki_id) 
                     { 
                         comboBox_VarVarMokki.Text = mok.Mokkinimi;
                     }
                 }
-
-    
-
-                // Käsittele varaus-olio tässä, esimerkiksi näytä sen tiedot käyttöliittymässä
-                MessageBox.Show($"Varaus ID: {varaus.Varaus_id}, Asiakas ID: {varaus.Asiakas_id}, Mökki ID: {varaus.Mokki_Mokki_id}");
-            }
-            var valittuVaraus = (Varaus)dataGridView1.Rows[e.RowIndex].DataBoundItem;
-            foreach(MokkiTieto mok in mokkiTiedot)
-            {
-                if(valittuVaraus.Mokki_Mokki_id == Convert.ToInt32(mok.Mokki_id))
+                foreach (AsiakasTieto asiak in asiakasTiedot)
                 {
-                    comboBox_VarVarMokki.Text = mok.Mokkinimi;
+                    if (valittuVaraus.Asiakas_id == Convert.ToInt32(asiak.AsiakasId))
+                    {
+                        comboBox_VarVarAsiakas.Text = asiak.Etunimi + " " + asiak.Sukunimi + "," + asiak.AsiakasId;
+                    }
                 }
-            }
-            foreach(AsiakasTieto asiak in asiakasTiedot)
-            {
-                if(valittuVaraus.Asiakas_id == Convert.ToInt32(asiak.AsiakasId))
-                {
-                    comboBox_VarVarAsiakas.Text = asiak.Etunimi + " " + asiak.Sukunimi + "," + asiak.AsiakasId;
-                }
-            }
-            
-            
-            
+            }*/
         }
     }
 }
