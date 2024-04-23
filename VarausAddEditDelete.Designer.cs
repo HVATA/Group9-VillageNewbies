@@ -33,9 +33,6 @@
             this.btn_back2Var = new System.Windows.Forms.Button();
             this.header = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataSet2 = new Group9_VillageNewbies.DataSet2();
-            this.varausBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.varausTableAdapter = new Group9_VillageNewbies.DataSet2TableAdapters.varausTableAdapter();
             this.varausidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.asiakasidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mokkimokkiidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,6 +40,9 @@
             this.vahvistuspvmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.varattualkupvmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.varattuloppupvmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.varausBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataSet2 = new Group9_VillageNewbies.DataSet2();
+            this.varausTableAdapter = new Group9_VillageNewbies.DataSet2TableAdapters.varausTableAdapter();
             this.comboBox_VarVarAsiakas = new System.Windows.Forms.ComboBox();
             this.comboBox_VarVarAlue = new System.Windows.Forms.ComboBox();
             this.comboBox_VarVarMokki = new System.Windows.Forms.ComboBox();
@@ -65,8 +65,8 @@
             this.btn_deleteVarPalvelu = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.varausBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -120,20 +120,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(744, 247);
             this.dataGridView1.TabIndex = 75;
-            // 
-            // dataSet2
-            // 
-            this.dataSet2.DataSetName = "DataSet2";
-            this.dataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // varausBindingSource
-            // 
-            this.varausBindingSource.DataMember = "varaus";
-            this.varausBindingSource.DataSource = this.dataSet2;
-            // 
-            // varausTableAdapter
-            // 
-            this.varausTableAdapter.ClearBeforeFill = true;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // varausidDataGridViewTextBoxColumn
             // 
@@ -176,6 +163,20 @@
             this.varattuloppupvmDataGridViewTextBoxColumn.DataPropertyName = "varattu_loppupvm";
             this.varattuloppupvmDataGridViewTextBoxColumn.HeaderText = "varattu_loppupvm";
             this.varattuloppupvmDataGridViewTextBoxColumn.Name = "varattuloppupvmDataGridViewTextBoxColumn";
+            // 
+            // varausBindingSource
+            // 
+            this.varausBindingSource.DataMember = "varaus";
+            this.varausBindingSource.DataSource = this.dataSet2;
+            // 
+            // dataSet2
+            // 
+            this.dataSet2.DataSetName = "DataSet2";
+            this.dataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // varausTableAdapter
+            // 
+            this.varausTableAdapter.ClearBeforeFill = true;
             // 
             // comboBox_VarVarAsiakas
             // 
@@ -393,8 +394,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.varausBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
