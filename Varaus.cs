@@ -26,6 +26,10 @@ namespace Group9_VillageNewbies
             Varattu_alkupvm = varattu_alkupvm;
             Varattu_loppupvm = varattu_loppupvm;
         }
+        public Varaus()
+        {
+            
+        }
     }
 
 

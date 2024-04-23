@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Odbc;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace Group9_VillageNewbies
         public string lisaysquery;
         public string poistoquery;
         public string muokkausquery;
+        public string hakuquery;
+        public string sAlueMok;
         public int varaus_id = 0;
         public int asiakas_id;
         public int mokki_mokki_id;
@@ -172,6 +175,7 @@ namespace Group9_VillageNewbies
                 varausTiedot.Add(varaus);
             }
         }
+        
         private void btn_back2Var_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -200,31 +204,65 @@ namespace Group9_VillageNewbies
             }
             else
             {
-                varaus_id = varausTiedot.Count + 1;
+                int suurinId = 0;
+                foreach(Varaus v in varausTiedot)
+                {
+                    if(v.Varaus_id > suurinId)
+                    {
+                        suurinId = v.Varaus_id;
+                    }
+                }
+                varaus_id = suurinId + 1;
                 Varaus uusiVaraus = new Varaus(
-                    varaus_id, asiakas_id, mokki_mokki_id, 
-                    varattu_pvm, vahvistus_pvm, varattu_alkupvm, 
+                    varaus_id, asiakas_id, mokki_mokki_id,
+                    varattu_pvm, vahvistus_pvm, varattu_alkupvm,
                     varattu_loppupvm);
                 DatabaseRepository db = new DatabaseRepository();
                 db.LisaaVaraus(uusiVaraus);
-                
+
             }
         }
 
         private void btn_EditVaraus_Click(object sender, EventArgs e)
         {
+            if (comboBox_VarVarAlue.SelectedIndex == -1)
+            {
+                MessageBox.Show("Valise alue");
+            }
+            else if (comboBox_VarVarMokki.SelectedIndex == -1)
+            {
+                MessageBox.Show("Valise mökki");
+            }
+            else if (comboBox_VarVarAsiakas.SelectedIndex == -1)
+            {
+                MessageBox.Show("Valise asiakas");
+            }
+            else
+            {
+                Varaus pVaraus = new Varaus(
+                    varaus_id, asiakas_id, mokki_mokki_id,
+                    varattu_pvm, vahvistus_pvm, varattu_alkupvm,
+                    varattu_loppupvm);
+                DatabaseRepository db = new DatabaseRepository();
+                db.MuutaVaraus(pVaraus);
 
+            }
         }
 
         private void btn_DeleteVaraus_Click(object sender, EventArgs e)
         {
-            varaus_id = varausTiedot.Count - 1; //Tän pitäis toimia
-            
+            Varaus pVaraus = new Varaus(
+                    varaus_id, asiakas_id, mokki_mokki_id,
+                    varattu_pvm, vahvistus_pvm, varattu_alkupvm,
+                    varattu_loppupvm);
+            DatabaseRepository db = new DatabaseRepository();
+            db.PoistaVaraus(pVaraus);
+
         }
 
         private void comboBox_VarVarPalvelut_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void comboBox_VarVarAlue_SelectedIndexChanged(object sender, EventArgs e)
@@ -241,7 +279,7 @@ namespace Group9_VillageNewbies
 
         private void comboBox_VarVarMokki_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             foreach (MokkiTieto mok in mokkiTiedot)
             {
                 if (mok.Mokkinimi == comboBox_VarVarMokki.Text)
@@ -249,7 +287,6 @@ namespace Group9_VillageNewbies
                     mokki_mokki_id = Convert.ToInt32(mok.Mokki_id);
                 }
             }
-            MessageBox.Show(mokki_mokki_id  .ToString());
         }
 
         private void comboBox_VarVarAsiakas_SelectedIndexChanged(object sender, EventArgs e)
@@ -265,7 +302,6 @@ namespace Group9_VillageNewbies
                     asiakas_id = asiakas.AsiakasId;
                 }
             }
-            MessageBox.Show(asiakas_id.ToString());
         }
 
         private void dateTimePickerVarStart_ValueChanged(object sender, EventArgs e)
@@ -293,41 +329,62 @@ namespace Group9_VillageNewbies
                 MessageBox.Show("Valise palvelu");
             }
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show("häh");
-            //var valittuVaraus = (Varaus)dataGridView1.Rows[e.RowIndex].DataBoundItem;
-            /*if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+   
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
+                
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
+                // Haetaan tiedot valitusta DataGridView-rivistä
+                int varausId = Convert.ToInt32(row.Cells["varausidDataGridViewTextBoxColumn"].Value);
+                int asiakasId = Convert.ToInt32(row.Cells["asiakasidDataGridViewTextBoxColumn"].Value);
+                int mokkiId = Convert.ToInt32(row.Cells["mokkimokkiidDataGridViewTextBoxColumn"].Value);
+                DateTime varattu_pvm = Convert.ToDateTime(row.Cells["varattupvmDataGridViewTextBoxColumn"].Value);
+                DateTime vahvistus_pvm = Convert.ToDateTime(row.Cells["vahvistuspvmDataGridViewTextBoxColumn"].Value);
+                DateTime varattu_alkupvm = Convert.ToDateTime(row.Cells["varattualkupvmDataGridViewTextBoxColumn"].Value);
+                DateTime varattu_loppupvm = Convert.ToDateTime(row.Cells["varattuloppupvmDataGridViewTextBoxColumn"].Value);
+                varaus_id = varausId;
                 // Luodaan uusi Varaus-olio ja asetetaan sille arvot valitusta DataGridView-rivistä
-                Varaus varaus = new Varaus(
-                    Convert.ToInt32(row.Cells["varaus_id"].Value),
-                    Convert.ToInt32(row.Cells["asiakas_id"].Value),
-                    Convert.ToInt32(row.Cells["mokki_mokki_id"].Value),
-                    Convert.ToDateTime(row.Cells["varauspvm"].Value),
-                    Convert.ToDateTime(row.Cells["vahvistuspvm"].Value),
-                    Convert.ToDateTime(row.Cells["varaus_alkupvm"].Value),
-                    Convert.ToDateTime(row.Cells["varaus_loppupvm"].Value)
-                );
-
-                reach(MokkiTieto mok in mokkiTiedot)
+                Varaus varaus = new Varaus
                 {
-                    if(Convert.ToInt32(mok.Mokki_id) == varaus.Mokki_Mokki_id) 
-                    { 
+                    Varaus_id = varausId,
+                    Asiakas_id = asiakasId,
+                    Mokki_Mokki_id = mokkiId,
+                    Varattu_pvm = varattu_pvm,
+                    Vahvistu_pvm = vahvistus_pvm,
+                    Varattu_alkupvm = varattu_alkupvm,
+                    Varattu_loppupvm = varattu_loppupvm
+                };
+                foreach (MokkiTieto mok in mokkiTiedot)
+                {
+                    if (Convert.ToInt32(mok.Mokki_id) == varaus.Mokki_Mokki_id)
+                    {
                         comboBox_VarVarMokki.Text = mok.Mokkinimi;
+                        sAlueMok = mok.Alue;
                     }
                 }
                 foreach (AsiakasTieto asiak in asiakasTiedot)
                 {
-                    if (valittuVaraus.Asiakas_id == Convert.ToInt32(asiak.AsiakasId))
+                    if (varaus.Asiakas_id == Convert.ToInt32(asiak.AsiakasId))
                     {
                         comboBox_VarVarAsiakas.Text = asiak.Etunimi + " " + asiak.Sukunimi + "," + asiak.AsiakasId;
                     }
                 }
-            }*/
+                foreach(AlueTieto alue in alueTiedot)
+                {
+                    if(alue.AlueNimi == sAlueMok)
+                    {
+                        comboBox_VarVarAlue.Text = alue.AlueNimi;
+                    }
+                }
+                dateTimePickerVarStart.Value = varattu_alkupvm;
+                dateTimePickerVarEnd.Value = varattu_loppupvm;
+               
+            }  
+
         }
+        
     }
 }
