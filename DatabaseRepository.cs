@@ -380,6 +380,36 @@ namespace Group9_VillageNewbies
                 return false;
             }
         }
+        public bool LisaaVaraus(Varaus varaus)
+        {
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                    string query = "INSERT INTO varaus " +
+                                   "(varaus_id, asiakas_id, mokki_mokki_id, varattu_pvm, vahvistus_pvm, varattu_alkupvm, varattu_loppupvm) " +
+                                   "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    using (OdbcCommand command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("varaus_id", varaus.Varaus_id);
+                        command.Parameters.AddWithValue("asiakas_id", varaus.Asiakas_id);
+                        command.Parameters.AddWithValue("mokki_mokki_id", varaus.Mokki_Mokki_id);
+                        command.Parameters.AddWithValue("varattu_pvm", varaus.Varattu_pvm);
+                        command.Parameters.AddWithValue("vahvistus_pvm", varaus.Vahvistu_pvm);
+                        command.Parameters.AddWithValue("varattu_alkupvm", varaus.Varattu_alkupvm);
+                        command.Parameters.AddWithValue("varattu_loppupvm", varaus.Varattu_loppupvm);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Virhe tietokantaan lisättäessä: {ex.Message}");
+                return false;
+            }
+        }
         public bool PoistaMokki(MokkiTieto mokki)
         {
             try
