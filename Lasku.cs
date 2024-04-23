@@ -24,6 +24,7 @@ namespace Group9_VillageNewbies
         public string Email { get; set; }
         public string Puhelinnro { get; set; }
         public string Mokkinimi { get; set; }
+        public string Toimipaikka { get; set; }
 
     }
 }

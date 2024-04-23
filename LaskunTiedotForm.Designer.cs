@@ -32,7 +32,7 @@
             this.textBoxErapvm = new System.Windows.Forms.TextBox();
             this.textBoxALV = new System.Windows.Forms.TextBox();
             this.checkBoxMaksettu = new System.Windows.Forms.CheckBox();
-            this.textBoxID = new System.Windows.Forms.TextBox();
+            this.textBoxEmail2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -40,8 +40,8 @@
             this.btnCreatePdf = new System.Windows.Forms.Button();
             this.btnSendEmail = new System.Windows.Forms.Button();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxPuhelinnumero = new System.Windows.Forms.TextBox();
+            this.textBoxOsoite = new System.Windows.Forms.TextBox();
             this.textBoxSukunimi = new System.Windows.Forms.TextBox();
             this.textBoxEtunimi = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -83,12 +83,12 @@
             this.checkBoxMaksettu.UseVisualStyleBackColor = true;
             this.checkBoxMaksettu.CheckedChanged += new System.EventHandler(this.checkBoxMaksettu_CheckedChanged);
             // 
-            // textBoxID
+            // textBoxEmail2
             // 
-            this.textBoxID.Location = new System.Drawing.Point(75, 224);
-            this.textBoxID.Name = "textBoxID";
-            this.textBoxID.Size = new System.Drawing.Size(189, 20);
-            this.textBoxID.TabIndex = 5;
+            this.textBoxEmail2.Location = new System.Drawing.Point(75, 224);
+            this.textBoxEmail2.Name = "textBoxEmail2";
+            this.textBoxEmail2.Size = new System.Drawing.Size(189, 20);
+            this.textBoxEmail2.TabIndex = 5;
             // 
             // label1
             // 
@@ -160,19 +160,19 @@
             this.textBoxEmail.Size = new System.Drawing.Size(236, 20);
             this.textBoxEmail.TabIndex = 12;
             // 
-            // textBox1
+            // textBoxPuhelinnumero
             // 
-            this.textBox1.Location = new System.Drawing.Point(77, 185);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(189, 20);
-            this.textBox1.TabIndex = 13;
+            this.textBoxPuhelinnumero.Location = new System.Drawing.Point(77, 185);
+            this.textBoxPuhelinnumero.Name = "textBoxPuhelinnumero";
+            this.textBoxPuhelinnumero.Size = new System.Drawing.Size(189, 20);
+            this.textBoxPuhelinnumero.TabIndex = 13;
             // 
-            // textBox2
+            // textBoxOsoite
             // 
-            this.textBox2.Location = new System.Drawing.Point(75, 149);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(189, 20);
-            this.textBox2.TabIndex = 14;
+            this.textBoxOsoite.Location = new System.Drawing.Point(75, 149);
+            this.textBoxOsoite.Name = "textBoxOsoite";
+            this.textBoxOsoite.Size = new System.Drawing.Size(189, 20);
+            this.textBoxOsoite.TabIndex = 14;
             // 
             // textBoxSukunimi
             // 
@@ -241,8 +241,8 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxEtunimi);
             this.Controls.Add(this.textBoxSukunimi);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxOsoite);
+            this.Controls.Add(this.textBoxPuhelinnumero);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.btnSendEmail);
             this.Controls.Add(this.btnCreatePdf);
@@ -250,7 +250,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxID);
+            this.Controls.Add(this.textBoxEmail2);
             this.Controls.Add(this.checkBoxMaksettu);
             this.Controls.Add(this.textBoxALV);
             this.Controls.Add(this.textBoxErapvm);
@@ -268,7 +268,7 @@
         private System.Windows.Forms.TextBox textBoxErapvm;
         private System.Windows.Forms.TextBox textBoxALV;
         private System.Windows.Forms.CheckBox checkBoxMaksettu;
-        private System.Windows.Forms.TextBox textBoxID;
+        private System.Windows.Forms.TextBox textBoxEmail2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -276,8 +276,8 @@
         private System.Windows.Forms.Button btnCreatePdf;
         private System.Windows.Forms.Button btnSendEmail;
         private System.Windows.Forms.TextBox textBoxEmail;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxPuhelinnumero;
+        private System.Windows.Forms.TextBox textBoxOsoite;
         private System.Windows.Forms.TextBox textBoxSukunimi;
         private System.Windows.Forms.TextBox textBoxEtunimi;
         private System.Windows.Forms.Label label5;

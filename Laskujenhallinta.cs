@@ -37,6 +37,7 @@ namespace Group9_VillageNewbies
                 dataGridView1.Columns["sukunimi"].HeaderText = "Sukunimi"; // Muuttaa sukunimi-sarakkeen otsikon
                 dataGridView1.Columns["katuosoite"].HeaderText = "Katuosoite"; // Muuttaa katuosoite-sarakkeen otsikon
                 dataGridView1.Columns["postinumero"].Visible = false; // Muuttaa postinumero-sarakkeen otsikon
+                dataGridView1.Columns["mokkinimi"].HeaderText = "Mökki"; // Muuttaa mokkinimi-sarakkeen otsikon
                 dataGridView1.Columns["lasku_id"].Visible = false; // Piilottaa lasku_id sarakkeen
                 dataGridView1.Columns["varaus_id"].Visible = false; // Piilottaa varaus_id sarakkeen
                 dataGridView1.Columns["summa"].DefaultCellStyle.Format = "0.00 €"; // Muotoilee summa-sarakkeen valuutaksi
@@ -112,8 +113,9 @@ namespace Group9_VillageNewbies
                     Sukunimi = row.Cells["sukunimi"].Value.ToString(),
                     Lahiosoite = row.Cells["katuosoite"].Value.ToString(),
                     Postinro = row.Cells["postinumero"].Value.ToString(),
-                    //Email = row.Cells["email"].Value.ToString(),
-                    //Puhelinnro = row.Cells["puhelinnro"].Value.ToString(),
+                    Toimipaikka = row.Cells["paikkakunta"].Value.ToString(),
+                    Email = row.Cells["sahkoposti"].Value.ToString(),
+                    Puhelinnro = row.Cells["puhelinnumero"].Value.ToString(),
                     //LaskunPvm = Convert.ToDateTime(row.Cells["laskun_pvm"].Value),
                     Mokkinimi = row.Cells["mokkinimi"].Value.ToString(),
                     LaskuId = Convert.ToInt32(row.Cells["lasku_id"].Value),

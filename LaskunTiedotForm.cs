@@ -36,7 +36,11 @@ namespace Group9_VillageNewbies
             currentInvoice = lasku; // Tallenna lasku muuttujaan
             Text = $"Laskun tiedot - Lasku ID: {lasku.LaskuId}"; // Aseta ikkunan otsikko
             textBoxEtunimi.Text = lasku.Etunimi;
-            textBoxID.Text = lasku.LaskuId.ToString();
+            textBoxSukunimi.Text = lasku.Sukunimi;
+            textBoxOsoite.Text = lasku.Lahiosoite + ", " + lasku.Postinro + " " + lasku.Toimipaikka;
+            textBoxPuhelinnumero.Text = lasku.Puhelinnro;
+            textBoxEmail2.Text = lasku.Email;
+            textBoxEmail.Text = lasku.Email;
             textBoxSumma.Text = lasku.Summa.ToString() + " €";
             textBoxALV.Text = lasku.Alv.ToString();
             textBoxErapvm.Text = lasku.Erapvm.ToShortDateString();
@@ -95,7 +99,7 @@ namespace Group9_VillageNewbies
                 MessageBox.Show($"Virhe luodessa PDF-tiedostoa: {ex.Message}", "Virhe", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void CreatePdf(Lasku lasku)
+        private void CreatePdf3(Lasku lasku)
         {
             // Luodaan PDF-tiedoston polku käyttäen laskun ID:tä tiedostonimenä
             string filename = $"Lasku{lasku.LaskuId}.pdf";
@@ -121,6 +125,63 @@ namespace Group9_VillageNewbies
                 MessageBox.Show($"Virhe luodessa PDF-tiedostoa: {ex.Message}", "Virhe", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void CreatePdf(Lasku lasku)
+        {
+            // Tallenna lasku muuttujaan ja aseta ikkunan otsikko
+            currentInvoice = lasku;
+            Text = $"Laskun tiedot - Lasku ID: {lasku.LaskuId}";
+
+            // Luodaan PDF-tiedoston polku käyttäen laskun ID:tä tiedostonimenä
+            string filename = $"Lasku{lasku.LaskuId}.pdf";
+            string filepath = Path.Combine(@"C:\Users\sakuk\OneDrive\Opiskelut\Savonia\ohjelmistotuotanto1\", filename);
+            currentInvoice.FilePath = filepath; // Tallenna polku lasku-olioon, jos haluat käyttää sitä myöhemmin
+
+            try
+            {
+                Document doc = new Document(PageSize.A4);
+                PdfWriter.GetInstance(doc, new FileStream(filepath, FileMode.Create));
+                doc.Open();
+
+                // Lisää kuva
+                string imagePath = @"C:\Users\sakuk\OneDrive\Opiskelut\Savonia\ohjelmistotuotanto1\VillageLogo.png"; // Osoite kuvalle
+                iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(imagePath);
+                image.ScaleToFit(140f, 120f);
+                image.Alignment = Element.ALIGN_CENTER;
+                doc.Add(image);
+
+                // Lisää otsikko isommalla fontilla
+                iTextSharp.text.Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
+                doc.Add(new Paragraph($"Lasku", titleFont));
+
+                // Lisää laskun tiedot
+                doc.Add(new Paragraph($"Laskun numero: {lasku.LaskuId}"));
+                doc.Add(new Paragraph($"Etunimi: {lasku.Etunimi}"));
+                doc.Add(new Paragraph($"Sukunimi: {lasku.Sukunimi}"));
+                doc.Add(new Paragraph($"Osoite: {lasku.Lahiosoite}, {lasku.Postinro} {lasku.Toimipaikka}"));
+                doc.Add(new Paragraph($"Puhelinnumero: {lasku.Puhelinnro}"));
+                doc.Add(new Paragraph($"Sähköposti: {lasku.Email}"));
+                doc.Add(new Paragraph($"Summa: {lasku.Summa} €"));
+                doc.Add(new Paragraph($"ALV: {lasku.Alv}"));
+                doc.Add(new Paragraph($"Eräpäivä: {lasku.Erapvm.ToShortDateString()}"));
+                doc.Add(new Paragraph($"Maksettu: {(lasku.Maksettu ? "Kyllä" : "Ei")}"));
+
+                // Lisää saajan tiedot
+                iTextSharp.text.Font footerFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+                Paragraph footer = new Paragraph("Saajan tiedot:\nVillage Newbies Oy\nRukatie 4\n88888 Ruka\nY-tunnus 2929292-1\nPUH: 101000223\nTILI: FI51 4455 5566 5511 22 OKOUHHF", footerFont);
+                footer.Alignment = Element.ALIGN_LEFT;
+                footer.SpacingBefore = 50; // Lisää tarvittaessa välimatkaa edelliseen tekstiosioon
+                doc.Add(footer);
+
+                doc.Close();
+                MessageBox.Show("PDF luotu onnistuneesti.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Virhe luodessa PDF-tiedostoa: {ex.Message}", "Virhe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
 
         private void btnSendEmail_Click2(object sender, EventArgs e)
