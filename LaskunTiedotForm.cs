@@ -174,7 +174,10 @@ namespace Group9_VillageNewbies
                 doc.Add(footer);
 
                 doc.Close();
-                MessageBox.Show("PDF luotu onnistuneesti.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("PDF luotu onnistuneesti.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //tähän messabox joka kertoo että polun ja sen että pdf on luotu onnistuneesti
+                MessageBox.Show("PDF luotu onnistuneesti.\nPolku: " + filepath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               
             }
             catch (Exception ex)
             {

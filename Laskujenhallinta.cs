@@ -38,7 +38,8 @@ namespace Group9_VillageNewbies
                 dataGridView1.Columns["katuosoite"].HeaderText = "Katuosoite"; // Muuttaa katuosoite-sarakkeen otsikon
                 dataGridView1.Columns["postinumero"].Visible = false; // Muuttaa postinumero-sarakkeen otsikon
                 dataGridView1.Columns["mokkinimi"].HeaderText = "Mökki"; // Muuttaa mokkinimi-sarakkeen otsikon
-                dataGridView1.Columns["lasku_id"].Visible = false; // Piilottaa lasku_id sarakkeen
+                dataGridView1.Columns["lasku_id"].HeaderText = "Laskun numero"; // Muuttaa lasku_id-sarakkeen otsikon
+                //dataGridView1.Columns["lasku_id"].Visible = false; // Piilottaa lasku_id sarakkeen
                 dataGridView1.Columns["varaus_id"].Visible = false; // Piilottaa varaus_id sarakkeen
                 dataGridView1.Columns["summa"].DefaultCellStyle.Format = "0.00 €"; // Muotoilee summa-sarakkeen valuutaksi
                 dataGridView1.Columns["alv"].Visible = false; 

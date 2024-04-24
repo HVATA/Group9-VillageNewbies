@@ -45,5 +45,7 @@ namespace Group9_VillageNewbies
             majava2.Show();
 
         }
+
+
     }
 }
