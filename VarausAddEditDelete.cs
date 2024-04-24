@@ -374,12 +374,43 @@ namespace Group9_VillageNewbies
 
         private void comboBox_VarVarAlue_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string alueid = "";
+            comboBox_VarVarPalvelut.Items.Clear();
             comboBox_VarVarMokki.Items.Clear();
+            foreach(AlueTieto al in alueTiedot)
+            {
+                if(al.AlueNimi == comboBox_VarVarAlue.Text)
+                {
+                    alueid = al.Alue_id;
+                }
+            }
             foreach (MokkiTieto mokki in mokkiTiedot)
             {
                 if (mokki.Alue == comboBox_VarVarAlue.Text)
                 {
                     comboBox_VarVarMokki.Items.Add(mokki.Mokkinimi);
+                }
+            }
+            foreach(Palvelu pal in palveluTiedot)
+            {
+                if(pal.AlueId.ToString() == alueid)
+                {
+                    comboBox_VarVarPalvelut.Items.Add(pal.Nimi);
+
+                    if (listBox_VarValitutPalvelut.Items[0].ToString() != pal.Nimi)
+                    {
+                        listBox_VarValitutPalvelut.Items.Clear();
+                    }
+                }
+            }
+            if(listBox_VarValitutPalvelut.Items.Count > 0)
+            {
+                foreach(Palvelu pals in palveluTiedot)
+                {
+                    if (listBox_VarValitutPalvelut.Items[0].ToString() != pals.Nimi)
+                    {
+
+                    }
                 }
             }
         }
