@@ -208,11 +208,13 @@ namespace Group9_VillageNewbies
             LataaPalvelutTietokannasta();
             }
 
+        private void varatutPalvelutBtn_Click ( object sender, EventArgs e )
+            {
+                //avaa palveluraportti lomake
+                PalveluRaportti palveluraportti = new PalveluRaportti();
+                palveluraportti.ShowDialog();
 
-
-
-
-
+            }
         }
     }
     
