@@ -221,8 +221,16 @@ namespace Group9_VillageNewbies
                     varattu_loppupvm);
                 DatabaseRepository db = new DatabaseRepository();
                 db.LisaaVaraus(uusiVaraus);
+                LataaVarauksetKannasta();
+                UpdateDataGridView();
 
             }
+        }
+        private void UpdateDataGridView()
+        {
+            // Olettaen että DataGridViewin nimi on dataGridViewVaraukset
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = varausTiedot;
         }
 
         private void btn_EditVaraus_Click(object sender, EventArgs e)
