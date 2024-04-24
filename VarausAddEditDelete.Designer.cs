@@ -63,10 +63,12 @@
             this.btn_AddPalveluToVaraus = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.btn_deleteVarPalvelu = new System.Windows.Forms.Button();
+            this.lkmInputElement = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.varausBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lkmInputElement)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -333,7 +335,7 @@
             // 
             // btn_AddPalveluToVaraus
             // 
-            this.btn_AddPalveluToVaraus.Location = new System.Drawing.Point(322, 140);
+            this.btn_AddPalveluToVaraus.Location = new System.Drawing.Point(383, 138);
             this.btn_AddPalveluToVaraus.Name = "btn_AddPalveluToVaraus";
             this.btn_AddPalveluToVaraus.Size = new System.Drawing.Size(80, 23);
             this.btn_AddPalveluToVaraus.TabIndex = 116;
@@ -360,12 +362,21 @@
             this.btn_deleteVarPalvelu.UseVisualStyleBackColor = true;
             this.btn_deleteVarPalvelu.Click += new System.EventHandler(this.btn_deleteVarPalvelu_Click);
             // 
+            // lkmInputElement
+            // 
+            this.lkmInputElement.Location = new System.Drawing.Point(322, 140);
+            this.lkmInputElement.Name = "lkmInputElement";
+            this.lkmInputElement.Size = new System.Drawing.Size(55, 20);
+            this.lkmInputElement.TabIndex = 119;
+            this.lkmInputElement.ValueChanged += new System.EventHandler(this.lkmInputElement_ValueChanged);
+            // 
             // VarausAddEditDelete
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Cyan;
             this.ClientSize = new System.Drawing.Size(800, 561);
+            this.Controls.Add(this.lkmInputElement);
             this.Controls.Add(this.btn_deleteVarPalvelu);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btn_AddPalveluToVaraus);
@@ -396,6 +407,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.varausBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lkmInputElement)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -437,5 +449,6 @@
         private System.Windows.Forms.Button btn_AddPalveluToVaraus;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btn_deleteVarPalvelu;
+        private System.Windows.Forms.NumericUpDown lkmInputElement;
     }
 }

@@ -328,6 +328,64 @@ namespace Group9_VillageNewbies
                 return false;
             }
         }
+        public bool LisaaVarauksenPalvelu(Varauksen_palvelut varPal)
+        {
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "INSERT INTO varauksen_palvelut (varaus_id, palvelu_id, lkm) VALUES (?, ?, ?)";
+                    using (OdbcCommand command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("varaus_id", varPal.Varaus_id);
+                        command.Parameters.AddWithValue("palvelu_id", varPal.Palvelu_id);
+                        command.Parameters.AddWithValue("lkm", varPal.Lkm);
+
+                        command.ExecuteNonQuery();
+                    } 
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Virhe tietokantaan lisättäessä: {ex.Message}");
+                return false;
+            }
+        }
+        public void MuutaVarauksenPalvelut(Varauksen_palvelut varpa)
+        {
+            using (var connection = new OdbcConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (var command = new OdbcCommand())
+                    {
+                        command.Connection = connection;
+                        command.CommandText = @"
+                UPDATE varauksen_palvelut
+                SET
+                    palvelu_id = ?,
+                    lkm = ?
+                WHERE varaus_id = ?";
+
+                        // Lisää parametrit ODBC:n tapaan käyttäen kysymysmerkkejä ja sijoittamalla arvot järjestyksessä
+                        command.Parameters.Add(new OdbcParameter("palvelu_id", varpa.Palvelu_id));
+                        command.Parameters.Add(new OdbcParameter("lkm", varpa.Lkm));
+                        command.Parameters.Add(new OdbcParameter("varaus_id", varpa.Varaus_id));
+
+                        command.ExecuteNonQuery();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Virhe tietokantaa muutettaessa: {ex.Message}");
+                }
+            }
+        }
         public bool PoistaAlue(AlueTieto alue)
         {
             try
@@ -461,6 +519,30 @@ namespace Group9_VillageNewbies
                     using (OdbcCommand command = new OdbcCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("varaus_id", varaus.Varaus_id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Virhe tietokannasta poistaessa: {ex.Message}");
+                return false;
+            }
+        }
+        public bool PoistaVarauksenPalvelu(Varauksen_palvelut varauspal)
+        {
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                    string query = "DELETE FROM varauksen_palvelut WHERE varaus_id = ? AND palvelu_id = ? AND lkm = ?";
+                    using (OdbcCommand command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("varaus_id", varauspal.Varaus_id);
+                        command.Parameters.AddWithValue("palvelu_id", varauspal.Palvelu_id);
+                        command.Parameters.AddWithValue("lkm", varauspal.Lkm);
                         connection.Open();
                         command.ExecuteNonQuery();
                     }

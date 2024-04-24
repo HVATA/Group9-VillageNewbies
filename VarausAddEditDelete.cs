@@ -21,15 +21,23 @@ namespace Group9_VillageNewbies
         List<AsiakasTieto> asiakasTiedot = new List<AsiakasTieto>();
         List<Palvelu> palveluTiedot = new List<Palvelu>();
         List<Varaus> varausTiedot = new List<Varaus>();
+        List<Varauksen_palvelut> varPalveluTiedot = new List<Varauksen_palvelut>();
+        List<Varauksen_palvelut> tarkistusVarPalveluTiedot = new List<Varauksen_palvelut>();
         public string connectionString = "DSN=Village Newbies;Uid=root;Pwd=root1;";
         public string lisaysquery;
         public string poistoquery;
         public string muokkausquery;
         public string hakuquery;
         public string sAlueMok;
+        public string varattuPalveluNimi;
         public int varaus_id = 0;
         public int asiakas_id;
         public int mokki_mokki_id;
+        public int varattuPalveluId;
+        public int lkmInput;
+        public int iTarkPalId = 0;
+        public int iTarkistaTarkistusListaRemove = 0;
+        public int iEiPalveluitaVarauksella = 0;
         DateTime varattu_pvm = DateTime.Now;
         DateTime vahvistus_pvm = DateTime.Now;
         DateTime varattu_alkupvm = DateTime.Now;
@@ -42,6 +50,7 @@ namespace Group9_VillageNewbies
             LataaAsiakkaatTietokannasta();
             LataaPalvelutKannasta();
             LataaVarauksetKannasta();
+            LataaVarPalvelutKannasta();
         }
         private void LataaAlueetKannasta()//Haetaan alueet kannasta
         {
@@ -154,6 +163,26 @@ namespace Group9_VillageNewbies
                 comboBox_VarVarPalvelut.Items.Add(pal.Nimi);
             }
         }
+        private void LataaVarPalvelutKannasta()//Haetaan alueet kannasta
+        {
+            tarkistusVarPalveluTiedot.Clear();
+            varPalveluTiedot.Clear(); // Tyhjennä lista varmuuden vuoksi
+            DatabaseRepository repository = new DatabaseRepository();
+            DataTable varPalveluTable = repository.ExecuteQuery("SELECT * FROM varauksen_palvelut");
+
+            foreach (DataRow row in varPalveluTable.Rows)
+            {
+                Varauksen_palvelut varpa = new Varauksen_palvelut(
+
+                    Convert.ToInt32(row["varaus_id"]),
+                    Convert.ToInt32(row["palvelu_id"]),
+                    Convert.ToInt32(row["lkm"])
+                );
+
+                varPalveluTiedot.Add(varpa);
+                tarkistusVarPalveluTiedot.Add(varpa);
+            }
+        }
         private void LataaVarauksetKannasta()//Haetaan alueet kannasta
         {
 
@@ -220,7 +249,27 @@ namespace Group9_VillageNewbies
                     varattu_loppupvm);
                 DatabaseRepository db = new DatabaseRepository();
                 db.LisaaVaraus(uusiVaraus);
+                
+                if(listBox_VarValitutPalvelut.Items.Count > 0)
+                {
+                    Varauksen_palvelut varpalvel = new Varauksen_palvelut();
+                    foreach (var item in listBox_VarValitutPalvelut.Items)
+                    {
+                        foreach(Palvelu pal in palveluTiedot)
+                        {
+                            if(pal.Nimi == item)
+                            {
+                                varpalvel.Palvelu_id = pal.Palvelu_id;
+                            }
+                        }   
+                    }
+                    varpalvel.Varaus_id = varaus_id;
+                    varpalvel.Lkm = lkmInput;
+                    db.LisaaVarauksenPalvelu(varpalvel);
+                }
+                varPalveluTiedot.Clear();
                 LataaVarauksetKannasta();
+                LataaVarPalvelutKannasta();
                 UpdateDataGridView();
 
             }
@@ -234,15 +283,16 @@ namespace Group9_VillageNewbies
 
         private void btn_EditVaraus_Click(object sender, EventArgs e)
         {
-            if (comboBox_VarVarAlue.SelectedIndex == -1)
+
+            if (string.IsNullOrEmpty(comboBox_VarVarAlue.Text))
             {
                 MessageBox.Show("Valise alue");
             }
-            else if (comboBox_VarVarMokki.SelectedIndex == -1)
+            else if (string.IsNullOrEmpty(comboBox_VarVarMokki.Text))
             {
                 MessageBox.Show("Valise mökki");
             }
-            else if (comboBox_VarVarAsiakas.SelectedIndex == -1)
+            else if (string.IsNullOrEmpty(comboBox_VarVarAsiakas.Text))
             {
                 MessageBox.Show("Valise asiakas");
             }
@@ -253,10 +303,43 @@ namespace Group9_VillageNewbies
                     varattu_pvm, vahvistus_pvm, varattu_alkupvm,
                     varattu_loppupvm);
                 DatabaseRepository db = new DatabaseRepository();
+                if(iTarkistaTarkistusListaRemove > 0) //jos tarkistuslistasta on poistettu jotain
+                {
+                    foreach (Varauksen_palvelut varauspal in varPalveluTiedot)
+                    {
+                        if (!tarkistusVarPalveluTiedot.Contains(varauspal))
+                        {
+                            db.PoistaVarauksenPalvelu(varauspal);
+                            
+                        }
+                    }
+                    iTarkistaTarkistusListaRemove = 0;
+                }
+                if(iEiPalveluitaVarauksella > 0) //Jos listbox oli tyhjä
+                {
+                    if (listBox_VarValitutPalvelut.Items.Count > 0)
+                    {
+                        Varauksen_palvelut varpalvel = new Varauksen_palvelut();
+                        foreach (var item in listBox_VarValitutPalvelut.Items)
+                        {
+                            foreach (Palvelu pal in palveluTiedot)
+                            {
+                                if (pal.Nimi == item)
+                                {
+                                    varpalvel.Palvelu_id = pal.Palvelu_id;
+                                }
+                            }
+                        }
+                        varpalvel.Varaus_id = varaus_id;
+                        varpalvel.Lkm = lkmInput;
+                        db.LisaaVarauksenPalvelu(varpalvel);
+                    }
+                    iEiPalveluitaVarauksella = 0;
+                }
                 db.MuutaVaraus(pVaraus);
                 LataaVarauksetKannasta();
+                LataaVarPalvelutKannasta();
                 UpdateDataGridView();
-
             }
         }
 
@@ -266,7 +349,18 @@ namespace Group9_VillageNewbies
                     varaus_id, asiakas_id, mokki_mokki_id,
                     varattu_pvm, vahvistus_pvm, varattu_alkupvm,
                     varattu_loppupvm);
+            Varauksen_palvelut varausP = new Varauksen_palvelut();
+            varausP.Varaus_id = varaus_id;
+            foreach (Varauksen_palvelut var in varPalveluTiedot)
+            {
+                if (var.Varaus_id == varausP.Varaus_id)
+                {
+                    varausP.Palvelu_id = var.Palvelu_id;
+                    varausP.Lkm = var.Lkm;
+                }
+            }
             DatabaseRepository db = new DatabaseRepository();
+            db.PoistaVarauksenPalvelu(varausP);
             db.PoistaVaraus(pVaraus);
             LataaVarauksetKannasta();
             UpdateDataGridView();
@@ -275,7 +369,7 @@ namespace Group9_VillageNewbies
 
         private void comboBox_VarVarPalvelut_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            varattuPalveluNimi = comboBox_VarVarPalvelut.Text;
         }
 
         private void comboBox_VarVarAlue_SelectedIndexChanged(object sender, EventArgs e)
@@ -329,22 +423,88 @@ namespace Group9_VillageNewbies
 
         private void btn_AddPalveluToVaraus_Click(object sender, EventArgs e)
         {
-            if (comboBox_VarVarPalvelut.SelectedIndex == -1)
+            if (listBox_VarValitutPalvelut.Items.Count > 0)
             {
-                MessageBox.Show("Valise palvelu");
+                foreach (var item in listBox_VarValitutPalvelut.Items)
+                {
+                    if (comboBox_VarVarPalvelut.SelectedIndex > -1)
+                    {
+                        if (comboBox_VarVarPalvelut.SelectedItem != item)
+                        {
+                            iEiPalveluitaVarauksella++;
+                        }
+                    }
+
+                }
+            }
+            if (lkmInput == 0)
+            {
+                MessageBox.Show("Virhe, palvelun määrää ei ole valittu");
+            }
+            else
+            {
+                if (comboBox_VarVarPalvelut.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Valise palvelu");
+                }
+                varattuPalveluNimi = comboBox_VarVarPalvelut.Text;
+                varattuPalveluNimi = comboBox_VarVarPalvelut.Text;
+                Varauksen_palvelut varpalo = new Varauksen_palvelut();
+                varpalo.Varaus_id = varaus_id;
+                foreach (Palvelu pal in palveluTiedot)
+                {
+                    if (pal.Nimi == varattuPalveluNimi)
+                    {
+                        varpalo.Palvelu_id = pal.Palvelu_id;
+                    }
+                }
+                varpalo.Lkm = lkmInput;
+                //MessageBox.Show(varpalo.Varaus_id.ToString());//Tarkistus että tiedonhaku toimii
+                //MessageBox.Show(varpalo.Palvelu_id.ToString());//Tarkistus että tiedonhaku toimii
+                //MessageBox.Show(varpalo.Lkm.ToString());//Tarkistus että tiedonhaku toimii
+                foreach(Palvelu pal in palveluTiedot)
+                {
+                    if(pal.Palvelu_id == varpalo.Palvelu_id)
+                    {
+                        listBox_VarValitutPalvelut.Items.Add(pal.Nimi);
+                    }
+                }
             }
         }
 
         private void btn_deleteVarPalvelu_Click(object sender, EventArgs e)
         {
+            foreach (Palvelu pal in palveluTiedot)
+            {
+                if (pal.Nimi == listBox_VarValitutPalvelut.SelectedItem.ToString())
+                {
+                    iTarkPalId = pal.Palvelu_id;
+                }
+            }
+            for (int i = tarkistusVarPalveluTiedot.Count - 1; i >= 0; i--)
+            {
+                Varauksen_palvelut varplou = tarkistusVarPalveluTiedot[i];
+                if (varplou.Palvelu_id == iTarkPalId && varplou.Varaus_id == varaus_id)
+                {
+                    tarkistusVarPalveluTiedot.RemoveAt(i);
+                    iTarkistaTarkistusListaRemove++;
+
+                }
+            }
             if (listBox_VarValitutPalvelut.SelectedIndex == -1)
             {
                 MessageBox.Show("Valise palvelu");
             }
+            else
+            {
+                listBox_VarValitutPalvelut.Items.Remove(listBox_VarValitutPalvelut.SelectedItem);
+            }
+            
+            
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-   
+            listBox_VarValitutPalvelut.Items.Clear();
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 
@@ -359,6 +519,26 @@ namespace Group9_VillageNewbies
                 DateTime varattu_alkupvm = Convert.ToDateTime(row.Cells["varattualkupvmDataGridViewTextBoxColumn"].Value);
                 DateTime varattu_loppupvm = Convert.ToDateTime(row.Cells["varattuloppupvmDataGridViewTextBoxColumn"].Value);
                 varaus_id = varausId;
+                
+                foreach(Varauksen_palvelut varpale in varPalveluTiedot)
+                {
+                    if(varausId == varpale.Varaus_id)
+                    {
+                        foreach (Palvelu pal in palveluTiedot)
+                        {
+                            if (pal.Palvelu_id == varpale.Palvelu_id)
+                            {
+                                listBox_VarValitutPalvelut.Items.Add(pal.Nimi);
+                            }
+                        }
+                    }
+                }
+                if(listBox_VarValitutPalvelut.Items.Count == 0)
+                {
+                    iEiPalveluitaVarauksella++;
+                }
+                
+                
                 // Luodaan uusi Varaus-olio ja asetetaan sille arvot valitusta DataGridView-rivistä
                 Varaus varaus = new Varaus
                 {
@@ -398,6 +578,20 @@ namespace Group9_VillageNewbies
             }  
 
         }
-        
+        private void lkmInputElement_ValueChanged(object sender, EventArgs e)
+        {
+            
+            if (!string.IsNullOrEmpty(comboBox_VarVarPalvelut.Text))
+            { 
+                if (lkmInputElement.Equals(0))
+                {
+                    MessageBox.Show("Valitse lukumäärä!");
+                }
+                else
+                {
+                    lkmInput = Convert.ToInt32(lkmInputElement.Value);
+                }
+            }
+        }
     }
 }
