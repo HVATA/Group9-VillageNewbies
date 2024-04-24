@@ -56,7 +56,6 @@ namespace Group9_VillageNewbies
                     // Aseta tiedot row:sta
                     AlueNimi = row["nimi"].ToString(),
                     Alue_id = row["alue_id"].ToString(),
-
                 };
                 alueTiedot.Add(alue);
 
@@ -228,7 +227,7 @@ namespace Group9_VillageNewbies
         }
         private void UpdateDataGridView()
         {
-            // Olettaen että DataGridViewin nimi on dataGridViewVaraukset
+           
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = varausTiedot;
         }
@@ -255,6 +254,8 @@ namespace Group9_VillageNewbies
                     varattu_loppupvm);
                 DatabaseRepository db = new DatabaseRepository();
                 db.MuutaVaraus(pVaraus);
+                LataaVarauksetKannasta();
+                UpdateDataGridView();
 
             }
         }
@@ -267,6 +268,8 @@ namespace Group9_VillageNewbies
                     varattu_loppupvm);
             DatabaseRepository db = new DatabaseRepository();
             db.PoistaVaraus(pVaraus);
+            LataaVarauksetKannasta();
+            UpdateDataGridView();
 
         }
 
