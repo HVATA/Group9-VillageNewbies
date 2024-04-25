@@ -249,8 +249,10 @@ namespace Group9_VillageNewbies
                     varattu_loppupvm);
                 DatabaseRepository db = new DatabaseRepository();
                 db.LisaaVaraus(uusiVaraus);
-                
-                if(listBox_VarValitutPalvelut.Items.Count > 0)
+
+               
+
+                if (listBox_VarValitutPalvelut.Items.Count > 0)
                 {
                     Varauksen_palvelut varpalvel = new Varauksen_palvelut();
                     foreach (var item in listBox_VarValitutPalvelut.Items)
@@ -267,6 +269,7 @@ namespace Group9_VillageNewbies
                     varpalvel.Lkm = lkmInput;
                     db.LisaaVarauksenPalvelu(varpalvel);
                 }
+                LuoJaPaivitaLasku(uusiVaraus.Varaus_id, uusiVaraus.Asiakas_id, uusiVaraus.Mokki_Mokki_id);
                 varPalveluTiedot.Clear();
                 LataaVarauksetKannasta();
                 LataaVarPalvelutKannasta();
@@ -634,5 +637,159 @@ namespace Group9_VillageNewbies
                 }
             }
         }
+
+        private void LuoJaPaivitaLasku(int varausId, int asiakasId, int mokkiId)
+        {
+            // Haetaan mökin hinta
+            double hinta = HaeMokinHinta(mokkiId);
+
+            // Haetaan palveluiden hinta
+            double palveluidenHinta = LaskePalveluidenHinta(varausId);
+
+            double loppusumma = hinta + palveluidenHinta;
+            double alv = 24;
+
+
+            // Asetetaan eräpäivä 30 päivän päähän tästä hetkestä
+            DateTime tanaan = DateTime.Now;
+            DateTime erapvm = tanaan.AddDays(30);
+
+            DatabaseRepository repository = new DatabaseRepository();
+
+            //if (LaskuOnOlemassa(varausId))
+            //{
+                // Päivitä olemassaoleva lasku
+            //    repository.ExecuteNonQuery($"UPDATE lasku SET summa = {loppusumma}, alv = {alv} WHERE varaus_id = {varausId}");
+            //}
+            //else
+            //{
+                // Luo uusi lasku
+                int laskuId = HaeSeuraavaLaskuId();
+                //repository.ExecuteNonQuery($"INSERT INTO lasku (lasku_id, varaus_id, summa, alv, maksettu, erapmv) VALUES ({laskuId}, {varausId}, {loppusumma}, {alv}, 0, '{erapvm:yyyy-MM-dd}')");
+                repository.ExecuteNonQuery($"INSERT INTO lasku (lasku_id, varaus_id, summa, alv, maksettu, erapvm) VALUES ({laskuId}, {varausId}, {loppusumma}, {alv}, 0, '{erapvm:yyyy-MM-dd}')");
+            //}
+        }
+
+
+
+        private bool LaskuOnOlemassa(int varausId)
+        {
+            bool olemassa = false;
+
+            DatabaseRepository repository = new DatabaseRepository();
+            DataTable laskuTable = repository.ExecuteQuery($"SELECT COUNT(*) FROM lasku WHERE varaus_id = {varausId}");
+
+            if (laskuTable.Rows.Count > 0 && Convert.ToInt32(laskuTable.Rows[0][0]) > 0)
+            {
+                olemassa = true;
+            }
+
+            return olemassa;
+        }
+
+
+        private void LisaaUusiLasku(int varausId, int asiakasId, double summa, double alv)
+        {
+            DatabaseRepository repository = new DatabaseRepository();
+            repository.ExecuteNonQuery($"INSERT INTO lasku (varaus_id, asiakas_id, summa, alv, maksettu, erapmv) VALUES ({varausId}, {asiakasId}, {summa}, {alv}, FALSE, '2025-08-01')");
+        }
+
+
+        private void PaivitaLasku(int varausId, double summa, double alv)
+        {
+            DatabaseRepository repository = new DatabaseRepository();
+            repository.ExecuteNonQuery($"UPDATE lasku SET summa = {summa}, alv = {alv} WHERE varaus_id = {varausId}");
+        }
+
+
+        private double laskeSumma(Varaus varaus)
+        {
+            double summa = 0;
+
+            // Lisätään mökin hinta summaan
+            var mokki = mokkiTiedot.FirstOrDefault(m => m.Mokki_id == varaus.Mokki_Mokki_id.ToString());
+            if (mokki != null)
+            {
+                summa += double.Parse(mokki.Hinta);
+            }
+
+            // Lisätään varattujen palveluiden hinnat
+            var palvelutVaraukselle = varPalveluTiedot.Where(v => v.Varaus_id == varaus.Varaus_id);
+            foreach (var vp in palvelutVaraukselle)
+            {
+                var palvelu = palveluTiedot.FirstOrDefault(p => p.Palvelu_id == vp.Palvelu_id);
+                if (palvelu != null)
+                {
+                    summa += double.Parse(palvelu.Hinta) * vp.Lkm; // Oletetaan, että hinta on per yksikkö
+                }
+            }
+
+            return summa;
+        }
+
+        private double laskeALV()
+        {
+            return 24.0;  // ALV on kiinteästi 24%
+        }
+
+        private double HaeMokinHinta(int mokkiId)
+        {
+            double hinta = 0; // Oletusarvo
+
+            DatabaseRepository repository = new DatabaseRepository();
+            DataTable mokkiTable = repository.ExecuteQuery($"SELECT hinta FROM mokki WHERE mokki_id = {mokkiId}");
+
+            if (mokkiTable.Rows.Count > 0)
+            {
+                hinta = Convert.ToDouble(mokkiTable.Rows[0]["hinta"]);
+            }
+
+            return hinta;
+        }
+
+        private double LaskePalveluidenHinta(int varausId)
+        {
+            double summa = 0;
+            DatabaseRepository repository = new DatabaseRepository();
+            DataTable palvelutTable = repository.ExecuteQuery($"SELECT Palvelu_id, Lkm FROM Varauksen_palvelut WHERE Varaus_id = {varausId}");
+
+            foreach (DataRow row in palvelutTable.Rows)
+            {
+                int palveluId = Convert.ToInt32(row["Palvelu_id"]);
+                int lkm = Convert.ToInt32(row["Lkm"]);
+                DataTable hintaTable = repository.ExecuteQuery($"SELECT hinta FROM palvelu WHERE palvelu_id = {palveluId}");
+                if (hintaTable.Rows.Count > 0)
+                {
+                    double hinta = Convert.ToDouble(hintaTable.Rows[0]["hinta"]);
+                    summa += hinta * lkm;
+                }
+            }
+
+            return summa;
+        }
+
+        private int HaeSeuraavaLaskuId()
+        {
+            DatabaseRepository repository = new DatabaseRepository();
+            DataTable dt = repository.ExecuteQuery("SELECT MAX(lasku_id) FROM lasku");
+
+            int suurinId = 0;
+            if (dt.Rows.Count > 0 && dt.Rows[0][0] != DBNull.Value)
+            {
+                suurinId = Convert.ToInt32(dt.Rows[0][0]);
+            }
+
+            // Varmistetaan, että ID on vähintään viisinumeroinen
+            int seuraavaId = Math.Max(suurinId + 1, 10000);
+
+            return seuraavaId;
+        }
+
+
+
+
+
+
+
     }
 }
