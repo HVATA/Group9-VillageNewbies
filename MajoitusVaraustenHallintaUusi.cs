@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Odbc;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -172,7 +173,8 @@ namespace Group9_VillageNewbies
             string sAlueId = ""; //tähä tee ehdolliset hakuqueryt riippuen hausta!
             string sMokkiId = "";
             string sAsiakasId = "";
-            if (ValidDate() && comboBox_VarFindAlue.SelectedIndex > -1 && comboBox_VarFindAsiakas.SelectedIndex > -1 && comboBox_VarFindMokki.SelectedIndex > -1) //alue ja mokki etsintä
+            int iTark = 0;
+            if (ValidDate() && comboBox_VarFindAlue.SelectedIndex > -1 && comboBox_VarFindAsiakas.SelectedIndex > -1 && comboBox_VarFindMokki.SelectedIndex > -1 && iTark == 0) //alue ja mokki etsintä
             {
                 foreach (AlueTieto al in alueTiedot)
                 {
@@ -201,16 +203,24 @@ namespace Group9_VillageNewbies
                             "AND mokki_mokki_id = " + sMokkiId + " " +
                             "AND asiakas_id = " + sAsiakasId + ";";
                 PaivitaGridview();
+                iTark++;
             }
-            else if (ValidDate()) //alue ja mokki etsintä
+            else if (ValidDate() && comboBox_VarFindAlue.SelectedIndex > -1 && iTark == 0) //alue ja ajanjakso etsintä
             {
-               
-                MessageBox.Show("Haetaan varaukset ajankohdasta: " + dateStart.ToString("dd-mm-yyyy") + "-" + dateEnd.ToString("dd-mm-yyyy"));
-                hakuquery = "SELECT * FROM varaus WHERE varattu_alkupvm >= '" + dateStart.ToString("yyyy-MM-dd") + "' " +
-                        "AND varattu_loppupvm <= '" + dateEnd.ToString("yyyy-MM-dd") + "';";
+                foreach (AlueTieto al in alueTiedot)
+                {
+                    if (al.AlueNimi == sFindAlue)
+                    {
+                        sAlueId = al.Alue_id;
+                    }
+                }
+                MessageBox.Show("Haetaan varaukset ajankohdasta: " + dateStart.ToString("dd-MM-yyyy") + "-" + dateEnd.ToString("dd-MM-yyyy"));
+                hakuquery = "SELECT * FROM varaus WHERE mokki_mokki_id IN (SELECT mokki_id FROM mokki WHERE alue_id = "+sAlueId+") AND varattu_alkupvm >= '" + dateStart.ToString("yyyy-MM-dd") + "' AND varattu_loppupvm <= '"+ dateEnd.ToString("yyyy-MM-dd") +"';";
+
                 PaivitaGridview();
+                iTark++;
             }
-            else if (comboBox_VarFindAlue.SelectedIndex > -1 && comboBox_VarFindMokki.SelectedIndex > -1) //alue ja mokki etsintä
+            else if (comboBox_VarFindAlue.SelectedIndex > -1 && comboBox_VarFindMokki.SelectedIndex > -1 && iTark == 0) //alue ja mokki etsintä
             {
                 foreach (AlueTieto al in alueTiedot)
                 {
@@ -229,8 +239,9 @@ namespace Group9_VillageNewbies
                 MessageBox.Show("Haetaan varaukset kohdasta: " + sFindAlue + ", " + sFindMokki);
                 hakuquery = "SELECT * FROM varaus WHERE mokki_mokki_id = " + sMokkiId + ";";
                 PaivitaGridview();
+                iTark++;
             }
-            if (comboBox_VarFindMokki.SelectedIndex > -1 && comboBox_VarFindAsiakas.SelectedIndex > -1) //mokki ja asiakas etsintä
+            else if (comboBox_VarFindMokki.SelectedIndex > -1 && comboBox_VarFindAsiakas.SelectedIndex > -1 && iTark == 0) //mokki ja asiakas etsintä
             {
                 foreach (AsiakasTieto asiak in asiakasTiedot)
                 {
@@ -249,8 +260,9 @@ namespace Group9_VillageNewbies
                 MessageBox.Show("Haetaan varaukset kohdasta: " + sFindMokki + ", " + sFindAsiakas);
                 hakuquery = "SELECT * FROM varaus WHERE mokki_mokki_id = " + sMokkiId + " AND asiakas_id = " + sAsiakasId + ";";
                 PaivitaGridview();
+                iTark++;
             }
-            else if (comboBox_VarFindAlue.SelectedIndex > -1) //alue-etsintä
+            else if (comboBox_VarFindAlue.SelectedIndex > -1 && iTark == 0) //alue-etsintä
             {
                 foreach (AlueTieto al in alueTiedot)
                 {
@@ -262,8 +274,9 @@ namespace Group9_VillageNewbies
                 MessageBox.Show("Haetaan varaukset kohdasta: " + sFindAlue); //Tarkistus
                 hakuquery = "SELECT * FROM varaus WHERE mokki_mokki_id IN (SELECT mokki_id FROM mokki WHERE alue_id = " + sAlueId + ");";
                 PaivitaGridview();
+                iTark++;
             }
-            else if (comboBox_VarFindMokki.SelectedIndex > -1)//mokki-etsintä
+            else if (comboBox_VarFindMokki.SelectedIndex > -1 && iTark == 0)//mokki-etsintä
             {
                 foreach (MokkiTieto mok in mokkiTiedot)
                 {
@@ -275,8 +288,9 @@ namespace Group9_VillageNewbies
                 MessageBox.Show("Haetaan varaukset kohdasta: " + sFindMokki); //Tarkistus
                 hakuquery = "SELECT * FROM varaus WHERE mokki_mokki_id = " + sMokkiId + ";";
                 PaivitaGridview();
+                iTark++;
             }
-            else if (comboBox_VarFindAsiakas.SelectedIndex > -1)//asiakas-etsintä
+            else if (comboBox_VarFindAsiakas.SelectedIndex > -1 && iTark == 0)//asiakas-etsintä
             {
                 foreach (AsiakasTieto asiak in asiakasTiedot)
                 {
@@ -288,6 +302,7 @@ namespace Group9_VillageNewbies
                 MessageBox.Show("Haetaan varaukset kohdasta: " + sFindAsiakas); //Tarkistus
                 hakuquery = "SELECT * FROM varaus WHERE mokki_mokki_id = " + sAsiakasId + ";";
                 PaivitaGridview();
+                iTark++;
             }
             
             
@@ -319,7 +334,6 @@ namespace Group9_VillageNewbies
                     sFindAlue = alue.AlueNimi;
                 }
             }
-            MessageBox.Show(sFindAlue);
             PaivitaMokkiComboBox();
         }
         private void comboBox_VarFindMokki_SelectedIndexChanged(object sender, EventArgs e)
@@ -332,7 +346,6 @@ namespace Group9_VillageNewbies
                     sFindMokki = mokki.Mokkinimi;
                 }
             }
-            MessageBox.Show(sFindMokki);
         }
 
 
@@ -355,7 +368,6 @@ namespace Group9_VillageNewbies
                         }
                     }
                 }
-                MessageBox.Show(sFindAsiakas);
             }
         }
 

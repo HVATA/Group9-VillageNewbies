@@ -390,14 +390,8 @@ namespace Group9_VillageNewbies
 
                         DatabaseRepository repository = new DatabaseRepository();
                         repository.MuutaMokkiTieto(mokki);
-                        /*
-                        {
-                            MessageBox.Show("Mökin tiedot muutettu onnistuneesti.");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Mökin tietojen muuttaminen epäonnistui.");
-                        }*/
+                        MessageBox.Show("Mökin tiedot muutettu onnistuneesti.");
+                        
                         //LataaMokitKannasta();
                         //PaivitaMokkiLista();
 
@@ -517,11 +511,7 @@ namespace Group9_VillageNewbies
         }
         private void comboBoxAlue_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBoxAlue.SelectedIndex == 0)
-            {
-                MessageBox.Show("Valitse alue");
-
-            }
+           
             foreach(var alue in alueTiedot)
             {
                 if(alue.AlueNimi == comboBoxAlue.Text)
