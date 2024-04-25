@@ -865,6 +865,104 @@ namespace Group9_VillageNewbies
             ExecuteNonQuery(query);
         }
 
+        public DataTable GetAllAreas()
+        {
+            string query = "SELECT alue_id, nimi FROM alue ORDER BY nimi";
+            return ExecuteQuery(query);
+        }
+
+        public DataTable GetCabinsByArea(int areaId)
+        {
+            string query = $"SELECT mokki_id, mokkinimi FROM mokki WHERE alue_id = {areaId} ORDER BY mokkinimi";
+            return ExecuteQuery(query);
+        }
+
+        public DataTable GetServicesByArea(int areaId)
+        {
+            string query = $"SELECT palvelu_id, nimi FROM palvelu WHERE alue_id = {areaId} ORDER BY nimi";
+            return ExecuteQuery(query);
+        }
+
+        public DataTable GetReservationDetails()
+        {
+            string query = @"
+        SELECT 
+            v.varaus_id, 
+            CONCAT(a.etunimi, ' ', a.sukunimi) AS asiakas_nimi,
+            m.mokkinimi, 
+            v.varattu_pvm, 
+            v.vahvistus_pvm, 
+            v.varattu_alkupvm, 
+            v.varattu_loppupvm
+        FROM 
+            varaus v
+        JOIN 
+            asiakas a ON v.asiakas_id = a.asiakas_id
+        JOIN 
+            mokki m ON v.mokki_mokki_id = m.mokki_id
+        ORDER BY 
+            v.varattu_pvm ASC;";
+
+            return ExecuteQuery(query);
+        }
+
+        public void LisaaLasku(Lasku lasku)
+        {
+            string query = "INSERT INTO lasku (varausId, summa, alv) VALUES (?, ?, ?)";
+
+            using (OdbcConnection conn = new OdbcConnection(connectionString))
+            {
+                conn.Open();
+                using (OdbcCommand cmd = new OdbcCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@varausId", lasku.VarausId);
+                    cmd.Parameters.AddWithValue("@summa", lasku.Summa);
+                    cmd.Parameters.AddWithValue("@alv", lasku.Alv);
+
+                    cmd.ExecuteNonQuery(); // Suorita kysely
+                }
+            }
+        }
+
+        public bool LaskuOnOlemassa(int varausId)
+        {
+            string query = $"SELECT COUNT(*) FROM lasku WHERE varaus_id = {varausId}";
+            using (OdbcConnection conn = new OdbcConnection(connectionString))
+            {
+                conn.Open();
+                using (OdbcCommand cmd = new OdbcCommand(query, conn))
+                {
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    return count > 0;
+                }
+            }
+        }
+
+        public void PoistaLasku(int varausId)
+        {
+            string query = $"DELETE FROM lasku WHERE varaus_id = {varausId}";
+            ExecuteNonQuery(query);
+        }
+
+        public void PaivitaLasku(int varausId, double summa, double alv)
+        {
+            string query = $"UPDATE lasku SET summa = {summa}, alv = {alv} WHERE varaus_id = {varausId}";
+            ExecuteNonQuery(query);
+        }
+
+        public void LisaaUusiLasku(int varausId, int asiakasId, double summa, double alv)
+        {
+            string query = $"INSERT INTO lasku (varaus_id, asiakas_id, summa, alv) VALUES ({varausId}, {asiakasId}, {summa}, {alv})";
+            ExecuteNonQuery(query);
+        }
+
+
+
+
+
+
+
+
 
 
     }
