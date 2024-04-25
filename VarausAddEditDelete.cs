@@ -374,6 +374,7 @@ namespace Group9_VillageNewbies
 
         private void comboBox_VarVarAlue_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int idTark = 0;
             string alueid = "";
             comboBox_VarVarPalvelut.Items.Clear();
             comboBox_VarVarMokki.Items.Clear();
@@ -396,23 +397,32 @@ namespace Group9_VillageNewbies
                 if(pal.AlueId.ToString() == alueid)
                 {
                     comboBox_VarVarPalvelut.Items.Add(pal.Nimi);
-
-                    if (listBox_VarValitutPalvelut.Items[0].ToString() != pal.Nimi)
-                    {
-                        listBox_VarValitutPalvelut.Items.Clear();
-                    }
                 }
             }
-            if(listBox_VarValitutPalvelut.Items.Count > 0)
+            /*if(listBox_VarValitutPalvelut.Items.Count > 0)
             {
-                foreach(Palvelu pals in palveluTiedot)
+                foreach(var item in listBox_VarValitutPalvelut.Items)
                 {
-                    if (listBox_VarValitutPalvelut.Items[0].ToString() != pals.Nimi)
+                    if (item.ToString() != (comboBox_VarVarPalvelut.Items[0].ToString()))
                     {
-
+                        listBox_VarValitutPalvelut.Items.Remove(item);
+                        foreach(Palvelu palvelu in palveluTiedot)
+                        {
+                            if(palvelu.Nimi == item.ToString())
+                            {
+                                idTark = palvelu.Palvelu_id;
+                            }
+                        }
+                        foreach(Varauksen_palvelut varp in tarkistusVarPalveluTiedot)
+                        {
+                            if(varp.Varaus_id == varaus_id && varp.Palvelu_id == idTark)
+                            {
+                                tarkistusVarPalveluTiedot.Remove(varp);
+                            }
+                        }
                     }
                 }
-            }
+            }*/
         }
 
         private void comboBox_VarVarMokki_SelectedIndexChanged(object sender, EventArgs e)
