@@ -314,6 +314,7 @@
             this.listBox_VarValitutPalvelut.Name = "listBox_VarValitutPalvelut";
             this.listBox_VarValitutPalvelut.Size = new System.Drawing.Size(200, 160);
             this.listBox_VarValitutPalvelut.TabIndex = 113;
+            this.listBox_VarValitutPalvelut.SelectedIndexChanged += new System.EventHandler(this.listBox_VarValitutPalvelut_SelectedIndexChanged);
             // 
             // comboBox_VarVarPalvelut
             // 
