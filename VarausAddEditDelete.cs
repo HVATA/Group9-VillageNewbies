@@ -327,7 +327,7 @@ namespace Group9_VillageNewbies
                         {
                             foreach (Palvelu pal in palveluTiedot)
                             {
-                                if (pal.Nimi == item)
+                                if (pal.Nimi == item.ToString())
                                 {
                                     varpalvel.Palvelu_id = pal.Palvelu_id;
                                 }
@@ -477,6 +477,23 @@ namespace Group9_VillageNewbies
                         {
                             iEiPalveluitaVarauksella++;
                         }
+                        else if(comboBox_VarVarPalvelut.SelectedItem == item)
+                        {
+                            listBox_VarValitutPalvelut.Items.Remove(item);
+                            Varauksen_palvelut vP = new Varauksen_palvelut();
+                            foreach(Palvelu pl in palveluTiedot)
+                            {
+                                if(vP.Varaus_id == varaus_id && pl.Nimi == comboBox_VarVarPalvelut.Text)
+                                {
+                                    vP.Palvelu_id = pl.Palvelu_id;
+                                }
+                            }
+                            vP.Varaus_id = varaus_id;
+                            vP.Lkm = Convert.ToInt32(lkmInputElement.Value);
+                            listBox_VarValitutPalvelut.Items.Add(vP);
+                            iEiPalveluitaVarauksella++;
+                            break;
+                        }
                     }
 
                 }
@@ -513,6 +530,7 @@ namespace Group9_VillageNewbies
                         listBox_VarValitutPalvelut.Items.Add(pal.Nimi);
                     }
                 }
+                iEiPalveluitaVarauksella++;
             }
         }
 
@@ -568,6 +586,7 @@ namespace Group9_VillageNewbies
                 {
                     if(varausId == varpale.Varaus_id)
                     {
+                        
                         foreach (Palvelu pal in palveluTiedot)
                         {
                             if (pal.Palvelu_id == varpale.Palvelu_id)
@@ -791,5 +810,27 @@ namespace Group9_VillageNewbies
 
 
 
+
+        private void listBox_VarValitutPalvelut_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (Varauksen_palvelut varauks in varPalveluTiedot)
+            {
+                if (varauks.Varaus_id == varaus_id)
+                {
+                    foreach (Palvelu pl in palveluTiedot)
+                    {
+                        if (listBox_VarValitutPalvelut.SelectedItem != null &&
+                            pl.Nimi == listBox_VarValitutPalvelut.SelectedItem.ToString())
+                        {
+                            lkmInputElement.Value = varauks.Lkm;
+                            comboBox_VarVarPalvelut.SelectedItem = pl.Nimi;
+                            break; // Poistu sisemmästä silmukasta
+                        }
+                    }
+                    break; // Poistu ulommasta silmukasta
+                }
+            }
+
+        }
     }
 }
