@@ -109,6 +109,12 @@
     <Compile Include="LisaaPaikkakuntaForm.Designer.cs">
       <DependentUpon>LisaaPaikkakuntaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Majoittumiset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Majoittumiset.Designer.cs">
+      <DependentUpon>Majoittumiset.cs</DependentUpon>
+    </Compile>
     <Compile Include="MajoitusVaraustenHallintaUusi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LisaaPaikkakuntaForm.resx">
       <DependentUpon>LisaaPaikkakuntaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Majoittumiset.resx">
+      <DependentUpon>Majoittumiset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MajoitusVaraustenHallintaUusi.resx">
       <DependentUpon>MajoitusVaraustenHallintaUusi.cs</DependentUpon>

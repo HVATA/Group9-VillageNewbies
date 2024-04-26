@@ -44,6 +44,7 @@ namespace Group9_VillageNewbies
             this.header = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_majava2 = new System.Windows.Forms.Button();
+            this.Majoittautumiset = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +56,7 @@ namespace Group9_VillageNewbies
             this.btn_asiakas.Location = new System.Drawing.Point(37, 150);
             this.btn_asiakas.Name = "btn_asiakas";
             this.btn_asiakas.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btn_asiakas.Size = new System.Drawing.Size(277, 53);
+            this.btn_asiakas.Size = new System.Drawing.Size(277, 60);
             this.btn_asiakas.TabIndex = 2;
             this.btn_asiakas.Text = "Asiakkaiden hallinta";
             this.btn_asiakas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -70,7 +71,7 @@ namespace Group9_VillageNewbies
             this.btn_lasku.Location = new System.Drawing.Point(37, 282);
             this.btn_lasku.Name = "btn_lasku";
             this.btn_lasku.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btn_lasku.Size = new System.Drawing.Size(277, 66);
+            this.btn_lasku.Size = new System.Drawing.Size(277, 60);
             this.btn_lasku.TabIndex = 3;
             this.btn_lasku.Text = "Laskujen hallinta ja seuranta";
             this.btn_lasku.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -82,10 +83,10 @@ namespace Group9_VillageNewbies
             this.btn_aluemokki.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btn_aluemokki.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btn_aluemokki.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_aluemokki.Location = new System.Drawing.Point(37, 209);
+            this.btn_aluemokki.Location = new System.Drawing.Point(37, 216);
             this.btn_aluemokki.Name = "btn_aluemokki";
             this.btn_aluemokki.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btn_aluemokki.Size = new System.Drawing.Size(277, 67);
+            this.btn_aluemokki.Size = new System.Drawing.Size(277, 60);
             this.btn_aluemokki.TabIndex = 4;
             this.btn_aluemokki.Text = "Alueiden ja mökkien hallinta";
             this.btn_aluemokki.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -123,12 +124,27 @@ namespace Group9_VillageNewbies
             this.btn_majava2.Location = new System.Drawing.Point(37, 83);
             this.btn_majava2.Name = "btn_majava2";
             this.btn_majava2.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btn_majava2.Size = new System.Drawing.Size(277, 61);
+            this.btn_majava2.Size = new System.Drawing.Size(277, 60);
             this.btn_majava2.TabIndex = 7;
             this.btn_majava2.Text = "Majoitusvarausten hallinta";
             this.btn_majava2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_majava2.UseVisualStyleBackColor = false;
             this.btn_majava2.Click += new System.EventHandler(this.btn_majava2_Click);
+            // 
+            // Majoittautumiset
+            // 
+            this.Majoittautumiset.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.Majoittautumiset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.Majoittautumiset.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Majoittautumiset.Location = new System.Drawing.Point(37, 348);
+            this.Majoittautumiset.Name = "Majoittautumiset";
+            this.Majoittautumiset.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.Majoittautumiset.Size = new System.Drawing.Size(277, 60);
+            this.Majoittautumiset.TabIndex = 8;
+            this.Majoittautumiset.Text = "Majoittumisten raportointi";
+            this.Majoittautumiset.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Majoittautumiset.UseVisualStyleBackColor = false;
+            this.Majoittautumiset.Click += new System.EventHandler(this.btn_majoittutumiset_Click);
             // 
             // Form1
             // 
@@ -137,6 +153,7 @@ namespace Group9_VillageNewbies
             this.BackColor = System.Drawing.Color.Cyan;
             this.BackgroundImage = global::Group9_VillageNewbies.Properties.Resources.VillageLogo;
             this.ClientSize = new System.Drawing.Size(836, 685);
+            this.Controls.Add(this.Majoittautumiset);
             this.Controls.Add(this.btn_majava2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_aluemokki);
@@ -160,6 +177,7 @@ namespace Group9_VillageNewbies
         private Label header;
         private Panel panel1;
         private Button btn_majava2;
+        private Button Majoittautumiset;
     }
 
 }

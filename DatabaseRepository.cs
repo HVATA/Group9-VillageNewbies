@@ -906,6 +906,37 @@ namespace Group9_VillageNewbies
             return ExecuteQuery(query);
         }
 
+        public DataTable HaePalvelutAlueittain()
+        {
+            string query = @"
+        public DataTable GetReservationDetails()
+        {
+            string query = @""
+        SELECT 
+            v.varaus_id, 
+            CONCAT(a.etunimi, ' ', a.sukunimi) AS asiakas_nimi,
+            m.mokkinimi, 
+            v.varattu_pvm, 
+            v.vahvistus_pvm, 
+            v.varattu_alkupvm, 
+            v.varattu_loppupvm
+        FROM 
+            varaus v
+        JOIN 
+            asiakas a ON v.asiakas_id = a.asiakas_id
+        JOIN 
+            mokki m ON v.mokki_mokki_id = m.mokki_id
+        ORDER BY 
+            v.varattu_pvm ASC;"";
+
+            return ExecuteQuery(query);
+        }";
+
+            return ExecuteQuery(query);
+        }
+
+
+
         public void LisaaLasku(Lasku lasku)
         {
             string query = "INSERT INTO lasku (varausId, summa, alv) VALUES (?, ?, ?)";
@@ -956,6 +987,102 @@ namespace Group9_VillageNewbies
             ExecuteNonQuery(query);
         }
 
+
+        public List<string> HaeAlueet()
+        {
+            List<string> alueet = new List<string>();
+            string query = "SELECT nimi FROM alue ORDER BY nimi ASC;";  // Kysely, joka hakee kaikki alueiden nimet ja järjestää ne aakkosjärjestykseen
+
+            using (OdbcConnection connection = new OdbcConnection(connectionString))
+            {
+                OdbcCommand command = new OdbcCommand(query, connection);
+                try
+                {
+                    connection.Open();
+                    using (OdbcDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string alueNimi = reader["nimi"].ToString();
+                            alueet.Add(alueNimi);  // Lisätään jokainen alueen nimi listaan
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Virhe tietokannassa haettaessa alueita: " + ex.Message);
+                    // Käsittele virhe tarvittaessa
+                }
+                finally
+                {
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            return alueet;
+        }
+
+        public DataTable HaePalvelutAlueeltaJaAjalta(int alueId, DateTime aloitusPvm, DateTime lopetusPvm)
+        {
+            DataTable dataTable = new DataTable();
+            using (OdbcConnection connection = new OdbcConnection(connectionString))
+            {
+                // Muodosta SQL-kysely käyttäen parametreja
+                string query = @"
+            SELECT 
+                a.nimi AS AlueNimi,
+                m.mokkinimi AS MokkiNimi,
+                p.nimi AS PalveluNimi,
+                vp.lkm AS PalvelunMaara,
+                v.varattu_alkupvm,
+                v.varattu_loppupvm
+            FROM varaus v
+            JOIN mokki m ON v.mokki_mokki_id = m.mokki_id
+            JOIN alue a ON m.alue_id = a.alue_id
+            JOIN varauksen_palvelut vp ON v.varaus_id = vp.varaus_id
+            JOIN palvelu p ON vp.palvelu_id = p.palvelu_id
+            WHERE 
+                a.alue_id = ?
+                AND v.varattu_alkupvm >= ?
+                AND v.varattu_loppupvm <= ?
+            ORDER BY v.varattu_alkupvm, p.nimi;";
+
+                using (OdbcCommand command = new OdbcCommand(query, connection))
+                {
+                    // Aseta SQL-kyselyn parametrit
+                    command.Parameters.AddWithValue("alue_id", alueId);
+                    command.Parameters.AddWithValue("varattu_alkupvm", aloitusPvm.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue("varattu_loppupvm", lopetusPvm.ToString("yyyy-MM-dd"));
+
+                    try
+                    {
+                        connection.Open();
+                        using (OdbcDataAdapter dataAdapter = new OdbcDataAdapter(command))
+                        {
+                            dataAdapter.Fill(dataTable);
+                        }
+                    }
+                    catch (OdbcException odbcEx)
+                    {
+                        Console.WriteLine("ODBC Virhe tietokannassa: " + odbcEx.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Yleinen virhe tietokannassa: " + ex.Message);
+                    }
+                    finally
+                    {
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
+                    }
+                }
+            }
+            return dataTable;
+        }
 
 
 
