@@ -29,6 +29,7 @@
         private void InitializeComponent ()
             {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_back2menuALMOK = new System.Windows.Forms.Button();
             this.header = new System.Windows.Forms.Label();
             this.btnClearAlue = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -58,14 +59,12 @@
             this.listBoxMokki = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnPalveluihin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxAlue = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtBoxMokPostinro = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtBoxMokNimi = new System.Windows.Forms.TextBox();
-            this.btn_back2menuALMOK = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,6 +79,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(791, 64);
             this.panel1.TabIndex = 11;
+            // 
+            // btn_back2menuALMOK
+            // 
+            this.btn_back2menuALMOK.Location = new System.Drawing.Point(11, 7);
+            this.btn_back2menuALMOK.Name = "btn_back2menuALMOK";
+            this.btn_back2menuALMOK.Size = new System.Drawing.Size(75, 23);
+            this.btn_back2menuALMOK.TabIndex = 6;
+            this.btn_back2menuALMOK.Text = "<Takaisin";
+            this.btn_back2menuALMOK.UseVisualStyleBackColor = true;
+            this.btn_back2menuALMOK.Click += new System.EventHandler(this.btn_back2menuALMOK_Click);
             // 
             // header
             // 
@@ -362,18 +371,6 @@
             this.label4.TabIndex = 66;
             this.label4.Text = "Alueet :";
             // 
-            // btnPalveluihin
-            // 
-            this.btnPalveluihin.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnPalveluihin.BackColor = System.Drawing.Color.Teal;
-            this.btnPalveluihin.Location = new System.Drawing.Point(501, 495);
-            this.btnPalveluihin.Name = "btnPalveluihin";
-            this.btnPalveluihin.Size = new System.Drawing.Size(196, 72);
-            this.btnPalveluihin.TabIndex = 67;
-            this.btnPalveluihin.Text = "Palveluiden hallinta";
-            this.btnPalveluihin.UseVisualStyleBackColor = false;
-            this.btnPalveluihin.Click += new System.EventHandler(this.btnPalveluihin_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -430,16 +427,6 @@
             this.txtBoxMokNimi.Size = new System.Drawing.Size(196, 21);
             this.txtBoxMokNimi.TabIndex = 71;
             // 
-            // btn_back2menuALMOK
-            // 
-            this.btn_back2menuALMOK.Location = new System.Drawing.Point(11, 7);
-            this.btn_back2menuALMOK.Name = "btn_back2menuALMOK";
-            this.btn_back2menuALMOK.Size = new System.Drawing.Size(75, 23);
-            this.btn_back2menuALMOK.TabIndex = 6;
-            this.btn_back2menuALMOK.Text = "<Takaisin";
-            this.btn_back2menuALMOK.UseVisualStyleBackColor = true;
-            this.btn_back2menuALMOK.Click += new System.EventHandler(this.btn_back2menuALMOK_Click);
-            // 
             // MokkiAluehallinta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -451,7 +438,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtBoxMokPostinro);
             this.Controls.Add(this.comboBoxAlue);
-            this.Controls.Add(this.btnPalveluihin);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.listBoxMokki);
@@ -524,7 +510,6 @@
         private System.Windows.Forms.ListBox listBoxMokki;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnPalveluihin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxAlue;
         private System.Windows.Forms.Label label5;

@@ -141,7 +141,7 @@ namespace Group9_VillageNewbies
             this.Majoittautumiset.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.Majoittautumiset.Size = new System.Drawing.Size(277, 60);
             this.Majoittautumiset.TabIndex = 8;
-            this.Majoittautumiset.Text = "Majoittumisten raportointi";
+            this.Majoittautumiset.Text = "Palveluiden hallinta ja seuranta";
             this.Majoittautumiset.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Majoittautumiset.UseVisualStyleBackColor = false;
             this.Majoittautumiset.Click += new System.EventHandler(this.btn_majoittutumiset_Click);

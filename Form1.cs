@@ -48,8 +48,8 @@ namespace Group9_VillageNewbies
 
         private void btn_majoittutumiset_Click(object sender, EventArgs e)
         {
-            Majoittumiset majoittumiset = new Majoittumiset();
-            majoittumiset.Show();
+            Palveluhallinta palveluhallinta = new Palveluhallinta();
+            palveluhallinta.Show();
         }
 
 

@@ -83,7 +83,7 @@ namespace Group9_VillageNewbies
 
         private void button1_Click ( object sender, EventArgs e )
             {
-
+            this.Close();
             }
 
         private void PalveluRaportti_Load ( object sender, EventArgs e )
