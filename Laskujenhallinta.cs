@@ -102,38 +102,44 @@ namespace Group9_VillageNewbies
             dataGridView1.Columns.Clear();
             dataGridView1.Refresh(); // Pakota DataGridView päivittymään
         }
-
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-                Lasku lasku = new Lasku
+                try
                 {
-                    Etunimi = row.Cells["etunimi"].Value.ToString(),
-                    Sukunimi = row.Cells["sukunimi"].Value.ToString(),
-                    Lahiosoite = row.Cells["katuosoite"].Value.ToString(),
-                    Postinro = row.Cells["postinumero"].Value.ToString(),
-                    Toimipaikka = row.Cells["paikkakunta"].Value.ToString(),
-                    Email = row.Cells["sahkoposti"].Value.ToString(),
-                    Puhelinnro = row.Cells["puhelinnumero"].Value.ToString(),
-                    //LaskunPvm = Convert.ToDateTime(row.Cells["laskun_pvm"].Value),
-                    Mokkinimi = row.Cells["mokkinimi"].Value.ToString(),
-                    LaskuId = Convert.ToInt32(row.Cells["lasku_id"].Value),
-                    VarausId = Convert.ToInt32(row.Cells["varaus_id"].Value),
-                    Summa = Convert.ToDouble(row.Cells["summa"].Value),
-                    Alv = Convert.ToDouble(row.Cells["alv"].Value),
-                    Maksettu = Convert.ToBoolean(row.Cells["maksettu"].Value),
-                    Erapvm = Convert.ToDateTime(row.Cells["erapvm"].Value)
-                };
+                    DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                    Lasku lasku = new Lasku
+                    {
+                        Etunimi = row.Cells["etunimi"].Value?.ToString() ?? "",
+                        Sukunimi = row.Cells["sukunimi"].Value?.ToString() ?? "",
+                        Lahiosoite = row.Cells["katuosoite"].Value?.ToString() ?? "",
+                        Postinro = row.Cells["postinumero"].Value?.ToString() ?? "",
+                        Toimipaikka = row.Cells["paikkakunta"].Value?.ToString() ?? "",
+                        Email = row.Cells["sahkoposti"].Value?.ToString() ?? "",
+                        Puhelinnro = row.Cells["puhelinnumero"].Value?.ToString() ?? "",
+                        Mokkinimi = row.Cells["mokkinimi"].Value?.ToString() ?? "",
+                        LaskuId = Convert.ToInt32(row.Cells["lasku_id"].Value),
+                        VarausId = Convert.ToInt32(row.Cells["varaus_id"].Value),
+                        Summa = Convert.ToDouble(row.Cells["summa"].Value),
+                        Alv = Convert.ToDouble(row.Cells["alv"].Value),
+                        Maksettu = Convert.ToBoolean(row.Cells["maksettu"].Value),
+                        Erapvm = Convert.ToDateTime(row.Cells["erapvm"].Value)
+                    };
 
-                // Avaa laskun tiedot lomake
-                LaskunTiedotForm laskunTiedotForm = new LaskunTiedotForm();
-                laskunTiedotForm.SetLaskuData(lasku);
-                laskunTiedotForm.InvoiceUpdated += (s, args) => LoadInvoices(); // Tilaa tapahtuma
-                laskunTiedotForm.ShowDialog();
+                    // Avaa laskun tiedot lomake
+                    LaskunTiedotForm laskunTiedotForm = new LaskunTiedotForm();
+                    laskunTiedotForm.SetLaskuData(lasku);
+                    laskunTiedotForm.InvoiceUpdated += (s, args) => LoadInvoices(); // Tilaa tapahtuma
+                    laskunTiedotForm.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Virhe käsittelyssä: " + ex.Message, "Virhe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+
 
         private void btn_back2Menu_Click(object sender, EventArgs e)
         {

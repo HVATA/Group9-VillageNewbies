@@ -117,78 +117,6 @@ namespace Group9_VillageNewbies
         }
 
 
-        public List<Posti> HaeKaikkiPostit2()
-        {
-            List<Posti> postit = new List<Posti>();
-            string query = "SELECT postinro, toimipaikka FROM posti ORDER BY toimipaikka ASC";
-
-            using (OdbcConnection connection = new OdbcConnection(connectionString))
-            {
-                OdbcCommand command = new OdbcCommand(query, connection);
-                try
-                {
-                    connection.Open();
-                    using (OdbcDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            string postinro = reader["postinro"].ToString();
-                            string toimipaikka = reader["toimipaikka"].ToString();
-                            postit.Add(new Posti(postinro, toimipaikka));
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Virhe tietokannassa: " + ex.Message);
-                    // Käsittele virhe tarvittaessa
-                }
-            }
-            return postit;
-        }
-
-        public List<Posti> HaeKaikkiPostit1()
-        {
-            List<Posti> postit = new List<Posti>();
-            // Päivitetty kysely, joka hakee vain asiakkaiden käyttämiä postinumeroita, jotka eivät ole mökkien käytössä
-            string query = @"
-        SELECT p.postinro, p.toimipaikka 
-        FROM posti p
-        WHERE p.postinro IN (
-            SELECT DISTINCT a.postinro 
-            FROM asiakas a
-        ) AND p.postinro NOT IN (
-            SELECT DISTINCT m.postinro 
-            FROM mokki m
-        )
-        ORDER BY p.toimipaikka ASC";
-
-            using (OdbcConnection connection = new OdbcConnection(connectionString))
-            {
-                OdbcCommand command = new OdbcCommand(query, connection);
-                try
-                {
-                    connection.Open();
-                    using (OdbcDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            string postinro = reader["postinro"].ToString();
-                            string toimipaikka = reader["toimipaikka"].ToString();
-                            postit.Add(new Posti(postinro, toimipaikka));
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Virhe tietokannassa: " + ex.Message);
-                    // Käsittele virhe tarvittaessa
-                }
-            }
-            return postit;
-        }
-
-
         public bool LisaaPosti(Posti posti)
         {
             try
@@ -694,24 +622,6 @@ namespace Group9_VillageNewbies
             }
         }
 
-        public DataTable GetInvoicesWithDetails2()
-        {
-            string query = @"
-        SELECT 
-            l.lasku_id, l.varaus_id, a.etunimi, a.sukunimi, m.mokkinimi, m.katuosoite, l.summa, l.alv, l.erapvm, l.maksettu
-        FROM 
-            vn.lasku l
-        JOIN 
-            vn.varaus v ON l.varaus_id = v.varaus_id
-        JOIN 
-            vn.asiakas a ON v.asiakas_id = a.asiakas_id
-        JOIN 
-            vn.mokki m ON v.mokki_mokki_id = m.mokki_id
-        ORDER BY 
-            l.lasku_id";
-            return ExecuteQuery(query);
-        }
-
         public DataTable GetInvoicesWithDetails()
         {
             string query = @"
@@ -786,26 +696,6 @@ namespace Group9_VillageNewbies
             return ExecuteQuery(query);
         }
 
-        public DataTable GetOverdueUnpaidInvoices2()
-        {
-            string query = @"
-        SELECT 
-            l.lasku_id, l.varaus_id, a.etunimi, a.sukunimi, m.mokkinimi, m.katuosoite, l.summa, l.alv, l.erapvm, l.maksettu
-        FROM 
-            vn.lasku l
-        JOIN 
-            vn.varaus v ON l.varaus_id = v.varaus_id
-        JOIN 
-            vn.asiakas a ON v.asiakas_id = a.asiakas_id
-        JOIN 
-            vn.mokki m ON v.mokki_mokki_id = m.mokki_id
-        WHERE 
-            l.maksettu = FALSE AND l.erapvm < CURDATE()
-        ORDER BY 
-            l.lasku_id";
-            return ExecuteQuery(query);
-        }
-
         public DataTable GetOverdueUnpaidInvoices()
         {
             // Tämä kysely hakee kaikki maksamattomat laskut, joiden eräpäivä on mennyt umpeen suhteessa nykyiseen päivämäärään.
@@ -839,48 +729,10 @@ namespace Group9_VillageNewbies
 
 
 
-        public void UpdateInvoicePaymentStatus2(int invoiceId, bool isPaid)
-        {
-            string query = "UPDATE vn.lasku SET maksettu = @isPaid WHERE lasku_id = @invoiceId;";
-            using (OdbcConnection connection = new OdbcConnection(connectionString))
-            {
-                OdbcCommand command = new OdbcCommand(query, connection);
-                command.Parameters.AddWithValue("@isPaid", isPaid);
-                command.Parameters.AddWithValue("@invoiceId", invoiceId);
-                try
-                {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Virhe päivitettäessä laskun maksutilaa: " + ex.Message);
-                }
-            }
-        }
-
         public void UpdateInvoicePaymentStatus(int invoiceId, bool isPaid)
         {
             string query = $"UPDATE lasku SET maksettu = {isPaid} WHERE lasku_id = {invoiceId}";
             ExecuteNonQuery(query);
-        }
-
-        public DataTable GetAllAreas()
-        {
-            string query = "SELECT alue_id, nimi FROM alue ORDER BY nimi";
-            return ExecuteQuery(query);
-        }
-
-        public DataTable GetCabinsByArea(int areaId)
-        {
-            string query = $"SELECT mokki_id, mokkinimi FROM mokki WHERE alue_id = {areaId} ORDER BY mokkinimi";
-            return ExecuteQuery(query);
-        }
-
-        public DataTable GetServicesByArea(int areaId)
-        {
-            string query = $"SELECT palvelu_id, nimi FROM palvelu WHERE alue_id = {areaId} ORDER BY nimi";
-            return ExecuteQuery(query);
         }
 
         public DataTable GetReservationDetails()
@@ -937,38 +789,6 @@ namespace Group9_VillageNewbies
 
 
 
-        public void LisaaLasku(Lasku lasku)
-        {
-            string query = "INSERT INTO lasku (varausId, summa, alv) VALUES (?, ?, ?)";
-
-            using (OdbcConnection conn = new OdbcConnection(connectionString))
-            {
-                conn.Open();
-                using (OdbcCommand cmd = new OdbcCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@varausId", lasku.VarausId);
-                    cmd.Parameters.AddWithValue("@summa", lasku.Summa);
-                    cmd.Parameters.AddWithValue("@alv", lasku.Alv);
-
-                    cmd.ExecuteNonQuery(); // Suorita kysely
-                }
-            }
-        }
-
-        public bool LaskuOnOlemassa(int varausId)
-        {
-            string query = $"SELECT COUNT(*) FROM lasku WHERE varaus_id = {varausId}";
-            using (OdbcConnection conn = new OdbcConnection(connectionString))
-            {
-                conn.Open();
-                using (OdbcCommand cmd = new OdbcCommand(query, conn))
-                {
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    return count > 0;
-                }
-            }
-        }
-
         public void PoistaLasku(int varausId)
         {
             string query = $"DELETE FROM lasku WHERE varaus_id = {varausId}";
@@ -987,42 +807,6 @@ namespace Group9_VillageNewbies
             ExecuteNonQuery(query);
         }
 
-
-        public List<string> HaeAlueet()
-        {
-            List<string> alueet = new List<string>();
-            string query = "SELECT nimi FROM alue ORDER BY nimi ASC;";  // Kysely, joka hakee kaikki alueiden nimet ja järjestää ne aakkosjärjestykseen
-
-            using (OdbcConnection connection = new OdbcConnection(connectionString))
-            {
-                OdbcCommand command = new OdbcCommand(query, connection);
-                try
-                {
-                    connection.Open();
-                    using (OdbcDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            string alueNimi = reader["nimi"].ToString();
-                            alueet.Add(alueNimi);  // Lisätään jokainen alueen nimi listaan
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Virhe tietokannassa haettaessa alueita: " + ex.Message);
-                    // Käsittele virhe tarvittaessa
-                }
-                finally
-                {
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
-                }
-            }
-            return alueet;
-        }
 
         public DataTable HaePalvelutAlueeltaJaAjalta(int alueId, DateTime aloitusPvm, DateTime lopetusPvm)
         {
