@@ -35,6 +35,7 @@
             this.btnShowPaidInvoices = new System.Windows.Forms.Button();
             this.btnOverdue = new System.Windows.Forms.Button();
             this.btnAllInvoices = new System.Windows.Forms.Button();
+            this.btn_back2Menu = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,12 +113,23 @@
             this.btnAllInvoices.UseVisualStyleBackColor = true;
             this.btnAllInvoices.Click += new System.EventHandler(this.btnAllInvoices_Click);
             // 
+            // btn_back2Menu
+            // 
+            this.btn_back2Menu.Location = new System.Drawing.Point(31, 12);
+            this.btn_back2Menu.Name = "btn_back2Menu";
+            this.btn_back2Menu.Size = new System.Drawing.Size(75, 23);
+            this.btn_back2Menu.TabIndex = 75;
+            this.btn_back2Menu.Text = "<Takaisin";
+            this.btn_back2Menu.UseVisualStyleBackColor = true;
+            this.btn_back2Menu.Click += new System.EventHandler(this.btn_back2Menu_Click);
+            // 
             // Laskujenhallinta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1133, 585);
+            this.Controls.Add(this.btn_back2Menu);
             this.Controls.Add(this.btnAllInvoices);
             this.Controls.Add(this.btnOverdue);
             this.Controls.Add(this.btnShowPaidInvoices);
@@ -142,5 +154,6 @@
         private System.Windows.Forms.Button btnShowPaidInvoices;
         private System.Windows.Forms.Button btnOverdue;
         private System.Windows.Forms.Button btnAllInvoices;
+        private System.Windows.Forms.Button btn_back2Menu;
     }
 }

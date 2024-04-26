@@ -135,7 +135,9 @@ namespace Group9_VillageNewbies
             }
         }
 
-
-
+        private void btn_back2Menu_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
