@@ -210,11 +210,13 @@ namespace Group9_VillageNewbies
 
         private void varatutPalvelutBtn_Click ( object sender, EventArgs e )
             {
-                //avaa palveluraportti lomake
-                PalveluRaportti palveluraportti = new PalveluRaportti();
-                palveluraportti.ShowDialog();
+            //avaa palveluraportti lomake
+            Majoittumiset ma = new Majoittumiset();
+            ma.Show();
+            /*PalveluRaportti palveluraportti = new PalveluRaportti();
+            palveluraportti.ShowDialog();*/
 
-            }
+        }
         }
     }
     

@@ -51,7 +51,5 @@ namespace Group9_VillageNewbies
             Palveluhallinta palveluhallinta = new Palveluhallinta();
             palveluhallinta.Show();
         }
-
-
     }
 }
