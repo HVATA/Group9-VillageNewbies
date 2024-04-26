@@ -789,10 +789,32 @@ namespace Group9_VillageNewbies
 
 
 
-        public void PoistaLasku(int varausId)
+        public void PoistaLasku(int varausid)
         {
-            string query = $"DELETE FROM lasku WHERE varaus_id = {varausId}";
+            string query = $"DELETE FROM lasku WHERE lasku_id = {varausid}";
             ExecuteNonQuery(query);
+        }
+        public bool PoistaLasku2(Lasku lasku)
+        {
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(connectionString))
+                {
+                    string query = "DELETE FROM lasku WHERE lasku_id = ?";
+                    using (OdbcCommand command = new OdbcCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("lasku_id", lasku.LaskuId);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Virhe tietokannasta poistaessa: {ex.Message}");
+                return false;
+            }
         }
 
         public void PaivitaLasku(int varausId, double summa, double alv)

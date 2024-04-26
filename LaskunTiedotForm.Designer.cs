@@ -49,6 +49,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxLabel = new System.Windows.Forms.Label();
             this.Lasku = new System.Windows.Forms.Label();
+            this.btn_DeleteLasku = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxSumma
@@ -135,7 +136,7 @@
             // btnCreatePdf
             // 
             this.btnCreatePdf.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreatePdf.Location = new System.Drawing.Point(71, 525);
+            this.btnCreatePdf.Location = new System.Drawing.Point(69, 498);
             this.btnCreatePdf.Name = "btnCreatePdf";
             this.btnCreatePdf.Size = new System.Drawing.Size(152, 23);
             this.btnCreatePdf.TabIndex = 10;
@@ -146,7 +147,7 @@
             // btnSendEmail
             // 
             this.btnSendEmail.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSendEmail.Location = new System.Drawing.Point(71, 554);
+            this.btnSendEmail.Location = new System.Drawing.Point(69, 527);
             this.btnSendEmail.Name = "btnSendEmail";
             this.btnSendEmail.Size = new System.Drawing.Size(152, 23);
             this.btnSendEmail.TabIndex = 11;
@@ -241,11 +242,22 @@
             this.Lasku.TabIndex = 21;
             this.Lasku.Text = "LASKU";
             // 
+            // btn_DeleteLasku
+            // 
+            this.btn_DeleteLasku.Location = new System.Drawing.Point(71, 556);
+            this.btn_DeleteLasku.Name = "btn_DeleteLasku";
+            this.btn_DeleteLasku.Size = new System.Drawing.Size(150, 23);
+            this.btn_DeleteLasku.TabIndex = 22;
+            this.btn_DeleteLasku.Text = "Poista lasku";
+            this.btn_DeleteLasku.UseVisualStyleBackColor = true;
+            this.btn_DeleteLasku.Click += new System.EventHandler(this.btn_DeleteLasku_Click);
+            // 
             // LaskunTiedotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(913, 613);
+            this.Controls.Add(this.btn_DeleteLasku);
             this.Controls.Add(this.Lasku);
             this.Controls.Add(this.textBoxLabel);
             this.Controls.Add(this.label7);
@@ -297,5 +309,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label textBoxLabel;
         private System.Windows.Forms.Label Lasku;
+        private System.Windows.Forms.Button btn_DeleteLasku;
     }
 }

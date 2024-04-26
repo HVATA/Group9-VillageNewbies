@@ -79,7 +79,7 @@ namespace Group9_VillageNewbies
 
             // Luodaan PDF-tiedoston polku käyttäen laskun ID:tä tiedostonimenä
             string filename = $"Lasku{lasku.LaskuId}.pdf";
-            string filepath = Path.Combine(@"C:\Users\sakuk\OneDrive\Opiskelut\Savonia\ohjelmistotuotanto1\", filename);
+            string filepath = Path.Combine(@"H:\GithubRepos\VillageNewbiesLaskut\", filename); //VAIHDA POLKU OMAKSESI
             currentInvoice.FilePath = filepath; // Tallenna polku lasku-olioon, jos haluat käyttää sitä myöhemmin
 
             try
@@ -89,7 +89,7 @@ namespace Group9_VillageNewbies
                 doc.Open();
 
                 // Lisää kuva
-                string imagePath = @"C:\Users\sakuk\OneDrive\Opiskelut\Savonia\ohjelmistotuotanto1\VillageLogo.png"; // Osoite kuvalle
+                string imagePath = @"H:\GithubRepos\Group9-VillageNewbies\Resources\VillageLogo.png"; // Osoite kuvalle
                 iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(imagePath);
                 image.ScaleToFit(140f, 120f);
                 image.Alignment = Element.ALIGN_CENTER;
@@ -159,8 +159,8 @@ namespace Group9_VillageNewbies
 
                 Attachment attachment = new Attachment(currentInvoice.FilePath);
                 mail.Attachments.Add(attachment);
-
                 SmtpServer.Port = 587; // Vaihda tarvittaessa
+                //Lähettäjän sähköpostiosoite
                 SmtpServer.Credentials = new System.Net.NetworkCredential("sakuka@gmail.com", "hcebsvpklbvpxmyn");
                 SmtpServer.EnableSsl = true;
 
@@ -187,6 +187,21 @@ namespace Group9_VillageNewbies
         private void label8_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_DeleteLasku_Click(object sender, EventArgs e)
+        {
+            
+            DatabaseRepository db = new DatabaseRepository();
+            Lasku lasku = new Lasku();
+            lasku.LaskuId = currentInvoice.LaskuId;
+            lasku.VarausId = currentInvoice.VarausId;
+            lasku.Summa = currentInvoice.Summa;
+            lasku.Alv = currentInvoice.Alv;
+            lasku.Maksettu = currentInvoice.Maksettu;
+            lasku.Erapvm = currentInvoice.Erapvm;
+            MessageBox.Show("Lasku poistettu onnistuneesti");
+            db.PoistaLasku2(lasku);
         }
     }
 }

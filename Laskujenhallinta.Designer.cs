@@ -36,6 +36,7 @@
             this.btnOverdue = new System.Windows.Forms.Button();
             this.btnAllInvoices = new System.Windows.Forms.Button();
             this.btn_back2Menu = new System.Windows.Forms.Button();
+            this.btn_updateLaskut = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,12 +124,23 @@
             this.btn_back2Menu.UseVisualStyleBackColor = true;
             this.btn_back2Menu.Click += new System.EventHandler(this.btn_back2Menu_Click);
             // 
+            // btn_updateLaskut
+            // 
+            this.btn_updateLaskut.Location = new System.Drawing.Point(938, 317);
+            this.btn_updateLaskut.Name = "btn_updateLaskut";
+            this.btn_updateLaskut.Size = new System.Drawing.Size(174, 23);
+            this.btn_updateLaskut.TabIndex = 76;
+            this.btn_updateLaskut.Text = "Päivitä näkymä";
+            this.btn_updateLaskut.UseVisualStyleBackColor = true;
+            this.btn_updateLaskut.Click += new System.EventHandler(this.btn_updateLaskut_Click);
+            // 
             // Laskujenhallinta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1133, 585);
+            this.Controls.Add(this.btn_updateLaskut);
             this.Controls.Add(this.btn_back2Menu);
             this.Controls.Add(this.btnAllInvoices);
             this.Controls.Add(this.btnOverdue);
@@ -155,5 +167,6 @@
         private System.Windows.Forms.Button btnOverdue;
         private System.Windows.Forms.Button btnAllInvoices;
         private System.Windows.Forms.Button btn_back2Menu;
+        private System.Windows.Forms.Button btn_updateLaskut;
     }
 }

@@ -145,5 +145,10 @@ namespace Group9_VillageNewbies
         {
             this.Close();
         }
+
+        private void btn_updateLaskut_Click(object sender, EventArgs e)
+        {
+            LoadInvoices();
+        }
     }
 }
