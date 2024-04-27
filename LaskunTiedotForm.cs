@@ -161,7 +161,7 @@ namespace Group9_VillageNewbies
                 mail.Attachments.Add(attachment);
                 SmtpServer.Port = 587; // Vaihda tarvittaessa
                 //Lähettäjän sähköpostiosoite
-                SmtpServer.Credentials = new System.Net.NetworkCredential("sakuka@gmail.com", "hcebsvpklbvpxmyn");
+                SmtpServer.Credentials = new System.Net.NetworkCredential("TÄHÄN LÄHETTÄJÄN SÄHKÖPOSTI", "LÄHETTÄJÄN SALASANA");
                 SmtpServer.EnableSsl = true;
 
                 SmtpServer.Send(mail);
